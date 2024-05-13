@@ -1,0 +1,519 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>P4设计文档 | For_Better</title><meta name="author" content="Forever"><meta name="copyright" content="Forever"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="22373321 张瀚文 豆瓣小组是什么好东西555 “你现在的处境是过去的自己站在十字路口选择走到这里来的。” 共勉共勉！！ 整体思路 单周期处理器包括顶层模块、控制器和数据通路，此为顶层目录，同时有code.txt以存放机器码 顶层目录中的每个module都由一个独立的Verilog HDL文件组成，以减小对其他模块的影响和修改，条理更加清晰。 首先完成各个模块代码的编写，然后将这些模块统一交">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P4设计文档">
+<meta property="og:url" content="http://example.com/2023/11/02/P4/index.html">
+<meta property="og:site_name" content="For_Better">
+<meta property="og:description" content="22373321 张瀚文 豆瓣小组是什么好东西555 “你现在的处境是过去的自己站在十字路口选择走到这里来的。” 共勉共勉！！ 整体思路 单周期处理器包括顶层模块、控制器和数据通路，此为顶层目录，同时有code.txt以存放机器码 顶层目录中的每个module都由一个独立的Verilog HDL文件组成，以减小对其他模块的影响和修改，条理更加清晰。 首先完成各个模块代码的编写，然后将这些模块统一交">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/avatar.jpg">
+<meta property="article:published_time" content="2023-11-02T08:07:50.000Z">
+<meta property="article:modified_time" content="2023-11-06T10:14:46.869Z">
+<meta property="article:author" content="Forever">
+<meta property="article:tag" content="BUAA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/11/02/P4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css?v=4.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.19/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2.1.2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'P4设计文档',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2023-11-06 18:14:46'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="For_Better"><span class="site-name">For_Better</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">P4设计文档</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-11-02T08:07:50.000Z" title="Created 2023-11-02 16:07:50">2023-11-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-11-06T10:14:46.869Z" title="Updated 2023-11-06 18:14:46">2023-11-06</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">3.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>11min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="P4设计文档"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>22373321 张瀚文</p>
+<p>豆瓣小组是什么好东西555</p>
+<p>“你现在的处境是过去的自己站在十字路口选择走到这里来的。”</p>
+<p>共勉共勉！！</p>
+<h1 id="整体思路"><a href="#整体思路" class="headerlink" title="整体思路"></a>整体思路</h1><ul>
+<li>单周期处理器包括顶层模块、控制器和数据通路，此为顶层目录，同时有code.txt以存放机器码</li>
+<li>顶层目录中的每个module都由一个独立的Verilog HDL文件组成，以减小对其他模块的影响和修改，条理更加清晰。</li>
+<li>首先完成各个模块代码的编写，然后将这些模块统一交给一个顶层的Verilog文件管理：在顶层Verilog文件中定义一些内部的wire型变量，利用模块间的逻辑关系，对各个模块进行<strong>实例化</strong>，串接在一起</li>
+</ul>
+<h1 id="相比较P3的更新优化"><a href="#相比较P3的更新优化" class="headerlink" title="相比较P3的更新优化"></a>相比较P3的更新优化</h1><p>考虑到添加新指令后PC的计算更加复杂，新增一个NPC模块用于计算PC的更新值。</p>
+<h1 id="数据通路的设计"><a href="#数据通路的设计" class="headerlink" title="数据通路的设计"></a>数据通路的设计</h1><p>本次需要实现的指令：<br>{add,sub,ori,lw,sw,beq,lui,j,jal,jr}</p>
+<h2 id="IM"><a href="#IM" class="headerlink" title="IM"></a>IM</h2><p>在ISE中生成匹配需求数量的32位寄存器阵列,注意IM和DM中要从小到大编号<br>使用$readmemh将十六进制码导入至IM中。<br><img src="/image.png" alt="IM的实现"></p>
+<h2 id="宏文件"><a href="#宏文件" class="headerlink" title="宏文件"></a>宏文件</h2><p>在P3的logisim中，我对指令的判断与匹配主要是通过compartor进行的。在P4的Verilog中，为了防止大量的重复传入传出导致代码的冗余，新增macro.v文件，在其中定义CODE_IDENTIFY及OP_DEFINE，其中CODE_IDENTIFY主要用于指令的识别，而OP_DEFINE主要用于ALU_op和com_op的定义。<br><img src="/1699088764(1).png" alt="MACRO"></p>
+<h2 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h2><ul>
+<li>新增jump信号，P4相较于P3多出了jal、jr、j指令，于是在原有表格的基础上增添jump信号，考虑到jr和jal不同的PC跳转方式，结合之前的branch跳转，令jump信号为多位信号，结合mux对不同的next_PC进行选择。其logisim的实现方式为：<br><img src="/1699088994(1).png" alt="jump处理"><br>对应Verilog语言为：<br><img src="/1699089089(1).png" alt="jump"><br>其中jump1表示j和jal信号，jump2表示jr信号。</li>
+<li>扩展MtR改为D2R信号。新增jal指令后，需要向寄存器中写入除了alu的计算结果和DM中的值的其他值——PC+4，因此将D2R扩展为两位信号。<br> <img src="/1699090123(1).png" alt="Alt text"><br> 其中ra代表要向第31号寄存器，即$ra写入值，load表示要向寄存器中写入DM中的值。</li>
+<li>不同控制信号及其所代表的含义如下表所示：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>信号名</th>
+<th>信号类型</th>
+<th>信号含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ALUcontrol</td>
+<td>选择信号</td>
+<td>选择ALU进行运算的种类</td>
+</tr>
+<tr>
+<td>Imm_ext</td>
+<td>选择信号</td>
+<td>选择立即数的扩展方式</td>
+</tr>
+<tr>
+<td>D2R</td>
+<td>选择信号</td>
+<td>为00：WD来自ALU；为01：WD来自DM；为10：WD来自PC+4</td>
+</tr>
+<tr>
+<td>MW</td>
+<td>使能信号</td>
+<td>表示是否向内存中写入数据</td>
+</tr>
+<tr>
+<td>Bra</td>
+<td>选择信号</td>
+<td>表示是否是跳转指令</td>
+</tr>
+<tr>
+<td>ALUsrcB</td>
+<td>选择信号</td>
+<td>选择参与运算的srcB来自寄存器还是立即数</td>
+</tr>
+<tr>
+<td>ALUsrcA</td>
+<td>选择信号</td>
+<td>选择参与运算的srcA来自寄存器还是shamt（移位）</td>
+</tr>
+<tr>
+<td>RD</td>
+<td>选择信号</td>
+<td>选择最终要写入的寄存器</td>
+</tr>
+<tr>
+<td>RW</td>
+<td>使能信号</td>
+<td>是否向寄存器堆中写入数据</td>
+</tr>
+<tr>
+<td>jump</td>
+<td>选择信号</td>
+<td>00：PCsrc；01：j&#x2F;jal类跳转；10：跳转到寄存器中储存的地址</td>
+</tr>
+<tr>
+<td>PCsrc</td>
+<td>选择信号</td>
+<td>0：PC+4；1：PCbranch</td>
+</tr>
+</tbody></table>
+<h2 id="NPC"><a href="#NPC" class="headerlink" title="NPC"></a>NPC</h2><p>对于新增模块NPC，主要用于计算不同情况下PC的更新值</p>
+<ul>
+<li>情况1：正常后移，PC+4</li>
+<li>情况2：branch类跳转，立即数×4+PC+4</li>
+<li>情况3：j&#x2F;jal类跳转，Instr的低26位和PC的高四位拼接后补两位0</li>
+<li>情况4：从寄存器中获取<br>如图所示：<br><img src="/1699090845(1).png" alt="NPC"></li>
+</ul>
+<h1 id="测试方案"><a href="#测试方案" class="headerlink" title="测试方案"></a>测试方案</h1><ol>
+<li>借鉴了往届学长的优秀做法，自行编写了print_infor文件，对输入的指令进行反汇编，将每一步操作进行打印，便于查错。<br>如图：<br><img src="/1699091520(1).png" alt="print"></li>
+<li>在testbench中，首先调用print模块，并在最后对DM和GRF中的内容进行打印，以便核对。</li>
+<li>第一组测试数据：使用题目中所给的code.txt进行基本性能的测试。</li>
+<li>第二组测试数据，对于add，sub等基础运算指令，选用边界数和随机的大数进行测试。<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">.text</span></span><br><span class="line"><span class="keyword">ori </span>$<span class="built_in">a0</span>,$<span class="built_in">zero</span>,<span class="number">0xFFFD</span> </span><br><span class="line"><span class="keyword">ori </span>$<span class="built_in">a1</span>,$<span class="built_in">zero</span>,<span class="number">0xFFFE</span> <span class="comment">#ori测试</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">lui </span>$<span class="built_in">a2</span>,<span class="number">0xFFFD</span></span><br><span class="line"><span class="keyword">lui </span>$<span class="built_in">a3</span>,<span class="number">0xFFFE</span> <span class="comment">#lui测试</span></span><br><span class="line"></span><br><span class="line">li $<span class="built_in">t0</span>,-<span class="number">2147483648</span></span><br><span class="line">li $<span class="built_in">t1</span>,-<span class="number">2147483647</span></span><br><span class="line">li $<span class="built_in">t2</span>,<span class="number">2147483646</span></span><br><span class="line">li $<span class="built_in">t3</span>,<span class="number">2147483645</span></span><br><span class="line">li $<span class="built_in">t4</span>,<span class="number">1919156834</span></span><br><span class="line">li $<span class="built_in">t5</span>,<span class="number">3233</span></span><br><span class="line">li $<span class="built_in">t6</span>,-<span class="number">1000786109</span></span><br><span class="line">li $<span class="built_in">t7</span>,-<span class="number">45678</span>  <span class="comment">#注意li的实现依托于ori和lui以及可能的addiu</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">add </span>$<span class="built_in">s0</span>,$<span class="built_in">t0</span>,$<span class="built_in">t2</span> <span class="comment">#+-</span></span><br><span class="line"><span class="keyword">add </span>$<span class="built_in">s1</span>,$<span class="built_in">t4</span>,$<span class="built_in">t5</span> <span class="comment">#++</span></span><br><span class="line"><span class="keyword">add </span>$<span class="built_in">s2</span>,$<span class="built_in">t6</span>,$<span class="built_in">t7</span> <span class="comment">#--</span></span><br><span class="line"><span class="keyword">sub </span>$<span class="built_in">s2</span>,$<span class="built_in">t2</span>,$<span class="built_in">t3</span> <span class="comment">#++</span></span><br><span class="line"><span class="keyword">sub </span>$<span class="built_in">s3</span>,$<span class="built_in">t5</span>,$<span class="built_in">t7</span> <span class="comment">#+-</span></span><br><span class="line"><span class="keyword">sub </span>$<span class="built_in">s4</span>,$<span class="built_in">t7</span>,$<span class="built_in">t6</span> <span class="comment">#--</span></span><br><span class="line"></span><br><span class="line">li $<span class="built_in">v0</span>,<span class="number">10</span></span><br><span class="line"><span class="keyword">syscall</span></span><br></pre></td></tr></table></figure></li>
+<li>第三组测试数据，对于lw，sw指令，检测当offset和$base为0和负数时能否正确处理。</li>
+</ol>
+<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">.text</span></span><br><span class="line">li $<span class="built_in">s0</span>,<span class="number">10</span></span><br><span class="line"></span><br><span class="line">li $<span class="built_in">s1</span>,-<span class="number">400</span> <span class="comment">#base -</span></span><br><span class="line">li $<span class="built_in">s2</span>,<span class="number">0</span></span><br><span class="line">li $<span class="built_in">s3</span>,<span class="number">400</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">sw </span>$<span class="built_in">s0</span>,<span class="number">400</span>($<span class="built_in">s1</span>) <span class="comment"># +-</span></span><br><span class="line"><span class="keyword">sw </span>$<span class="built_in">s0</span>,<span class="number">4</span>($<span class="built_in">s2</span>) <span class="comment">#+0</span></span><br><span class="line"><span class="keyword">sw </span>$<span class="built_in">s0</span>,-<span class="number">4</span>($<span class="built_in">s3</span>) <span class="comment">#-+</span></span><br><span class="line"><span class="keyword">sw </span>$<span class="built_in">s0</span>,<span class="number">0</span>($<span class="built_in">s3</span>) <span class="comment">#0+</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">lw </span>$<span class="built_in">t0</span>,<span class="number">400</span>($<span class="built_in">s1</span>) <span class="comment"># +-</span></span><br><span class="line"><span class="keyword">lw </span>$<span class="built_in">t0</span>,<span class="number">4</span>($<span class="built_in">s2</span>) <span class="comment">#+0</span></span><br><span class="line"><span class="keyword">lw </span>$<span class="built_in">t0</span>,-<span class="number">4</span>($<span class="built_in">s3</span>) <span class="comment">#-+</span></span><br><span class="line"><span class="keyword">lw </span>$<span class="built_in">t0</span>,<span class="number">0</span>($<span class="built_in">s3</span>) <span class="comment">#0+</span></span><br><span class="line"></span><br><span class="line">li $<span class="built_in">v0</span>,<span class="number">10</span></span><br><span class="line"><span class="keyword">syscall</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>第四组测试数据，针对jal、jr、j指令，检测其能否正确跳转并写入对应的寄存器。<figure class="highlight mips"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">.text</span></span><br><span class="line"></span><br><span class="line">li $<span class="built_in">s0</span>,<span class="number">1</span></span><br><span class="line">li $<span class="built_in">s1</span>,<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">move </span>$<span class="built_in">a0</span>,$<span class="built_in">s0</span></span><br><span class="line"><span class="keyword">move </span>$<span class="built_in">a1</span>,$<span class="built_in">s1</span></span><br><span class="line"><span class="keyword">j </span><span class="keyword">add1</span></span><br><span class="line"><span class="keyword"></span><span class="keyword">sw </span>$<span class="built_in">s0</span>,<span class="number">4</span>($<span class="built_in">zero</span>)</span><br><span class="line"><span class="keyword">add1:</span></span><br><span class="line"><span class="keyword"></span><span class="keyword">jal </span>sum</span><br><span class="line">li $<span class="built_in">v0</span>,<span class="number">10</span></span><br><span class="line"><span class="keyword">syscall</span></span><br><span class="line"><span class="keyword"></span><span class="symbol"></span></span><br><span class="line"><span class="symbol">sum:</span></span><br><span class="line"><span class="keyword">move </span>$<span class="built_in">t0</span>,$<span class="built_in">a0</span></span><br><span class="line"><span class="keyword">move </span>$<span class="built_in">t1</span>,$<span class="built_in">a1</span></span><br><span class="line"><span class="keyword">add </span>$<span class="built_in">t2</span>,$<span class="built_in">t0</span>,$<span class="built_in">t1</span></span><br><span class="line"><span class="keyword">jr </span>$<span class="built_in">ra</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h1><ol>
+<li><p>DM的addr信号应由ALU模块计算得到，由于DM按字保存数据，而addr信号以字节为单位，因此截断最后两位。然而此做法不利于后续指令的扩展，因为lb,lh,sh,sb等指令需要addr信号的后两位（倒数第二位）做选择位。注意save类指令和load类指令中address的选择位作用不同。</p>
+<ul>
+<li>在save类指令中，往内存中存的数据是固定的，sb就是低7位，sh就是低16位，sw就是全部，addresss的选择位选择的是数据存到一个字32位的哪个部分</li>
+<li>在load类指令中，address的作用就是选择哪一部分进行输出。</li>
+</ul>
+</li>
+<li><ul>
+<li>方法一：指令对应的控制信号如何取值，即：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">always@(*) begin</span><br><span class="line">   case(op)</span><br><span class="line">      `add: begin</span><br><span class="line">         RW = 1;</span><br><span class="line">         ALU_op = 5&#x27;b00000;</span><br><span class="line">         D2R = 2&#x27;b00;</span><br><span class="line">         ......</span><br><span class="line">      end</span><br><span class="line">      `sub: begin</span><br><span class="line">         RW = 1;</span><br><span class="line">         ALU_op = 5&#x27;b00001;</span><br><span class="line">         D2R = 2&#x27;b00;</span><br><span class="line">         ......</span><br><span class="line">      end</span><br><span class="line">      ......</span><br><span class="line">end</span><br></pre></td></tr></table></figure></li>
+<li>方法二：控制信号每种取值所对应的指令，即：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assign ALU_op = (add|addu|addi|addiu|lw|sw) ? 5&#x27;b00000 :  </span><br><span class="line">sub ? 5&#x27;b00001 : ......</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<p>对比来看，方法一的设计似乎更便于添加新的扩展信号，且代码逻辑更加简洁。<br>3. + 同步复位优先看clk信号，其次看reset信号，当且仅当clk为上升沿且reset信号为1时才复位.</p>
+<ul>
+<li>异步复位优先看reset信号，与clk信号并无关系。一旦reset信号有效，则对各部分清零（或者复位）</li>
+</ul>
+<ol start="4">
+<li><ul>
+<li>add与addu所执行的运算是一致的，均为将两个寄存器中的值读出相加后写入目标寄存器，唯一不同的就是，add考虑溢出，当二者相加结果溢出时，会触发溢出异常，此时目标寄存器中的值并不会改变，而addu不进行溢出处理，目标寄存器中的值仍会改变。</li>
+<li>addi与addiu同理，只是其中一个运算数不再从寄存器中读出，而是改为由指令中的立即数参与运算。addi会触发溢出异常，而addiu不会。<br>因此，在忽略溢出的前提下，addi与addiu，add与addu是等价的。</li>
+</ul>
+</li>
+</ol>
+<h1 id="一些提醒自己的点"><a href="#一些提醒自己的点" class="headerlink" title="一些提醒自己的点"></a>一些提醒自己的点</h1><ul>
+<li><p>关于模块实例化，括号里面的是跟这个端口相连的线的名称。</p>
+</li>
+<li><p>wire定义就跟变量定义一样，是必须写在用这个线之前的，模块的先后没有关系</p>
+</li>
+<li><p>务必注意拼接时点名位数，这次搭建主要的bug在于：</p>
+<ul>
+<li>PCsrc是放在大模块里面的，但是第一次编代码的时候遗漏了</li>
+<li>{}拼接，不可遗漏位数，比如lui操作，应当写为：<code>&#123;Imm,&#123;16&#123;1&#39;b0&#125;&#125;&#125;</code>而不是<code>&#123;Imm,&#123;16&#123;0&#125;&#125;&#125;</code></li>
+</ul>
+</li>
+<li><p>不要再出现类似<code>wire addr = Address[13:2]</code>这种情况了！！！<strong>一定是先定义再assign！！！</strong>尤其是多位数</p>
+</li>
+<li><p>Markdown写表格的时候跟其他段落相隔开就能识别出来是表格了</p>
+</li>
+<li><p>注意如果文件结构太乱了用助教给的方法把结构重整一下：</p>
+<p>  <img src="C:\Users\28952\AppData\Roaming\Typora\typora-user-images\image-20231106094549077.png" alt="image-20231106094549077"></p>
+</li>
+</ul>
+<h1 id="捋一下新加指令的思路："><a href="#捋一下新加指令的思路：" class="headerlink" title="捋一下新加指令的思路："></a>捋一下新加指令的思路：</h1><ol>
+<li><p>判断指令类型，然后每个模块都检查一下判断是否需要增添操作。<strong>必改的是<code>macro.v</code>和<code>print_infor.v</code></strong></p>
+</li>
+<li><p>注意位运算：比如将rs里面的低imm位取反后放入rt怎么操作？虽然比较复杂，但都放在alu模块里面，外部的controller信号，改变alu_op即可</p>
+<ul>
+<li>先把0xFFFFFFFF右移32-imm位</li>
+<li>原数取反</li>
+<li>这两个数and起来</li>
+<li>也可以直接用for循环实现！！</li>
+</ul>
+</li>
+<li><p>循环移位的实现：</p>
+<ul>
+<li><p>循环右移：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> [<span class="number">31</span>:<span class="number">0</span>] rotate_right(</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] src,</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">4</span>:<span class="number">0</span>] shamt</span><br><span class="line">);</span><br><span class="line">  <span class="keyword">integer</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;<span class="number">32</span>; i=i+<span class="number">1</span>) <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">if</span>(i &lt; <span class="number">32</span> - shamt) <span class="keyword">begin</span></span><br><span class="line">            rotate_right[i] = src[shamt+i];</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">            rotate_right[i] = src[shamt+i-<span class="number">32</span>];</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endfunction</span>    </span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>循环左移的实现</li>
+</ul>
+  <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> [<span class="number">31</span>:<span class="number">0</span>] rotate_left(</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] src,</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">4</span>:<span class="number">0</span>] shamt</span><br><span class="line">)</span><br><span class="line">    <span class="keyword">integer</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;<span class="number">32</span>; i=i+<span class="number">1</span>) <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">if</span>(i &lt; shamt) <span class="keyword">begin</span></span><br><span class="line">            rotate_left[i] = src[i+<span class="number">32</span>-shamt];</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">            rotate_left[i] = src[i-shamt];</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endfunction</span>   </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>后缀0的位运算： n&amp;(~n+1)，但是似乎只能把最低位1给摘出来，在不计算具体位数的时候还是可行的。</p>
+<h1 id="bit-adder的实现"><a href="#bit-adder的实现" class="headerlink" title="bit_adder的实现"></a>bit_adder的实现</h1><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> [<span class="number">31</span>:<span class="number">0</span>] bit_adder(</span><br><span class="line">		<span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] src</span><br><span class="line">	); </span><br><span class="line">	<span class="keyword">integer</span> i;</span><br><span class="line">	<span class="keyword">begin</span></span><br><span class="line">        bit_adder = <span class="number">32&#x27;b0</span>;<span class="comment">//注意i的声明放在begin_end的外面，初始化放在模块的内部</span></span><br><span class="line">		<span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;<span class="number">32</span>; i=i+<span class="number">1</span>) <span class="keyword">begin</span></span><br><span class="line">			bit_adder = bit_adder + src[i];</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">endfunction</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>取模跟截位的关系：求2^n的模，即取原数n位以后的低位，保留原数从0开始的n位。</p>
+</li>
+<li><p>注意compare模块里面比较的话是有符号比较，上机的时候注意</p>
+</li>
+<li><p>复杂的运算写函数放在alu里面，assign模拟MUX只写结果不写过程，函数写法看一眼学长代码</p>
+</li>
+<li><p>GPR[$rs] 的低 imm 位按位取反，存入 GPR[$rt] 中，直接函数就行，for循环要多用，就不用那么复杂用位运算了，包括后缀0的个数，也可以用for循环</p>
+</li>
+<li><p>RW不管是不是条件写都要加上，ra控制信号类似</p>
+</li>
+<li><p>jr指令不只跳ra寄存器，任何寄存器都能跳，检查一下</p>
+</li>
+<li><p>32‘h00003000,这中间的32指的是数的位宽，不是指32位16进制数</p>
+</li>
+<li><p>仿真时出现高阻值z说明没有连接到有效输入，首先应该考虑连线问题，仿真出现不定值X的时候首先应该考虑初始化问题</p>
+</li>
+<li><p><strong>for循环里面的变量</strong>还是应该是<strong>reg类型</strong>的，但是函数的时候用它不用考虑，因为函数名本身就是reg类型的。</p>
+<h1 id="函数用法总结"><a href="#函数用法总结" class="headerlink" title="函数用法总结"></a>函数用法总结</h1><ol>
+<li><p>函数不含有延迟、时序逻辑</p>
+</li>
+<li><p>函数至少有一个输入变量</p>
+</li>
+<li><p>只有一个返回值（返回值跟函数名同名），且不许有输出</p>
+<p>函数声明即隐式地声明了一个位宽为设定位宽，名字和函数名同名的寄存器，函数地返回值即通过该变量进行传递。</p>
+</li>
+<li><p>不含有非阻塞赋值</p>
+</li>
+<li><p>可以调用其他函数</p>
+</li>
+</ol>
+<h2 id="下次cpu搭完先看看博客，看看有什么推荐扩展的指令"><a href="#下次cpu搭完先看看博客，看看有什么推荐扩展的指令" class="headerlink" title="下次cpu搭完先看看博客，看看有什么推荐扩展的指令"></a>下次cpu搭完先看看博客，看看有什么推荐扩展的指令</h2><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> [<span class="number">31</span>:<span class="number">0</span>] RLB(</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] src,</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] imm</span><br><span class="line">);</span><br><span class="line">   <span class="keyword">integer</span> i;</span><br><span class="line">   <span class="keyword">begin</span></span><br><span class="line">       <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">32</span>;i=i+<span class="number">1</span>) <span class="keyword">begin</span></span><br><span class="line">           <span class="keyword">if</span>(i&lt;imm) <span class="keyword">begin</span></span><br><span class="line">               RLB[i] = !src[i];</span><br><span class="line">           <span class="keyword">end</span></span><br><span class="line">           <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">               RLB[i] = src[i];</span><br><span class="line">           <span class="keyword">end</span></span><br><span class="line">       <span class="keyword">end</span></span><br><span class="line">   <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endfunction</span></span><br></pre></td></tr></table></figure>
+
+<p>此题位运算解法：<code>data ^ ( ~ (32&#39;hffffffff &lt;&lt; Imm) );</code></p>
+<h2 id="计算后缀0的个数"><a href="#计算后缀0的个数" class="headerlink" title="计算后缀0的个数"></a>计算后缀0的个数</h2><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> [<span class="number">31</span>:<span class="number">0</span>] count_zero(</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] src</span><br><span class="line">);</span><br><span class="line">    <span class="keyword">integer</span> i;</span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">        count_zero = <span class="number">5&#x27;b0</span>;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;src[i]==<span class="number">0</span>;i=i+<span class="number">1</span>,count_zero=count_zero+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endfunction</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>lwrr,swrr和sw，lw的信号是重合的，因此可以在DM中把Instr也传进去，在前面先把这个数拼出来，最后assign三目运算符的时候加一个判断，即判断是不是这个指令，然后再决定输出。</p>
+</li>
+<li><p>lha这种耦合不高，不考虑a的话等价于lh，因此控制信号等同于lh，在GRF前直接判断是否是4的倍数，用assign三目运算符决定即可。</p>
+<h3 id="jas指令"><a href="#jas指令" class="headerlink" title="jas指令"></a>jas指令</h3><p><img src="C:\Users\28952\AppData\Roaming\Typora\typora-user-images\image-20231106171649815.png" alt="image-20231106171649815"></p>
+</li>
+</ul>
+<p>注意往内存里写的数据增加了，成PC+4了，同时注意他的address是从GPR【29】中拿出来的</p>
+<ul>
+<li><p>首先在grf中增添一个输出端口输出29号寄存器的值</p>
+</li>
+<li><p>其次在mips的DM的address处增加三目运算符，如果是这个信号，就把29号寄存器的值作为地址，否则就还是result。</p>
+</li>
+<li><p>在DM外部的writeData中同样作此操作，如果是这个信号，就把PC+4写入内存中</p>
+<h3 id="DM中添加Instr，还是有必要的"><a href="#DM中添加Instr，还是有必要的" class="headerlink" title="DM中添加Instr，还是有必要的"></a>DM中添加Instr，还是有必要的</h3><ul>
+<li>总结了一下规律：<ul>
+<li>如果是对取出来的数据做操作，比如判断取出的半字是不是4的倍数，或者取出的字节里面1的个数跟0的个数的关系这种，建议在mips里面，DM的外侧进行扩展，<strong>强调一下，思路就按这样走，否则需要大量的去修改compare模块等等，得不偿失，非常麻烦！！</strong></li>
+<li>如果是对写入内存的数据进行了一些拼接之类的，还是把Instr传入DM特判。</li>
+<li>举个例子：<img src="C:\Users\28952\AppData\Roaming\Typora\typora-user-images\image-20231106175500091.png" alt="image-20231106175500091"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>例如此题,首先明确类型，发现是对取出来的数据进行处理，所以直接在mips中进行扩展。前面所有的控制信号跟lb相同，从readdata中读出来的就是取出来的对应字节，且同时进行了符号扩展。只需在GRF中修改写入数据，另外设置变量<code>read_data_1 = (condition) ? readdata : 32&#39;b0;</code>再将本身的wd中的readata改成read_data_1即可。相当于mux的套用。</p>
+<h2 id="assign是定义之后使用的赋值手段，而-是声明的同时赋值，二者效果是一样的！！！"><a href="#assign是定义之后使用的赋值手段，而-是声明的同时赋值，二者效果是一样的！！！" class="headerlink" title="assign是定义之后使用的赋值手段，而&#x3D;是声明的同时赋值，二者效果是一样的！！！"></a>assign是定义之后使用的赋值手段，而&#x3D;是声明的同时赋值，二者效果是一样的！！！</h2></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">Forever</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2023/11/02/P4/">http://example.com/2023/11/02/P4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/05/13/BUAA_OO_2024_Unit1_summary/" title="BUAA_OO_2024_Unit1_Summary"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">BUAA_OO_2024_Unit1_Summary</div></div></a></div><div class="next-post pull-right"><a href="/2023/10/19/P2-review/" title="P2_review"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">P2_review</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div><div id="comment-switch"><span class="first-comment">Valine</span><span class="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Forever</div><div class="author-info__description">Blogs</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/AiDahanwen"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">It's a newsound track I can dance to this beat~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%80%9D%E8%B7%AF"><span class="toc-number">1.</span> <span class="toc-text">整体思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E6%AF%94%E8%BE%83P3%E7%9A%84%E6%9B%B4%E6%96%B0%E4%BC%98%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">相比较P3的更新优化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%80%9A%E8%B7%AF%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="toc-number">3.</span> <span class="toc-text">数据通路的设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#IM"><span class="toc-number">3.1.</span> <span class="toc-text">IM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8F%E6%96%87%E4%BB%B6"><span class="toc-number">3.2.</span> <span class="toc-text">宏文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Controller"><span class="toc-number">3.3.</span> <span class="toc-text">Controller</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NPC"><span class="toc-number">3.4.</span> <span class="toc-text">NPC</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%96%B9%E6%A1%88"><span class="toc-number">4.</span> <span class="toc-text">测试方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">思考题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E6%8F%90%E9%86%92%E8%87%AA%E5%B7%B1%E7%9A%84%E7%82%B9"><span class="toc-number">6.</span> <span class="toc-text">一些提醒自己的点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8D%8B%E4%B8%80%E4%B8%8B%E6%96%B0%E5%8A%A0%E6%8C%87%E4%BB%A4%E7%9A%84%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">捋一下新加指令的思路：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bit-adder%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">8.</span> <span class="toc-text">bit_adder的实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%94%A8%E6%B3%95%E6%80%BB%E7%BB%93"><span class="toc-number">9.</span> <span class="toc-text">函数用法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E6%AC%A1cpu%E6%90%AD%E5%AE%8C%E5%85%88%E7%9C%8B%E7%9C%8B%E5%8D%9A%E5%AE%A2%EF%BC%8C%E7%9C%8B%E7%9C%8B%E6%9C%89%E4%BB%80%E4%B9%88%E6%8E%A8%E8%8D%90%E6%89%A9%E5%B1%95%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="toc-number">9.1.</span> <span class="toc-text">下次cpu搭完先看看博客，看看有什么推荐扩展的指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%90%8E%E7%BC%800%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="toc-number">9.2.</span> <span class="toc-text">计算后缀0的个数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jas%E6%8C%87%E4%BB%A4"><span class="toc-number">9.2.1.</span> <span class="toc-text">jas指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DM%E4%B8%AD%E6%B7%BB%E5%8A%A0Instr%EF%BC%8C%E8%BF%98%E6%98%AF%E6%9C%89%E5%BF%85%E8%A6%81%E7%9A%84"><span class="toc-number">9.2.2.</span> <span class="toc-text">DM中添加Instr，还是有必要的</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assign%E6%98%AF%E5%AE%9A%E4%B9%89%E4%B9%8B%E5%90%8E%E4%BD%BF%E7%94%A8%E7%9A%84%E8%B5%8B%E5%80%BC%E6%89%8B%E6%AE%B5%EF%BC%8C%E8%80%8C-%E6%98%AF%E5%A3%B0%E6%98%8E%E7%9A%84%E5%90%8C%E6%97%B6%E8%B5%8B%E5%80%BC%EF%BC%8C%E4%BA%8C%E8%80%85%E6%95%88%E6%9E%9C%E6%98%AF%E4%B8%80%E6%A0%B7%E7%9A%84%EF%BC%81%EF%BC%81%EF%BC%81"><span class="toc-number">9.3.</span> <span class="toc-text">assign是定义之后使用的赋值手段，而&#x3D;是声明的同时赋值，二者效果是一样的！！！</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/13/BUAA_OO_2024_Unit2_Summary/" title="BUAA_OO_2024_Unit2_Summary">BUAA_OO_2024_Unit2_Summary</a><time datetime="2024-05-13T12:01:01.000Z" title="Created 2024-05-13 20:01:01">2024-05-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/13/BUAA_OO_2024_Unit1_summary/" title="BUAA_OO_2024_Unit1_Summary">BUAA_OO_2024_Unit1_Summary</a><time datetime="2024-05-13T11:59:01.000Z" title="Created 2024-05-13 19:59:01">2024-05-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/02/P4/" title="P4设计文档">P4设计文档</a><time datetime="2023-11-02T08:07:50.000Z" title="Created 2023-11-02 16:07:50">2023-11-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/10/19/P2-review/" title="P2_review">P2_review</a><time datetime="2023-10-19T09:29:59.000Z" title="Created 2023-10-19 17:29:59">2023-10-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/10/13/P1-review/" title="P1_review">P1_review</a><time datetime="2023-10-13T08:00:32.000Z" title="Created 2023-10-13 16:00:32">2023-10-13</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Forever</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">怠惰必将导致惨剧。</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="Switch Between Traditional Chinese And Simplified Chinese">繁</button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="chat-btn" type="button" title="Chat"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.9.0"></script><script src="/js/main.js?v=4.9.0"></script><script src="/js/tw_cn.js?v=4.9.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.19/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid@10.2.2/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine@1.5.1/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function loadDisqus () {
+  const disqus_config = function () {
+    this.page.url = 'http://example.com/2023/11/02/P4/'
+    this.page.identifier = '/2023/11/02/P4/'
+    this.page.title = 'P4设计文档'
+  }
+
+  const disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addModeChange('disqus', disqusReset)
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Valine' === 'Disqus' || !true) {
+  if (true) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
