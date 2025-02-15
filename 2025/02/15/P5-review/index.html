@@ -1,0 +1,703 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>P5_review | For_Better</title><meta name="author" content="Forever"><meta name="copyright" content="Forever"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="P5 设计文档22373321 张瀚文 怠惰必将导致惨剧。 相较于P4代码的优化 使用注释作为代码段落的分隔符，更为清晰  每个阶段都使用一个controller，避免信号在不同的阶段来回传播，同时考虑到每个阶段所需要的信号不一样，对controller模块可以选择性输出。   整体设计思路 本次P5需要实现的指令有{add,sub,ori,lw,sw,beq,lui,jal,jr,nop}  整">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P5_review">
+<meta property="og:url" content="http://example.com/2025/02/15/P5-review/index.html">
+<meta property="og:site_name" content="For_Better">
+<meta property="og:description" content="P5 设计文档22373321 张瀚文 怠惰必将导致惨剧。 相较于P4代码的优化 使用注释作为代码段落的分隔符，更为清晰  每个阶段都使用一个controller，避免信号在不同的阶段来回传播，同时考虑到每个阶段所需要的信号不一样，对controller模块可以选择性输出。   整体设计思路 本次P5需要实现的指令有{add,sub,ori,lw,sw,beq,lui,jal,jr,nop}  整">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2025-02-15T09:02:49.000Z">
+<meta property="article:modified_time" content="2025-02-15T09:04:30.256Z">
+<meta property="article:author" content="Forever">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/02/15/P5-review/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'P5_review',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-02-15 17:04:30'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="For_Better"><span class="site-name">For_Better</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">P5_review</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-15T09:02:49.000Z" title="Created 2025-02-15 17:02:49">2025-02-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T09:04:30.256Z" title="Updated 2025-02-15 17:04:30">2025-02-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">6.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>20min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="P5_review"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="P5-设计文档"><a href="#P5-设计文档" class="headerlink" title="P5 设计文档"></a>P5 设计文档</h1><p>22373321 张瀚文</p>
+<p>怠惰必将导致惨剧。</p>
+<h2 id="相较于P4代码的优化"><a href="#相较于P4代码的优化" class="headerlink" title="相较于P4代码的优化"></a>相较于P4代码的优化</h2><ul>
+<li><p>使用注释作为代码段落的分隔符，更为清晰</p>
+</li>
+<li><p>每个阶段都使用一个controller，避免信号在不同的阶段来回传播，同时考虑到每个阶段所需要的信号不一样，对controller模块可以选择性输出。</p>
+</li>
+</ul>
+<h2 id="整体设计思路"><a href="#整体设计思路" class="headerlink" title="整体设计思路"></a>整体设计思路</h2><ul>
+<li><p>本次P5需要实现的指令有{add,sub,ori,lw,sw,beq,lui,jal,jr,nop}</p>
+</li>
+<li><p>整个流水线被分为五个阶段：Fetch|Decoder|Execute|Memory|Writeback,分别被称为：F级、D级、E级、M级、W级</p>
+</li>
+<li><p>要尽最大可能支持转发以解决数据冒险</p>
+</li>
+<li><p>每个阶段分别译码，输出Tues等控制信号</p>
+</li>
+<li><p>流水线寄存器的作用：保存在前一周期中的上一阶段所传来的数据，同时在后一周期中为下一阶段提供数据。</p>
+</li>
+<li><p>需要流水的数据只有一个衡量标准：就是在其后的流水阶段中需不需要这个数据，每个流水线寄存器都保存着一条指令完成后续操作所需要的全部信息。注意<strong>流水数据在CPU中可能存在多个值，且这些值并不相同，在编程的时候需要使用流水阶段名前缀</strong>将其区分开。</p>
+</li>
+<li><p>对Tnew的处理：每个controller只负责翻译D级的Tnew，后续会根据所在阶段的不同减去相对应的数，得到真正的Tnew</p>
+</li>
+<li><p><strong>在通过转发更新寄存器的值时，存入流水线寄存器的值也应当是转发后的值</strong></p>
+<p>下附表格代表不同信号的含义：</p>
+<table>
+<thead>
+<tr>
+<th>信号名</th>
+<th>信号种类</th>
+<th>信号含义&#x2F;作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ForwardA_D</td>
+<td>选择信号</td>
+<td>WD_E(2’b11) | WD(2’b10) | WD_M(2’b01) | RD1_D(2’b00)</td>
+</tr>
+<tr>
+<td>ForwardB_D</td>
+<td>选择信号</td>
+<td>WD_E(2’b11)  | WD(2’b10) | WD_M(2’b01) | RD2_D(2’b00)</td>
+</tr>
+<tr>
+<td>ForwardA_E</td>
+<td>选择信号</td>
+<td>WD_M(2’b01) | WD(2’b10) | RD1_E</td>
+</tr>
+<tr>
+<td>ForwardB_E</td>
+<td>选择信号</td>
+<td>WD_M(2’b01) | WD(2’b10) | RD2_E</td>
+</tr>
+<tr>
+<td>ForwardB_M</td>
+<td>选择信号</td>
+<td>WD（1） |  writeData_M_ori</td>
+</tr>
+<tr>
+<td>stall</td>
+<td>阻塞信号</td>
+<td>控制阻塞（冻结PC，冻结D级寄存器，E级寄存器清零）</td>
+</tr>
+<tr>
+<td>useA_D</td>
+<td>输入</td>
+<td>D级的A操作数是否要被用到</td>
+</tr>
+<tr>
+<td>useB_D</td>
+<td>输入</td>
+<td>D级的B操作数是否要被用到</td>
+</tr>
+<tr>
+<td>useReg_A_D</td>
+<td>输入</td>
+<td>D级的A寄存器</td>
+</tr>
+<tr>
+<td>useReg_B_D</td>
+<td>输入</td>
+<td>D级的B寄存器</td>
+</tr>
+<tr>
+<td>Tnew_E</td>
+<td>输入</td>
+<td>E阶段指令更新的周期数</td>
+</tr>
+<tr>
+<td>Tnew_M</td>
+<td>输入</td>
+<td>M阶段更新的周期数</td>
+</tr>
+<tr>
+<td>RW_M</td>
+<td>使能</td>
+<td>M级指令是否写寄存器</td>
+</tr>
+<tr>
+<td>RW_W</td>
+<td>使能</td>
+<td>W级指令是否写寄存器</td>
+</tr>
+<tr>
+<td>RW_E</td>
+<td>使能</td>
+<td>E级指令是否写寄存器</td>
+</tr>
+<tr>
+<td>useReg_A_M</td>
+<td>输入</td>
+<td>M级指令使用的A寄存器</td>
+</tr>
+<tr>
+<td>useReg_B_M</td>
+<td>输入</td>
+<td>M级指令使用的B寄存器</td>
+</tr>
+<tr>
+<td>writeReg_M</td>
+<td>输入</td>
+<td>M级指令写的寄存器</td>
+</tr>
+<tr>
+<td>writeReg_E</td>
+<td>输入</td>
+<td>E级指令要写的寄存器</td>
+</tr>
+<tr>
+<td>Tuse_A_D</td>
+<td>输入</td>
+<td>D级指令的A操作数需要用的周期数</td>
+</tr>
+<tr>
+<td>Tuse_B_D</td>
+<td>输入</td>
+<td>D级指令的B操作数需要用的周期数</td>
+</tr>
+<tr>
+<td>useReg_A_E</td>
+<td>输入</td>
+<td>E级指令用到的A操作数所在的寄存器</td>
+</tr>
+<tr>
+<td>useReg_B_E</td>
+<td>输入</td>
+<td>E级指令用到的B操作数所在的寄存器</td>
+</tr>
+<tr>
+<td>ForwardB_M</td>
+<td>选择信号</td>
+<td>WD(1) | writeData_M_ori（0）,也即转发过来的第二个寄存器的值</td>
+</tr>
+<tr>
+<td>PC_D&#x2F;E&#x2F;M&#x2F;W</td>
+<td>PC值</td>
+<td>各级的PC值，对应各级指令的地址</td>
+</tr>
+<tr>
+<td>com_srcA</td>
+<td>32位寄存器值</td>
+<td>相当于转发后的第一个操作数的值（npc在返回寄存器中的地址时就用的这个）</td>
+</tr>
+<tr>
+<td>com_srcB</td>
+<td>32位寄存器值</td>
+<td>转发后的第二个操作数的值</td>
+</tr>
+<tr>
+<td>writeReg_W</td>
+<td>寄存器地址</td>
+<td>W级指令要写的寄存器的地址，其已经根据W级controller进行过判断和选择</td>
+</tr>
+<tr>
+<td>Tnew_ori_E</td>
+<td>选择信号</td>
+<td>E级指令翻译出的原始Tnew值</td>
+</tr>
+<tr>
+<td>Tnew_E</td>
+<td>选择信号</td>
+<td>根据Tnew_ori_E减一的结果决定最终E级信号的Tnew_E值</td>
+</tr>
+<tr>
+<td>ALU_srcA(&#x2F;B)_E</td>
+<td>选择信号</td>
+<td>为1，选择shamt&#x2F;立即数，否则选转发后的RD1,RD2</td>
+</tr>
+<tr>
+<td>ALU_result_M</td>
+<td>32位数据信号</td>
+<td>E级中计算出的ALU通过寄存器到达M级</td>
+</tr>
+<tr>
+<td>srcA_fore</td>
+<td>32位数据信号</td>
+<td>根据ForwardA_E信号的不同选取不同的转发值</td>
+</tr>
+<tr>
+<td>srcB_fore</td>
+<td>32位数据信号</td>
+<td>根据ForwardB_E信号的不同选取不同的转发值</td>
+</tr>
+<tr>
+<td>writeData_M_ori</td>
+<td>32位数据信号</td>
+<td>从E级接受而来的第二个寄存器通过<strong>转发后的</strong>信号，也即srcB_fore</td>
+</tr>
+<tr>
+<td>compare_condition_M</td>
+<td>比较信号</td>
+<td>根据寄存器流下来的比较信号</td>
+</tr>
+<tr>
+<td>D2R_E</td>
+<td>选择信号</td>
+<td>E级信号选择要写入的寄存器控制信号</td>
+</tr>
+<tr>
+<td>WD_E</td>
+<td>数据信号</td>
+<td>E级要往回转发的值</td>
+</tr>
+<tr>
+<td>WD_M</td>
+<td>数据信号</td>
+<td>M级需要往回转发的值（PC_M+8&#x2F;ALU_result_M)</td>
+</tr>
+<tr>
+<td>writeData_M</td>
+<td>数据信号</td>
+<td>最后真正要往DM中写入的数据，是从W级往回转发的和前面经过转发的传过来的寄存器的值再选择一次的结果（Forward_B_M)</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="冲突的解决"><a href="#冲突的解决" class="headerlink" title="冲突的解决"></a>冲突的解决</h2><h3 id="阻塞"><a href="#阻塞" class="headerlink" title="阻塞"></a>阻塞</h3><p>在本CPU中，冲突指令会被阻塞在D级上。</p>
+<p>在D级阻塞的时候，向下一流水级传递的指令不应当是D级指令，应当插入nop空指令来避免这种情况。</p>
+<h4 id="阻塞具体的实现"><a href="#阻塞具体的实现" class="headerlink" title="阻塞具体的实现"></a>阻塞具体的实现</h4><p>当指令到达D级后,将其Tuse值和后面每一级的Tnew进行比较，当Tuse&lt;Tnew时（且A值检验通过时）需要阻塞流水线。</p>
+<p>阻塞具体表现在：</p>
+<ul>
+<li><p>冻结PC的值</p>
+</li>
+<li><p>冻结D级流水线的值</p>
+</li>
+<li><p>将E级流水线的寄存器清0（等价于插入一个nop指令）</p>
+</li>
+</ul>
+<h3 id="预测"><a href="#预测" class="headerlink" title="预测"></a>预测</h3><p>在D级提前对branch类指令的条件进行判断，并据此更新PC值。</p>
+<h3 id="增加延迟槽"><a href="#增加延迟槽" class="headerlink" title="增加延迟槽"></a>增加延迟槽</h3><p>在跳转类指令后添加延迟槽，无论是否跳转，都需要执行跳转指令的下一条指令。进而也不需要废除指令</p>
+<p>这解释了为什么对于jal指令（或者其他需要存储下一条指令地址的指令），要把D_PC+8存入31号寄存器。</p>
+<h3 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h3><p>重定向和阻塞的区别之一：重定向是需要用的数据已经算出来或者已经读出来了，只不过是没有写到目标寄存器内。因此添加控制信号和复用器即可。但是在其他情况下，比如lw指令，在下一条指令需要用到的时候，这个数据根本就没有读出来，因此只能阻塞而不能重定向。</p>
+<p>下附重定向数据通路：</p>
+<p><img src="C:\Users\28952\AppData\Local\Temp\1699520165(1).png" alt="1699520165(1)"></p>
+<h4 id="内部转发"><a href="#内部转发" class="headerlink" title="内部转发"></a>内部转发</h4><p>当前GPR被写入的值会及时反馈到读取端上。</p>
+<p>也即，当读寄存器的地址和同周期写寄存器的地址相同时，我们将读取的内容改为写寄存器的内容，而不是其寄存器中存的值。</p>
+<h3 id="A模型"><a href="#A模型" class="headerlink" title="A模型"></a>A模型</h3><p>也即课本中给出的重定向的触发条件：即：可以提供的（要写的寄存器）和需要的寄存器（另一条指令要用的寄存器）是同一个寄存器，且均不为0号寄存器。</p>
+<h3 id="T模型"><a href="#T模型" class="headerlink" title="T模型"></a>T模型</h3><p>Tnew ，经过多少时钟周期可以算出结果并且储存到<strong>流水级寄存器</strong>内。</p>
+<p>Tues，指令位于D级时，在经过多少个时钟周期就必须要使用对应的数据，如add指令在E级才使用数据，因此Tuse&#x3D;1，sw指令，rsTues&#x3D;1，rtTuse &#x3D; 2</p>
+<p>结论：</p>
+<ul>
+<li>当Tuse &gt;&#x3D; Tnew，即使用周期大于其计算周期，可以通过重定向解决</li>
+<li>当Tnew &gt; Tuse，即计算周期大于使用周期，只能通过阻塞解决。</li>
+</ul>
+<h3 id="单独的冲突处理单元"><a href="#单独的冲突处理单元" class="headerlink" title="单独的冲突处理单元"></a>单独的冲突处理单元</h3><p>考虑设计单独的冲突处理单元，不和控制器混淆。</p>
+<p>其需要产生的信号包括但不限于：冻结信号，刷新信号，供给者选择器信号，需求者选择器信号。</p>
+<h1 id="测试数据"><a href="#测试数据" class="headerlink" title="测试数据"></a>测试数据</h1><ol>
+<li><p>首先使用了平台提供的代码进行了初步正确性的测试</p>
+</li>
+<li><p>对于ALU计算冲突的测试指令：</p>
+<figure class="highlight mips"><table><tr><td class="code"><pre><span class="line"><span class="symbol">label0:</span> <span class="keyword">ori </span>$<span class="built_in">a1</span>, $<span class="built_in">a3</span>, <span class="number">50774</span></span><br><span class="line"><span class="symbol">label1:</span> <span class="keyword">ori </span>$<span class="number">0</span>, $<span class="built_in">v0</span>, <span class="number">32154</span></span><br><span class="line"><span class="symbol">label2:</span> <span class="keyword">add </span>$<span class="built_in">a3</span>, $<span class="built_in">v0</span>, $<span class="built_in">v1</span></span><br><span class="line"><span class="symbol">label9:</span> <span class="keyword">add </span>$<span class="built_in">a0</span>, $<span class="built_in">a1</span>, $<span class="number">0</span></span><br><span class="line"><span class="symbol">label10:</span> <span class="keyword">add </span>$<span class="built_in">v1</span>, $<span class="built_in">a2</span>, $<span class="built_in">a3</span></span><br><span class="line"><span class="symbol">label11:</span> <span class="keyword">sub </span>$<span class="built_in">a0</span>, $<span class="built_in">a0</span>, $<span class="built_in">a1</span></span><br><span class="line"><span class="symbol">label15:</span> <span class="keyword">add </span>$<span class="built_in">v0</span>, $<span class="number">0</span>, $<span class="built_in">a2</span></span><br><span class="line"><span class="symbol">label16:</span> <span class="keyword">add </span>$<span class="number">0</span>, $<span class="built_in">v1</span>, $<span class="built_in">v1</span></span><br><span class="line"><span class="symbol">label18:</span> <span class="keyword">add </span>$<span class="number">0</span>, $<span class="built_in">a1</span>, $<span class="built_in">a3</span></span><br><span class="line"><span class="symbol">label21:</span> <span class="keyword">ori </span>$<span class="built_in">v0</span>, $<span class="built_in">v1</span>, <span class="number">58765</span></span><br><span class="line"><span class="symbol">label23:</span> <span class="keyword">sub </span>$<span class="built_in">a3</span>, $<span class="built_in">a2</span>, $<span class="built_in">v0</span></span><br><span class="line"><span class="symbol">label28:</span> <span class="keyword">ori </span>$<span class="built_in">v0</span>, $<span class="built_in">v1</span>, <span class="number">26022</span></span><br><span class="line"><span class="symbol">label31:</span> <span class="keyword">sub </span>$<span class="built_in">a3</span>, $<span class="built_in">a0</span>, $<span class="built_in">a0</span></span><br><span class="line"><span class="symbol">label32:</span> <span class="keyword">sub </span>$<span class="number">0</span>, $<span class="built_in">a0</span>, $<span class="built_in">v1</span></span><br><span class="line"><span class="symbol">label34:</span> <span class="keyword">sub </span>$<span class="built_in">a2</span>, $<span class="built_in">v0</span>, $<span class="built_in">v1</span></span><br><span class="line"><span class="symbol">label35:</span> <span class="keyword">ori </span>$<span class="built_in">v0</span>, $<span class="built_in">a0</span>, <span class="number">5861</span></span><br><span class="line"><span class="symbol">label38:</span> <span class="keyword">sub </span>$<span class="built_in">v1</span>, $<span class="number">0</span>, $<span class="built_in">a3</span></span><br><span class="line"><span class="symbol">label40:</span> <span class="keyword">ori </span>$<span class="built_in">a1</span>, $<span class="built_in">a3</span>, <span class="number">59856</span></span><br><span class="line"><span class="symbol">label45:</span> <span class="keyword">add </span>$<span class="number">0</span>, $<span class="built_in">a3</span>, $<span class="built_in">v0</span></span><br><span class="line"><span class="symbol">label46:</span> <span class="keyword">sub </span>$<span class="built_in">v1</span>, $<span class="built_in">a3</span>, $<span class="number">0</span></span><br><span class="line"><span class="symbol">label49:</span> <span class="keyword">ori </span>$<span class="number">0</span>, $<span class="built_in">v1</span>, <span class="number">14314</span></span><br><span class="line"><span class="symbol">label54:</span> <span class="keyword">add </span>$<span class="built_in">v1</span>, $<span class="built_in">v0</span>, $<span class="built_in">a3</span></span><br><span class="line"><span class="symbol">label55:</span> <span class="keyword">sub </span>$<span class="number">0</span>, $<span class="built_in">a0</span>, $<span class="built_in">a2</span></span><br><span class="line"><span class="symbol">label58:</span> <span class="keyword">sub </span>$<span class="built_in">v1</span>, $<span class="number">0</span>, $<span class="built_in">a3</span></span><br><span class="line"><span class="symbol">label68:</span> <span class="keyword">ori </span>$<span class="built_in">v1</span>, $<span class="built_in">a3</span>, <span class="number">49892</span></span><br><span class="line"><span class="symbol">label69:</span> <span class="keyword">ori </span>$<span class="built_in">v1</span>, $<span class="built_in">a3</span>, <span class="number">24858</span></span><br><span class="line"><span class="symbol">label71:</span> <span class="keyword">ori </span>$<span class="built_in">v1</span>, $<span class="built_in">v0</span>, <span class="number">40501</span></span><br><span class="line"><span class="symbol">label72:</span> <span class="keyword">ori </span>$<span class="number">0</span>, $<span class="number">0</span>, <span class="number">3817</span></span><br><span class="line"><span class="symbol">label74:</span> <span class="keyword">ori </span>$<span class="built_in">a0</span>, $<span class="built_in">a3</span>, <span class="number">50379</span></span><br><span class="line"><span class="symbol">label75:</span> <span class="keyword">sub </span>$<span class="built_in">a3</span>, $<span class="number">0</span>, $<span class="built_in">v0</span></span><br><span class="line"><span class="symbol">label85:</span> <span class="keyword">add </span>$<span class="built_in">a3</span>, $<span class="number">0</span>, $<span class="built_in">a1</span></span><br><span class="line"><span class="symbol">label87:</span> <span class="keyword">sub </span>$<span class="built_in">a0</span>, $<span class="built_in">a0</span>, $<span class="built_in">v1</span></span><br><span class="line"><span class="symbol">label89:</span> <span class="keyword">add </span>$<span class="built_in">v0</span>, $<span class="built_in">a3</span>, $<span class="built_in">v1</span></span><br><span class="line"><span class="symbol">label90:</span> <span class="keyword">sub </span>$<span class="built_in">v1</span>, $<span class="built_in">v0</span>, $<span class="number">0</span></span><br><span class="line"><span class="symbol">label91:</span> <span class="keyword">add </span>$<span class="built_in">v1</span>, $<span class="built_in">a0</span>, $<span class="built_in">v1</span></span><br><span class="line"><span class="symbol">label93:</span> <span class="keyword">sub </span>$<span class="built_in">a0</span>, $<span class="built_in">v0</span>, $<span class="built_in">a1</span></span><br><span class="line"><span class="symbol">label96:</span> <span class="keyword">ori </span>$<span class="built_in">a0</span>, $<span class="built_in">a3</span>, <span class="number">2018</span></span><br><span class="line"><span class="symbol">label98:</span> <span class="keyword">add </span>$<span class="built_in">a2</span>, $<span class="built_in">a1</span>, $<span class="built_in">a3</span></span><br><span class="line"><span class="symbol">label99:</span> <span class="keyword">sub </span>$<span class="built_in">v0</span>, $<span class="built_in">a3</span>, $<span class="built_in">v1</span></span><br><span class="line"><span class="symbol">label100:</span> <span class="keyword">add </span>$<span class="number">0</span>, $<span class="built_in">a2</span>, $<span class="built_in">a1</span></span><br><span class="line"><span class="symbol">label102:</span> <span class="keyword">add </span>$<span class="number">0</span>, $<span class="built_in">a1</span>, $<span class="built_in">a2</span></span><br><span class="line"><span class="symbol">label104:</span> <span class="keyword">ori </span>$<span class="built_in">a3</span>, $<span class="number">0</span>, <span class="number">43189</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对于跳转类指令和ALU计算冲突的测试指令：</p>
+<figure class="highlight mips"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ori </span>$<span class="built_in">t2</span>,$<span class="number">0</span>,<span class="number">0x3010</span></span><br><span class="line"><span class="keyword">add </span>$<span class="built_in">t3</span>, $<span class="built_in">t0</span>, $<span class="built_in">t2</span></span><br><span class="line"><span class="keyword">jr </span>$<span class="built_in">t3</span></span><br><span class="line"><span class="keyword">ori </span>$<span class="built_in">s0</span>, $<span class="built_in">zero</span>, <span class="number">1</span></span><br><span class="line"><span class="keyword">ori </span>$<span class="built_in">s1</span>, $<span class="built_in">zero</span>, <span class="number">2</span></span><br><span class="line"><span class="keyword">ori </span>$<span class="built_in">s2</span>, $<span class="built_in">zero</span>, <span class="number">3</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>​		其中通过此测试点解决了jr的Tuse输出错误而导致没有成功阻塞的bug</p>
+<ol start="4">
+<li><p>对于branch类指令与冲突的测试：</p>
+<figure class="highlight mips"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ori </span>$<span class="number">2</span>,$<span class="number">0</span>,<span class="number">4</span></span><br><span class="line"><span class="keyword">ori </span>$<span class="number">3</span>,$<span class="number">3</span>,<span class="number">1</span></span><br><span class="line"><span class="keyword">sw </span>$<span class="number">2</span>,<span class="number">0</span>($<span class="number">0</span>)</span><br><span class="line"><span class="keyword">lw </span>$<span class="number">1</span>,<span class="number">0</span>($<span class="number">0</span>)</span><br><span class="line"><span class="keyword">sub </span>$<span class="number">1</span>,$<span class="number">1</span>,$<span class="number">3</span></span><br><span class="line"><span class="keyword">add </span>$<span class="number">1</span>,$<span class="number">1</span>,$<span class="number">3</span></span><br><span class="line"><span class="keyword">add </span>$<span class="number">3</span>,$<span class="number">1</span>,$<span class="number">0</span></span><br><span class="line"><span class="keyword">beq </span>$<span class="number">1</span>,$<span class="number">2</span>,labe1</span><br><span class="line"><span class="keyword">add </span>$<span class="number">1</span>,$<span class="number">1</span>,$<span class="number">2</span></span><br><span class="line"><span class="keyword">add </span>$<span class="number">1</span>,$<span class="number">1</span>,$<span class="number">2</span></span><br><span class="line"><span class="symbol">labe2:</span> <span class="keyword">beq </span>$<span class="number">0</span>,$<span class="number">0</span>,labe2</span><br><span class="line"><span class="keyword">nop</span></span><br><span class="line"><span class="keyword"></span><span class="symbol">labe1:</span> <span class="keyword">beq </span>$<span class="number">0</span>,$<span class="number">0</span>,labe1</span><br><span class="line"><span class="keyword">nop</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h2><ol>
+<li><p>当beq指令所比较的寄存器值需要更新而未被更新时，仍需要考虑使用重定向或者阻塞的方法解决该问题。如</p>
+<figure class="highlight mips"><table><tr><td class="code"><pre><span class="line"><span class="keyword">lw </span>$<span class="number">1</span>,<span class="number">0</span>($<span class="number">0</span>)</span><br><span class="line"><span class="keyword">beq </span>$<span class="number">1</span>,$<span class="number">2</span>,label</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>因为延迟槽的作用即在于：无论是否跳转，跳转指令的下一条指令，也就是延迟槽，都会被执行。因此真正要跳转执行的实际上是延迟槽的下一条指令，其地址为PC+8。</p>
+</li>
+<li><p>如果来自于功能部件，相当于还是在一个周期内只执行一个指令，与流水线的初衷相悖。</p>
+</li>
+<li><p>GPR内部转发，即W级向D级的转发，确保了从GRF中读出的寄存器的值是正确的值。然而似乎并不需要这样，因为仍然可以通过Forward信号在外部进行转发。</p>
+</li>
+<li><ul>
+<li><p>需求者：D级、E级、M级</p>
+</li>
+<li><p>供给者：E级、M级、W级</p>
+<p>其中E级可能提供PC+8，M级可能提供ALU_result和PC+8，W级可能提供WD。</p>
+<p>每一个供给者都可以向顺序在它之前的阶段转发数据，因此有E-&gt;D,M-&gt;D,M-&gt;E,W-&gt;D,W-&gt;E,W-&gt;M</p>
+</li>
+</ul>
+</li>
+<li><p>就笨人设计的CPU架构来看：首先无论是什么种类的指令，都需要在macro.v宏文件中补充对应的指令判断，然后进行下一步操作。</p>
+<ul>
+<li>计算类指令：在controller中扩展ALU_op，RW, imm_ext等信号；接着在ALU_op中实现对应的操作</li>
+<li>branch类信号：仿照beq信号操作，扩展对应的compare_op等，需要注意的是类似于bgezal类的条件写指令，RW不但与指令有关，还和条件是否成立有关</li>
+<li>jump类信号：仿照jal，jr来写</li>
+<li>存取类信号：仿照sw和lw来写</li>
+<li>其他复杂类信号：仔细阅读指令说明，增添Tnew和Tues值，还有可能改变阻塞的逻辑，是否需要在流水线中流水新的信号等</li>
+</ul>
+</li>
+<li><p>译码器架构：</p>
+<ul>
+<li>在单周期cpu的基础上增添了四个寄存器，并把整个cpu分为了F,D,E,M,W五个阶段</li>
+<li>设置冲突处理单元输出转发和阻塞信号</li>
+<li>每个阶段对应一个controller，译码每个阶段的信号。</li>
+</ul>
+</li>
+</ol>
+<p>优势：不同阶段使用不同的controller似乎避免了信号的一级一级传送</p>
+<p>不足：过多的controller因为指令的不同增大了写出bug的可能性。</p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><ul>
+<li><p>为了解决数据冒险而设计的转发数据来源必须是某级流水线寄存器，不允许对功能部件的输出直接进行转发。否则跟单周期CPU没有区别，在一个周期内进行了比较和更新，而不是并行。</p>
+</li>
+<li><p>Tnew_E跟Tuse比较就看E阶段指令要写的寄存器和D阶段指令要用的寄存器一不一样</p>
+</li>
+<li><p>Tnew_M只需要Tnew_E减一在跟0取一个最大值即可。比较的话也是同理</p>
+</li>
+<li><p>然后输出结果，分别对应EM段是阻塞还是转发</p>
+</li>
+<li><p>注意Tnew的意思，是存入流水级寄存器，而不是存入寄存器堆里的寄存器！！！</p>
+</li>
+<li><p>注意assign里面的冒号不能写成中文冒号</p>
+</li>
+</ul>
+<h1 id="bug点"><a href="#bug点" class="headerlink" title="bug点"></a>bug点</h1><ul>
+<li><p>GRF的RW看的不是D阶段控制器的RW，因为真正写的时候那条指令是在W阶段！！打印的PC也是，他的PC应该是被传到W阶段的PC，而不是现在读出的PC，以及究竟写哪个寄存器也是根据W级的指令决定的，跟D级指令无关。</p>
+</li>
+<li><p>DM同理，DM的PC也是传过去的PC！！</p>
+</li>
+<li><p>由于向寄存器中写的数据都在最后一个阶段统一处理，所以但凡是要往寄存器里写的数据都得通过寄存器往后传</p>
+</li>
+<li><p>jal的话因为已经把PC值一直传过去了，所以直接在最后加8就行。</p>
+</li>
+<li><p>注意译码器译码的和真正执行的是不是一个指令！！（GRF写操作的教训）</p>
+</li>
+<li><p>关于jr：很多跳转出错的，多半是jr的Tuse由于也属于R类型被搞成了2,导致在应该阻塞的时候没有阻塞。</p>
+</li>
+<li><p>compare_condition信号需要一级一级往下传（条件写的情况中，以便最后在条件写寄存器的时候判断条件是否成立）</p>
+</li>
+<li><p>D级的npc在计算时需要传入两个值：PC_F和PC_D。PC_F用来计算常规情况，PC_D用来计算跳转等的情况，在jal的存入中，PC+8中的PC用的是流到W级的PC</p>
+</li>
+<li><p>凡是通过寄存器往下流的值，一定是转发之后的值！</p>
+</li>
+<li><p><img src="C:\Users\28952\AppData\Local\Temp\1699796863(1).png" alt="1699796863(1)"></p>
+</li>
+</ul>
+<h1 id="周一上午任务："><a href="#周一上午任务：" class="headerlink" title="周一上午任务："></a>周一上午任务：</h1><ol>
+<li>看往年博客，搞明白一些复杂指令该怎么填上去</li>
+<li>再把转发阻塞什么的搞一搞，举几个例子自己运行一下来理解里面的机理</li>
+</ol>
+<h1 id="周一update"><a href="#周一update" class="headerlink" title="周一update"></a>周一update</h1><ol>
+<li><p>各类指令在不同级时可能出现的数据冒险。怎么转发，转发什么！！（列一个表出来）</p>
+</li>
+<li><p>向量部分选择：src[x-:2]，选择src中x和x-1两位输出，src[x+:2]，选择src中x和x+1两位输出</p>
+<p><code>A[base + : width];</code>或者<code>A[base - : width]</code></p>
+<p>其中base可以是变量，但是width必须是常数</p>
+</li>
+<li><p>通过寄存器往下流水的数据必须是通过转发之后的值</p>
+</li>
+<li><p>画一个类似于这样的表格</p>
+<p><img src="C:\Users\28952\AppData\Roaming\Typora\typora-user-images\image-20231113120923424.png" alt="image-20231113120923424"></p>
+</li>
+<li><p>对于不需要读寄存器的指令（Tuse不存在）缺省值应当设置为最大值3</p>
+</li>
+<li><p>jal存的一直是pc+8，因为可以跳回，这跟branch类没关系，branch是不用管的</p>
+</li>
+<li><p>跳转类指令分类：</p>
+<ul>
+<li><p>BXXZAL：无条件link，即只要是这个指令就需要把pc+8存入。但是只有符合条件才跳转？<del>maybe,课上还是得好好研究操作解释</del></p>
+</li>
+<li><p>BXXZALC：条件写，用老方法就行，必须记得把对应的信号都流水下去。（其实也就一个compare_condition需要流，因为RW可以过去了再翻译，PC是一直往后带的已经在最后的地方加了。这么说来compare模块其实也可以跟controller模块一样每个地方都有一块，分布式比较。</p>
+</li>
+<li><p>BXXZALR：条件link到指定的寄存器，需要流的数据：compare_condition，写入的寄存器编号可以从W级的controller获得，写入数据也是W级获得，只传compare_condition即可。</p>
+<p>扩展步骤：在macro里添加（注意ra等的信号），在compare里添加对应的比较方式，在controller里的条件写里面补充，同时补充compare_op。</p>
+<p><strong>无论过不过P5都要把P5的代码优化一下，compare也写成分布式的，就不用传递了。</strong></p>
+</li>
+<li><p>BXXZALL：清空延迟槽，条件跳转，否则清空延迟槽。还是compare中补充，都在D中完成即可，类似PCsrc，branch &amp;( ! con_reset |compare) 传给F_D寄存器的reset，但是如果是stall状态下的话也不清空。内部的enable信号优先级最高</p>
+</li>
+<li><p>lwso：lw的data大于0写入，否则不写入：仍然是条件写寄存器</p>
+<p>只用把那个compare_condition在改一改，不用在内部再加了，外部判断一下作为一个新的信号传入W级，W级的compare_condition用控制信号选择是从D级传过来的信号还是M级传过来的信号。这个控制信号需要从controller里面输出出来。</p>
+</li>
+</ul>
+</li>
+<li><p>今天彻底是把函数稍微弄懂一点了，上次写错有以下原因：</p>
+</li>
+<li><p>![W%D@3NT@<del>3ABRSU21VDT4_X](C:\Users\28952\Documents\Tencent Files\2895227477\Image\Group2\W%\D@\W%D@3NT@</del>3ABRSU21VDT4_X.jpg)</p>
+</li>
+</ol>
+<ul>
+<li><p>首先是begin_end是顺序块，不能使用连续赋值语句，也不能在这其中定义变量。也即assign在这里面是不能使用的，同时g1等变量的声明也必须放在外面</p>
+</li>
+<li><p>之所以想到把wire型改成reg型，是忽然想到之前用到的函数都是integer类型，自动就是一个寄存器，于是抱着试一试的心态，没想到真的成了。</p>
+<p><img src="C:\Users\28952\AppData\Roaming\Typora\typora-user-images\image-20231113142324389.png" alt="image-20231113142324389"></p>
+</li>
+</ul>
+<p>附上一张正确的代码，这次用函数可别再用错辣。</p>
+<ol start="10">
+<li><p>branch_link：写回当前PC+8</p>
+</li>
+<li><p>清空延迟槽：清空F_D寄存器，不冻结PC，也不清空D_E寄存器，branch_likely，</p>
+</li>
+<li><p>bonall：值互为相反数则执行延迟槽后跳转并连接PC+8，否则不执行延迟槽，还连接PC+8。设置op码为：110000</p>
+<ul>
+<li>因为不管怎么样都连接PC+8，所以不是条件写，跟jal的信号同步</li>
+<li>不执行延迟槽：也就是清空延迟槽，考虑在controller信号里面输出一个com_flush,F_D寄存器的reset信号除了本身的reset信号，还有这个com_flush和compare_condition并在一起的信号，还是不能处于阻塞状态，即enable的优先级最高，</li>
+<li>由于是branch类，所以Tuse为0，无关信号的Tnew都设成最大值。</li>
+</ul>
+</li>
+<li><p>lhogez：从DM中取半字，半字中1多就写入半字到rt，0多就往寄存器里面写PC+4</p>
+<ul>
+<li><p>看来compare的实例化是不得不搞了，否则这个根本没办法写外面，太麻烦了，并且这里实例化后要注意和原来的流下来的compare_condition区分。</p>
+</li>
+<li><p>实例化后可以直接在controller里面新增一个对应的com_op，以及判断是否是这个指令的sel_write信号。</p>
+</li>
+<li><p>然后在W级的compare模块中把从M级传过来的数据传进去，得到compare_condition</p>
+</li>
+<li><p>对于mux的选择，推荐是不要改动原来的，而是把原来的当作复位器的一个选择进行输入。</p>
+<p>对于数据选择，就把com_condition，sel_write拼在一起形成一个两位的数据！，如果是2’b11，就选择原来的writedata（因为lhogez和lh的信号一致，或者直接搞读出来的信号，更直接），如果是2’b10，选择原来的writedata（不是这个信号），如果是2’b01，选择pc+4（是这个信号但是不满足）</p>
+<p>对于选择目标寄存器的信号：仍然是com_condition和sel_write拼成两位信号：2’b11，原来的RD_W；2’b10，原来的RD_W；2’b01，31号寄存器，2‘b00，原来的RD_W</p>
+<p><strong>碎碎念一下：拼成两位信号真的好好用，所有信号一目了然</strong></p>
+<p>然后强调一下：传入hazard的writeReg_W一定是经过判断之后的writeReg_W，因此要把经过选择后的writeReg_W再传入Hazard中。</p>
+<p>类比到其他指令，如果因为条件之类的使得use或者write的寄存器跟本来controller输出的不同了，一定要把最终使用的传给hazard。</p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>考虑这个指令的Tnew和Tues，Tnew就还是正常的3，Tues的话跟load类型指令一样，不用纠结。因此阻塞的话还是根据自己写的阻塞逻辑来。</p>
+</li>
+<li><p>bltzal：rs的值小于0时，跳转到***的位置，无条件连接pc+8</p>
+<ul>
+<li>由于是无条件连接PC+8，因此jal有的信号bltzal都有</li>
+<li>扩展新的com_op和compare模块</li>
+<li>注意跟正常的branch的nextpc不同了，因此需要扩展npc模块，同时增加一个信号对PCbranch进行选择，1则选择bltzal，0则选择原来的pcbranch。</li>
+<li>Tues还是0，写的寄存器是31，这个包在ra里面了，不用管</li>
+</ul>
+</li>
+<li><p>addei，不支持溢出的有符号加法</p>
+<p>判断溢出则向rt中写入扩展后的立即数，不溢出则向rt中写入加法的结果。</p>
+<p>直接将以上所有的计算过程，包括判断是否溢出什么的全封装到alu里面。</p>
+<p>注意添加immext的信号，增加成两位，处理高位1扩展。</p>
+<p>因为是计算指令，所以其他地方需要改的不多</p>
+</li>
+<li><p>lbget，读一个字节，字节读出来小于0，添加到base里面，读出来大于等于0，写到rt中。</p>
+<ul>
+<li>跟之前那个lh类的很像，首先是前期指令信号都和lb相同，有lb的都或一个lbget</li>
+<li>然后还是需要多实例化一个compare模块，扩展compare信号和compare模块内部操作，得到compare_condition，此处的compare_condition跟流水线流下来的compare_condition不能混淆，因为branch类写寄存器的控制信号可能就是这么来的，可以设置一个总的comdition，根据单独的那个信号选一下是用本来的还是用这个新生成的。</li>
+<li>在controller中用一个单独的任意信号指明是这个lbget信号</li>
+<li>以上两个信号拼在一起成为一个两位的信号。并对RD_W进行选择。</li>
+</ul>
+</li>
+<li><p>新lwso（严重怀疑指令的名字可以随便起）</p>
+<p>31号寄存器和对应内存地址中储存的数相加，溢出的话就不写31寄存器，不溢出的话就把相加的结果写入31号寄存器（目测没有rt，或者rt的值固定为31）</p>
+<ul>
+<li>仍然需要在W级实例化一个compare模块，如果rt的值在机器码中固定是31还比较好办，但如果不是固定为31，那就需要在grf模块中添加一个端口输出31号寄存器的值，然后流水到最后，同时注意内部转发。</li>
+<li>将用到的寄存器值向后流水</li>
+<li>在W级中进行判断得到是否溢出的信号。</li>
+<li>controller内部D2R改一下，给这个信号用，同时com_write也需要用上了，WD需要添加，但是目标寄存器什么的都不用动。主要控制的是RW_W</li>
+<li>RW_W还是用老方法进行判断。</li>
+</ul>
+</li>
+<li><p>blezalc</p>
+<p>学长说课上给出的RTL表述有问题，表示很害怕（</p>
+<p>如果跳转则链接寄存器</p>
+<ul>
+<li>branch类条件写寄存器。condition是rs&lt;&#x3D;0，把compare信号往下传下去就行</li>
+<li>写寄存器那些都按jal给加上，仍然是老方法控制那个RW，写不写入</li>
+</ul>
+</li>
+<li><p>lrm</p>
+<p>根据得到的内存中的数据的0-4位决定要写入的寄存器，并把rt写入这个寄存器</p>
+<ul>
+<li>首先是load类指令，load类该有的他也有</li>
+<li>接着是在W级中，controller新增信号表明是该指令，然后在已经确定的writeReg和0-4位之间进行再次选择，注意把已经确定的writereg改名，令最终的writereg跟传进冒险处理单元的一致。</li>
+</ul>
+</li>
+</ul>
+<p>感觉忽然对那个E级向前转发有点明白了。</p>
+<p>转发的来源其实就是无非就是以下几种：PC值，ALU值，内存值</p>
+<p>而E阶段目前只能往前转发PC值，因为ALU还没到寄存器中，寄存器写回值它更是没有。因此往前转发E阶段指令地址的PC+8.比如E阶段现在是jal指令，D阶段是个跳转指令，需要用到$ra去比较，那么此时E级即往前转发，还是<strong>E级要写的就是D级要用的</strong>，用E级的D2R_E信号对其进行选择。2’b10就传PC+8,其他传高阻值。</p>
+<p>M阶段，可以往前转发ALU_result，和PC值，比如M阶段现在是jal&#x2F;jalr指令，而E阶段是一个需要用到$31&#x2F;目标寄存器去运算的指令，于是向前转发PC+8。如何进行具体的选择（即转发pc+8还是ALU_result），不要看前面，看的是后面，即M阶段是要写什么，根据冲突的定义，<strong>M阶段要写的就是E阶段需要用的</strong>，进而根据M阶段的controller输出的D2R_M，确定往前传输的数据，合并称为WD_M</p>
+<p>W阶段，可以往前转发内存值、PC值和ALU_result值，按照上述方法合并成WD，也即最终写回寄存器的值。</p>
+<p>**如果是条件写的话，每一级的RW也都得是处理过之后的RW **</p>
+<p><strong>条件访存注意阻塞，一般的处理方式是只要是这个信号就阻塞</strong></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">Forever</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/02/15/P5-review/">http://example.com/2025/02/15/P5-review/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/02/15/%E7%BC%96%E8%AF%91%E6%9C%9F%E6%9C%AB%E4%B8%8A%E6%9C%BA%E6%8C%87%E5%8C%97/" title="编译期末上机指北"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">编译期末上机指北</div></div></a></div><div class="next-post pull-right"><a href="/2025/02/15/P6-review/" title="P6_review"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">P6_review</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/10/07/P0-review/" title="计算机组成原理-P0-review"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-07</div><div class="title">计算机组成原理-P0-review</div></div></a></div><div><a href="/2023/10/13/P1-review/" title="P1_review"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-13</div><div class="title">P1_review</div></div></a></div><div><a href="/2023/10/19/P2-review/" title="P2_review"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-19</div><div class="title">P2_review</div></div></a></div><div><a href="/2023/11/02/P4-review/" title="P4设计文档"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-02</div><div class="title">P4设计文档</div></div></a></div><div><a href="/2025/02/15/P5-2/" title="P5_2"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-15</div><div class="title">P5_2</div></div></a></div><div><a href="/2025/02/15/P6-review/" title="P6_review"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-15</div><div class="title">P6_review</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Forever</div><div class="author-info__description">Blogs</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/AiDahanwen.github.io" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:zhanghanwen@buaa.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">It's a new soundtrack I can dance to this beat~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#P5-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">P5 设计文档</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E8%BE%83%E4%BA%8EP4%E4%BB%A3%E7%A0%81%E7%9A%84%E4%BC%98%E5%8C%96"><span class="toc-number">1.1.</span> <span class="toc-text">相较于P4代码的优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="toc-number">1.2.</span> <span class="toc-text">整体设计思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%B2%E7%AA%81%E7%9A%84%E8%A7%A3%E5%86%B3"><span class="toc-number">1.3.</span> <span class="toc-text">冲突的解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BB%E5%A1%9E"><span class="toc-number">1.3.1.</span> <span class="toc-text">阻塞</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%BB%E5%A1%9E%E5%85%B7%E4%BD%93%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">阻塞具体的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E6%B5%8B"><span class="toc-number">1.3.2.</span> <span class="toc-text">预测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0%E5%BB%B6%E8%BF%9F%E6%A7%BD"><span class="toc-number">1.3.3.</span> <span class="toc-text">增加延迟槽</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">1.3.4.</span> <span class="toc-text">重定向</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E8%BD%AC%E5%8F%91"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">内部转发</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#A%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.3.5.</span> <span class="toc-text">A模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.3.6.</span> <span class="toc-text">T模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E7%8B%AC%E7%9A%84%E5%86%B2%E7%AA%81%E5%A4%84%E7%90%86%E5%8D%95%E5%85%83"><span class="toc-number">1.3.7.</span> <span class="toc-text">单独的冲突处理单元</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE"><span class="toc-number">2.</span> <span class="toc-text">测试数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">2.1.</span> <span class="toc-text">思考题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">3.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bug%E7%82%B9"><span class="toc-number">4.</span> <span class="toc-text">bug点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%91%A8%E4%B8%80%E4%B8%8A%E5%8D%88%E4%BB%BB%E5%8A%A1%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">周一上午任务：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%91%A8%E4%B8%80update"><span class="toc-number">6.</span> <span class="toc-text">周一update</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/P5-2/" title="P5_2">P5_2</a><time datetime="2025-02-15T09:07:44.000Z" title="Created 2025-02-15 17:07:44">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/P7-review/" title="P7_review">P7_review</a><time datetime="2025-02-15T09:03:14.000Z" title="Created 2025-02-15 17:03:14">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/P6-review/" title="P6_review">P6_review</a><time datetime="2025-02-15T09:03:00.000Z" title="Created 2025-02-15 17:03:00">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/P5-review/" title="P5_review">P5_review</a><time datetime="2025-02-15T09:02:49.000Z" title="Created 2025-02-15 17:02:49">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/%E7%BC%96%E8%AF%91%E6%9C%9F%E6%9C%AB%E4%B8%8A%E6%9C%BA%E6%8C%87%E5%8C%97/" title="编译期末上机指北">编译期末上机指北</a><time datetime="2025-02-15T08:57:14.000Z" title="Created 2025-02-15 16:57:14">2025-02-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2025 By Forever</div><div class="footer_custom_text">Wish you a happy day~</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
