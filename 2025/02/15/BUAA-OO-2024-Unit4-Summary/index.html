@@ -1,0 +1,278 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>BUAA_OO_2024_Unit4_Summary | For_Better</title><meta name="author" content="Forever"><meta name="copyright" content="Forever"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="BUAA_OO_2024_Unit4_Summary“等了好久终于等到今天，梦了好久终于把梦实现~” 正向建模与开发第四单元强调正向建模与开发，也即按照“设计程序架构-&gt;绘制UML图-&gt;编程实现”的顺序完成代码。 因此，在本单元第一次作业中，我首先通读指导书，在把握了任务需求后开始在草稿纸上着手进行程序架构。然后绘制了一个简易的UML类图，在类图中我只体现了初步计划要写的类和一些基础属">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUAA_OO_2024_Unit4_Summary">
+<meta property="og:url" content="http://example.com/2025/02/15/BUAA-OO-2024-Unit4-Summary/index.html">
+<meta property="og:site_name" content="For_Better">
+<meta property="og:description" content="BUAA_OO_2024_Unit4_Summary“等了好久终于等到今天，梦了好久终于把梦实现~” 正向建模与开发第四单元强调正向建模与开发，也即按照“设计程序架构-&gt;绘制UML图-&gt;编程实现”的顺序完成代码。 因此，在本单元第一次作业中，我首先通读指导书，在把握了任务需求后开始在草稿纸上着手进行程序架构。然后绘制了一个简易的UML类图，在类图中我只体现了初步计划要写的类和一些基础属">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2025-02-15T08:34:56.000Z">
+<meta property="article:modified_time" content="2025-02-15T08:45:49.462Z">
+<meta property="article:author" content="Forever">
+<meta property="article:tag" content="面向对象设计与构造">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/02/15/BUAA-OO-2024-Unit4-Summary/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'BUAA_OO_2024_Unit4_Summary',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-02-15 16:45:49'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="For_Better"><span class="site-name">For_Better</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">BUAA_OO_2024_Unit4_Summary</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-15T08:34:56.000Z" title="Created 2025-02-15 16:34:56">2025-02-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T08:45:49.462Z" title="Updated 2025-02-15 16:45:49">2025-02-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>6min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="BUAA_OO_2024_Unit4_Summary"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="BUAA-OO-2024-Unit4-Summary"><a href="#BUAA-OO-2024-Unit4-Summary" class="headerlink" title="BUAA_OO_2024_Unit4_Summary"></a>BUAA_OO_2024_Unit4_Summary</h1><p>“等了好久终于等到今天，梦了好久终于把梦实现~”</p>
+<h2 id="正向建模与开发"><a href="#正向建模与开发" class="headerlink" title="正向建模与开发"></a>正向建模与开发</h2><p>第四单元强调正向建模与开发，也即按照“<strong>设计程序架构-&gt;绘制UML图-&gt;编程实现</strong>”的顺序完成代码。</p>
+<p>因此，在本单元第一次作业中，我首先通读指导书，在把握了任务需求后开始在草稿纸上着手进行程序架构。然后绘制了一个简易的UML类图，在类图中我只体现了初步计划要写的类和一些基础属性，对于具体的方法则没有过多涉及。</p>
+<p>因为我始终认为，<strong>架构设计固然重要，但妄图通过一次思考就把程序规划的面面俱到显然不太可能。在有了初步架构设计后，下一步应该是着手编写代码，而不是在一些细节上死磕。</strong>毕竟，如果不去做的话，究竟哪里有问题，是很难通过空想思考出来的。</p>
+<p>于是我便按照绘制的简易UML类图完成代码，并在实现的过程中发现了在设计上的一些不足，返回修改架构设计。也就是说，<strong>架构设计和代码实现是相辅相成，相互补充的</strong></p>
+<p>随后第二三次作业，我也按照第一次作业的思路完成：首先梳理任务需求，随后在已经有的UML类图上进行扩展，接着按照设计编写代码实现，最后根据在编写代码中遇到的问题反过来修改UML图。</p>
+<h2 id="架构设计和UML模型"><a href="#架构设计和UML模型" class="headerlink" title="架构设计和UML模型"></a>架构设计和UML模型</h2><p>这里放出我最后一次作业的UML类图、状态图和顺序图。</p>
+<p>![](D:\IntelliJ IDEA 2023.2.1\projects_oo\Main.png)</p>
+<p>![](D:\IntelliJ IDEA 2023.2.1\projects_oo\StatechartDiagram1.png)</p>
+<p>![](D:\IntelliJ IDEA 2023.2.1\projects_oo\SequenceDiagram1.png)</p>
+<p>下面介绍我的架构设计：</p>
+<ul>
+<li>设置<code>Library</code>类进行指令的识别和分发</li>
+<li><code>AppointmentOffice</code>类作为预约处处理预约取书相关的操作，也负责预约书籍的送入送出。同时因为续借的操作和预约有关，我将续借操作耦合在此类中进行，避免过多不必要的参数传递</li>
+<li><code>CirculationDesk</code>类作为借还处中转借书过程中被<code>reject</code>的书籍，也负责图书漂流角中书籍的升级或者归还。</li>
+<li><code>QueryMachine</code>类作为自助查询机返回查询结果</li>
+<li><code>DriftCorner</code>类作为图书漂流角容纳被捐献的书</li>
+<li><code>Student</code>类用于管理学生的相关信息，包括学生id，其所拥有的书籍和信用分等</li>
+<li><code>Book</code>类用于管理一个书籍的相关信息，例如书籍id，其被送到预约处的时间，被借走的时间，借书周期等</li>
+</ul>
+<p>其中<code>Book</code>在最开始我是没有设计的，因为当时并没有考虑到书籍的信息管理。但是后来在编写代码的时候发现需要创建一个这样的类来管理书籍信息，于是返回修改补充了UML类图。</p>
+<p>在实际的代码实现中，我对以下几个要点深有体会：</p>
+<h3 id="在Book类的构造方法中狠狠体验了一把OverLoad重载。"><a href="#在Book类的构造方法中狠狠体验了一把OverLoad重载。" class="headerlink" title="在Book类的构造方法中狠狠体验了一把OverLoad重载。"></a>在<code>Book</code>类的构造方法中狠狠体验了一把<code>OverLoad</code>重载。</h3><p>其实从<code>Book</code>类的属性设置上就可以看出，在不同场景下，它会被用到的属性和方法是不一样的。实际上，<code>Book</code>类最后一共有三个构造方法，一个构造方法用于预约，管理预约书籍的学生id和送达日期；一个构造方法用于借阅，管理借阅书籍的学生id，借阅日期和周期；一个构造方法用于捐书时对书进行构造。</p>
+<p>于是体会到了面向对象的基本特性之一：<strong>多态</strong>——的好处。如果没有多态，我恐怕得设置多个类表示不同类型的书籍，代码的冗余量将会显著提升。</p>
+<h3 id="到底如何管理预约处的书籍才能满足预约（前两次作业）的要求？"><a href="#到底如何管理预约处的书籍才能满足预约（前两次作业）的要求？" class="headerlink" title="到底如何管理预约处的书籍才能满足预约（前两次作业）的要求？"></a>到底如何管理预约处的书籍才能满足预约（前两次作业）的要求？</h3><p>预约的场景有这样几个需要注意的点：（在前两次作业中）</p>
+<ul>
+<li>一个人可能对同一本书进行多次预约</li>
+<li>取书时要取最早为这个人送到的那本</li>
+<li>预约处要储存很多人预约的书</li>
+</ul>
+<p>其中，第一条决定着预约处相同id的书可能不止一本，也就是<strong>学生和书籍不是一对一</strong>的关系；第二条决定了管理预约处送达的书时<strong>需要体现先后顺序</strong>；第三条决定了需要辨别预约处的书籍分别是为谁送去的书。</p>
+<p>当然，<code>Book</code>类中其实已经储存了所有我们希望的信息，甚至于可以直接使用一个<code>ArrayList</code>眉毛胡子一把抓。</p>
+<p>不过，为了防止<code>tle</code>，在<code>ArrayList</code>的基础上，我还是新增了一个双层<code>HashMap</code>用于进行查询工作，<code>ArrayList</code>只在删除书籍的时候使用。</p>
+<h3 id="不会的方法不要随便乱用"><a href="#不会的方法不要随便乱用" class="headerlink" title="不会的方法不要随便乱用"></a>不会的方法不要随便乱用</h3><p>此条体现在第一次作业中我判断预约书籍是否过期。在百度上查询《LocalDate怎么求两个对象之间相隔的日期》，蹦出来很多结果都用了什么<code>Period</code>，遂复制粘贴。结果在评测机上出了大锅，经调试发现原来这个破代码只求了日的间隔而不算月，简单来说，1.1和2.2的相差时间它会算成1天。。。</p>
+<p>后来不偷懒认真查询了<code>LocalDate</code>的自带方法，使用<code>getDayOfYear()</code>顺利解决。</p>
+<h2 id="四个单元的冒险之旅"><a href="#四个单元的冒险之旅" class="headerlink" title="四个单元的冒险之旅"></a>四个单元的冒险之旅</h2><ul>
+<li><p>Unit1：架构设计</p>
+<p>在Unit1中经历了oo课程自己原创的最满意的程序架构：每一个类的设计都恰到好处。但扩展性的不足也让我在第2次作业经历了oo课程唯一的一次重构。</p>
+<p>测试思路上学会了构造特殊数据，比如括号和符号的嵌套，前导0的添加等。甚至借此在hw2刀了几个人。</p>
+</li>
+<li><p>Unit2：多线程噩梦</p>
+<p>自认为即使是现在也并没有完全掌握多线程。但较为难能可贵的一点是学会了自己静下心来一点一点debug，而不是一直等待他人的帮助，毕竟只有自己是最了解自己写的代码的。</p>
+<p>因为一些原因在本单元的第二次作业寄掉了，但也因此吸取了教训，更加认真地对待了接下来的每一次作业。</p>
+<p>测试思路上学会了构造边界数据，比如一直reset电梯等极端情况。</p>
+</li>
+<li><p>Unit3：我是算法低手，但喜欢JML</p>
+<p>JML单元的规格和实现相分离的思路给我很大的启发，同时也push我去学了之前一直掌握不算牢固的bfs寻找最短路径算法。</p>
+<p><del>可能因为不需要动脑子的原因，</del>JML是我oo课程中最喜欢的一个单元。在junit的测试中，我学会了根据方法规格设置测试数据和测试策略，给我后续的互测等等有很大的帮助。</p>
+</li>
+<li><p>Unit4：没有互测</p>
+<p>在本单元深深体会到了正向建模开发的魅力。<del>下次一定</del></p>
+<p>借助于正向开发的便利，我在第四单元的代码很多部分都是一遍完成，没有像之前的一些单元修修改改。同时整个代码的架构均为自己独立完成。<del>颇为自豪</del></p>
+<p>测试上主要使用了各位大神提供的评测机。</p>
+</li>
+</ul>
+<h2 id="课程收获"><a href="#课程收获" class="headerlink" title="课程收获"></a>课程收获</h2><ul>
+<li>自己静下心来认真debug的能力</li>
+<li>与同学交流，相互解决问题的能力</li>
+<li>书写技术性博客的能力</li>
+<li>面向对象编程的初步能力</li>
+<li>代码测试的基本能力</li>
+<li>识别书写JML规则的基本能力</li>
+<li>绘制UML图的基本能力</li>
+</ul>
+<h2 id="特别感谢"><a href="#特别感谢" class="headerlink" title="特别感谢"></a>特别感谢</h2><p>感谢各位回答我问题，帮我debug的助教和同学；</p>
+<p>感谢oo课程组让我体会到了写代码是一件酣畅淋漓的乐事；</p>
+<p>感谢看好我的老师和助教给予我信心；</p>
+<p>感谢一路陪我走来的我最亲爱的npy；</p>
+<p>希望下次oo课程能够再会~</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">Forever</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/02/15/BUAA-OO-2024-Unit4-Summary/">http://example.com/2025/02/15/BUAA-OO-2024-Unit4-Summary/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%84%E9%80%A0/">面向对象设计与构造</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2024/07/04/BUAA-OO-2024-Unit3-Summary/" title="BUAA_OO_2024_Unit3_Summary"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">BUAA_OO_2024_Unit3_Summary</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2024/05/13/BUAA_OO_2024_Unit1_summary/" title="BUAA_OO_2024_Unit1_Summary"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-13</div><div class="title">BUAA_OO_2024_Unit1_Summary</div></div></a></div><div><a href="/2024/05/13/BUAA_OO_2024_Unit2_Summary/" title="BUAA_OO_2024_Unit2_Summary"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-13</div><div class="title">BUAA_OO_2024_Unit2_Summary</div></div></a></div><div><a href="/2024/07/04/BUAA-OO-2024-Unit3-Summary/" title="BUAA_OO_2024_Unit3_Summary"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-04</div><div class="title">BUAA_OO_2024_Unit3_Summary</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Forever</div><div class="author-info__description">Blogs</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/AiDahanwen.github.io" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:zhanghanwen@buaa.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">It's a new soundtrack I can dance to this beat~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#BUAA-OO-2024-Unit4-Summary"><span class="toc-number">1.</span> <span class="toc-text">BUAA_OO_2024_Unit4_Summary</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%90%91%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%BC%80%E5%8F%91"><span class="toc-number">1.1.</span> <span class="toc-text">正向建模与开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%92%8CUML%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">架构设计和UML模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8Book%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E4%B8%AD%E7%8B%A0%E7%8B%A0%E4%BD%93%E9%AA%8C%E4%BA%86%E4%B8%80%E6%8A%8AOverLoad%E9%87%8D%E8%BD%BD%E3%80%82"><span class="toc-number">1.2.1.</span> <span class="toc-text">在Book类的构造方法中狠狠体验了一把OverLoad重载。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%B0%E5%BA%95%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E9%A2%84%E7%BA%A6%E5%A4%84%E7%9A%84%E4%B9%A6%E7%B1%8D%E6%89%8D%E8%83%BD%E6%BB%A1%E8%B6%B3%E9%A2%84%E7%BA%A6%EF%BC%88%E5%89%8D%E4%B8%A4%E6%AC%A1%E4%BD%9C%E4%B8%9A%EF%BC%89%E7%9A%84%E8%A6%81%E6%B1%82%EF%BC%9F"><span class="toc-number">1.2.2.</span> <span class="toc-text">到底如何管理预约处的书籍才能满足预约（前两次作业）的要求？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E4%BC%9A%E7%9A%84%E6%96%B9%E6%B3%95%E4%B8%8D%E8%A6%81%E9%9A%8F%E4%BE%BF%E4%B9%B1%E7%94%A8"><span class="toc-number">1.2.3.</span> <span class="toc-text">不会的方法不要随便乱用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E4%B8%AA%E5%8D%95%E5%85%83%E7%9A%84%E5%86%92%E9%99%A9%E4%B9%8B%E6%97%85"><span class="toc-number">1.3.</span> <span class="toc-text">四个单元的冒险之旅</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BE%E7%A8%8B%E6%94%B6%E8%8E%B7"><span class="toc-number">1.4.</span> <span class="toc-text">课程收获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E5%88%AB%E6%84%9F%E8%B0%A2"><span class="toc-number">1.5.</span> <span class="toc-text">特别感谢</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/BUAA-OO-2024-Unit4-Summary/" title="BUAA_OO_2024_Unit4_Summary">BUAA_OO_2024_Unit4_Summary</a><time datetime="2025-02-15T08:34:56.000Z" title="Created 2025-02-15 16:34:56">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/04/BUAA-OO-2024-Unit3-Summary/" title="BUAA_OO_2024_Unit3_Summary">BUAA_OO_2024_Unit3_Summary</a><time datetime="2024-07-04T09:29:30.000Z" title="Created 2024-07-04 17:29:30">2024-07-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/13/BUAA_OO_2024_Unit2_Summary/" title="BUAA_OO_2024_Unit2_Summary">BUAA_OO_2024_Unit2_Summary</a><time datetime="2024-05-13T12:01:01.000Z" title="Created 2024-05-13 20:01:01">2024-05-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/13/BUAA_OO_2024_Unit1_summary/" title="BUAA_OO_2024_Unit1_Summary">BUAA_OO_2024_Unit1_Summary</a><time datetime="2024-05-13T11:59:01.000Z" title="Created 2024-05-13 19:59:01">2024-05-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/02/P4/" title="P4设计文档">P4设计文档</a><time datetime="2023-11-02T08:07:50.000Z" title="Created 2023-11-02 16:07:50">2023-11-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2025 By Forever</div><div class="footer_custom_text">Wish you a happy day~</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
