@@ -1,0 +1,306 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>编译期末上机指北 | For_Better</title><meta name="author" content="Forever"><meta name="copyright" content="Forever"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="期末考试的思考其实仔细想想，mips和llvm_ir指令都不会有大的改动 所以新加文法主要做处理的还是lexer-parser-符号表和错误处理-如何生成llvm-ir 往年题给的经验是：注意审题，比如一个文法中的一个字母到底表示的是变量还是会给出的一个常数 下面做做往年题感受一下 2023年题1题目：for(int i &#x3D; 0; ...) 即for循环允许内部自定义变量  parser修改for">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译期末上机指北">
+<meta property="og:url" content="http://example.com/2025/02/15/%E7%BC%96%E8%AF%91%E6%9C%9F%E6%9C%AB%E4%B8%8A%E6%9C%BA%E6%8C%87%E5%8C%97/index.html">
+<meta property="og:site_name" content="For_Better">
+<meta property="og:description" content="期末考试的思考其实仔细想想，mips和llvm_ir指令都不会有大的改动 所以新加文法主要做处理的还是lexer-parser-符号表和错误处理-如何生成llvm-ir 往年题给的经验是：注意审题，比如一个文法中的一个字母到底表示的是变量还是会给出的一个常数 下面做做往年题感受一下 2023年题1题目：for(int i &#x3D; 0; ...) 即for循环允许内部自定义变量  parser修改for">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2025-02-15T08:57:14.000Z">
+<meta property="article:modified_time" content="2025-02-15T08:57:47.574Z">
+<meta property="article:author" content="Forever">
+<meta property="article:tag" content="编译技术">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/02/15/%E7%BC%96%E8%AF%91%E6%9C%9F%E6%9C%AB%E4%B8%8A%E6%9C%BA%E6%8C%87%E5%8C%97/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '编译期末上机指北',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-02-15 16:57:47'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="For_Better"><span class="site-name">For_Better</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">编译期末上机指北</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-15T08:57:14.000Z" title="Created 2025-02-15 16:57:14">2025-02-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T08:57:47.574Z" title="Updated 2025-02-15 16:57:47">2025-02-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>4min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="编译期末上机指北"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="期末考试的思考"><a href="#期末考试的思考" class="headerlink" title="期末考试的思考"></a>期末考试的思考</h2><p>其实仔细想想，mips和llvm_ir指令都不会有大的改动</p>
+<p>所以新加文法主要做处理的还是<strong>lexer-parser-符号表和错误处理-如何生成llvm-ir</strong></p>
+<p>往年题给的经验是：注意审题，比如一个文法中的一个字母到底表示的是变量还是会给出的一个常数</p>
+<p>下面做做往年题感受一下</p>
+<h3 id="2023年题1"><a href="#2023年题1" class="headerlink" title="2023年题1"></a>2023年题1</h3><p>题目：<code>for(int i = 0; ...)</code></p>
+<p>即for循环允许内部自定义变量</p>
+<ul>
+<li><p>parser修改forStmt的方法，注意此时还没有什么node之类的（不能使用<code>instance of</code>)，只能通过curToken的value去判断当前的情况（<code>curToken.geValue.equals()</code>)</p>
+<p>这个根据当前的token情况即可区分</p>
+</li>
+<li><p>然后就是进入forStmt节点修改checkError和genIR方法</p>
+<p>对于btype varDef，没有本层特别需要处理的错误，所以直接<code>super.checkError()</code>就行了</p>
+<p>注意在写genIR的时候脑子里时刻想着，这一层次关于genIR的任务是什么。</p>
+<p>比如这里，填符号表，alloca啥的，都是在varDef层里做的，所以在这一层主要起作用的就是那个btype，也就是指明了var的类型，进而调用varDef的<code>setIsChar</code>方法，然后<code>varDef.genIR()</code></p>
+</li>
+<li><p>此时改完之后如果不再仔细测试可能会出bug，比如如果外层再定义一个i？正确的行为是内层用的i肯定是内层的，跟外层的i没有关系。但是事实上此时因为对符号表没有多加修改，导致了定义域出现问题</p>
+</li>
+<li><p>以及注意这里checkError和genIR两个步骤分别addSymbol，因为是一次性的栈式符号表，在checkError之后符号表又被弹空了，genIR得再生成一次。</p>
+</li>
+<li><p>观察<code>SymbolStack</code>的方法：<code>enterBlock</code>会新建符号表，<code>exitBlock</code>会弹出符号表。</p>
+</li>
+<li><p>明确定义域，即此时定义的i会在整个for循环内部都有效，所以直接在最外层的<code>FForStmt</code>里，在enterLoop的后面直接enterBlock，然后配套exitBlock</p>
+<p>checkError和genIR两个方法都需要</p>
+<p>check里面使得外部也定义的有i的时候这个地方不会报重复定义的错</p>
+<p>而genIR这个地方则保证for循环内部牵扯到i的运算取到的一定是内部的i而不是外部定义的i</p>
+</li>
+</ul>
+<p><strong>本题给我们的提醒：当出现def时，注意符号表和定义域问题</strong></p>
+<h3 id="2023年题2"><a href="#2023年题2" class="headerlink" title="2023年题2"></a>2023年题2</h3><p>题目：在MulExp里新加了一个规则<code>a**b = (a+b)^b</code>，同时标注了b是无符号整数，也就是b是一个非变量的常数</p>
+<p>改动如下：</p>
+<ul>
+<li><p>lexer里处理**</p>
+</li>
+<li><p>TokenType新加这一类</p>
+</li>
+<li><p>parser里找到所有MULT出现过的地方添加新的类</p>
+</li>
+<li><p>MulExp里添加一种情况</p>
+<ul>
+<li><p>此时operand1和operand2已经genIR完成（这是前提，不然operand2是constant的判断无法完成）</p>
+</li>
+<li><p>之后就getvalue拿到b的值</p>
+</li>
+<li><p>先new一个add类的计算指令，算出a+b</p>
+</li>
+<li><p>这里有一个坑点，要保存一个instr1记录a+b，而不是一直只用一个instr</p>
+</li>
+<li><p>然后循环b-1次生成mul指令即可</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>本题给我们的提醒，认真审题</strong></p>
+<h3 id="2022年题1"><a href="#2022年题1" class="headerlink" title="2022年题1"></a>2022年题1</h3><p>题目：<code>int i = getint()</code>类似的输入，也就是增加了varDef的文法形式</p>
+<ul>
+<li><p>看解法说从词法分析改的，，感觉没必要？</p>
+</li>
+<li><p>这个地方需要新加一个类表示新的节点——仅包含getInt</p>
+</li>
+<li><p>首先加getInt类，继承自node</p>
+</li>
+<li><p>parser类里varDef添加对应的判断</p>
+</li>
+<li><p>添加parseGetInt</p>
+</li>
+<li><p>添加SynaxType</p>
+</li>
+<li><p>在createNode里面添加新的情况</p>
+</li>
+<li><p>Vardef的genIR方法里补充对应的情况，只需要让getInt节点genIR即可，相当于那个Initval，然后再加一个storeInstr存进去</p>
+</li>
+<li><p>getint里自行写checkError方法和genIR，这里其实没啥可写的，checkError的话本层都是tokenNode所以不会出错，只用写genIR方法，而genIR方法只用重新生成一个getintInstr即可。</p>
+</li>
+</ul>
+<p>进而想到另一个方法：不用新建节点全放在vardef里直接只在genIR里进行修改——但是这样会在createSymbol的时候造成误解，错误判断成数组类型，进而最后的生成是错的。可以另外加一个情况特判即可。</p>
+<p><strong>本题给我们的提醒：将新加的文法尽量往已有的文法上靠，比如这个和initval其实很类似，除此之外，如果新加的文法有varDef部分，注意createSymbol对一些情况的判断是否会影响到新加的文法</strong></p>
+<h3 id="2022年题2"><a href="#2022年题2" class="headerlink" title="2022年题2"></a>2022年题2</h3><p>题目：添加b bitand c 按位与操作</p>
+<ul>
+<li>首先在词法分析的Tokentype，Token，lexer里的resevedwords里进行改动</li>
+<li>parser里找到MULT进行添加</li>
+<li>multExp里的genIR添加对应的情况，联动caluinstr一起修改tomips</li>
+<li>execute里也不要忘了。</li>
+</ul>
+<p><strong>本题给我们的提醒，修改全面有序</strong></p>
+<h3 id="2024年押题"><a href="#2024年押题" class="headerlink" title="2024年押题"></a>2024年押题</h3><p>exp允许出现自增符号</p>
+<p>例如：a &#x3D; i++;</p>
+<p>或者    a &#x3D; ++i;</p>
+<p>跟unaryOp应该是一级的</p>
+<p>可以是++i，也可以是i++</p>
+<p><strong>这里如何做到自身的更新？</strong></p>
+<p>跟assign的逻辑是一样的，只要有ident就能用lval的genIRForAssign拿到地址，随时随地new Store即可更新！！</p>
+<p><strong>注意新加的符号归类的哪一符号后，parse里面对应位置也要补上新的符号，以及只要是lval就能拿到地址进行更新！</strong></p>
+<h1 id="考前提醒"><a href="#考前提醒" class="headerlink" title="考前提醒"></a>考前提醒</h1><ul>
+<li>下载代码生成作业2里的版本</li>
+<li>注意提前下载：mars和文法</li>
+<li>提前建好testfile和mips文件</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">Forever</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/02/15/%E7%BC%96%E8%AF%91%E6%9C%9F%E6%9C%AB%E4%B8%8A%E6%9C%BA%E6%8C%87%E5%8C%97/">http://example.com/2025/02/15/%E7%BC%96%E8%AF%91%E6%9C%9F%E6%9C%AB%E4%B8%8A%E6%9C%BA%E6%8C%87%E5%8C%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BC%96%E8%AF%91%E6%8A%80%E6%9C%AF/">编译技术</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2025/02/15/%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96%E6%96%87%E6%A1%A3/" title="编译优化文档"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">编译优化文档</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2025/02/15/%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96%E6%96%87%E6%A1%A3/" title="编译优化文档"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-15</div><div class="title">编译优化文档</div></div></a></div><div><a href="/2025/02/15/%E7%BC%96%E8%AF%91%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/" title="编译设计文档"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-15</div><div class="title">编译设计文档</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Forever</div><div class="author-info__description">Blogs</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/AiDahanwen.github.io" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:zhanghanwen@buaa.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">It's a new soundtrack I can dance to this beat~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%9F%E6%9C%AB%E8%80%83%E8%AF%95%E7%9A%84%E6%80%9D%E8%80%83"><span class="toc-number">1.</span> <span class="toc-text">期末考试的思考</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2023%E5%B9%B4%E9%A2%981"><span class="toc-number">1.1.</span> <span class="toc-text">2023年题1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2023%E5%B9%B4%E9%A2%982"><span class="toc-number">1.2.</span> <span class="toc-text">2023年题2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2022%E5%B9%B4%E9%A2%981"><span class="toc-number">1.3.</span> <span class="toc-text">2022年题1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2022%E5%B9%B4%E9%A2%982"><span class="toc-number">1.4.</span> <span class="toc-text">2022年题2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2024%E5%B9%B4%E6%8A%BC%E9%A2%98"><span class="toc-number">1.5.</span> <span class="toc-text">2024年押题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%80%83%E5%89%8D%E6%8F%90%E9%86%92"><span class="toc-number"></span> <span class="toc-text">考前提醒</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/%E7%BC%96%E8%AF%91%E6%9C%9F%E6%9C%AB%E4%B8%8A%E6%9C%BA%E6%8C%87%E5%8C%97/" title="编译期末上机指北">编译期末上机指北</a><time datetime="2025-02-15T08:57:14.000Z" title="Created 2025-02-15 16:57:14">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96%E6%96%87%E6%A1%A3/" title="编译优化文档">编译优化文档</a><time datetime="2025-02-15T08:56:16.000Z" title="Created 2025-02-15 16:56:16">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/%E7%BC%96%E8%AF%91%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/" title="编译设计文档">编译设计文档</a><time datetime="2025-02-15T08:54:34.000Z" title="Created 2025-02-15 16:54:34">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/BUAA-OO-2024-Unit4-Summary/" title="BUAA_OO_2024_Unit4_Summary">BUAA_OO_2024_Unit4_Summary</a><time datetime="2025-02-15T08:34:56.000Z" title="Created 2025-02-15 16:34:56">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/04/BUAA-OO-2024-Unit3-Summary/" title="BUAA_OO_2024_Unit3_Summary">BUAA_OO_2024_Unit3_Summary</a><time datetime="2024-07-04T09:29:30.000Z" title="Created 2024-07-04 17:29:30">2024-07-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2025 By Forever</div><div class="footer_custom_text">Wish you a happy day~</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>编译设计文档 | For_Better</title><meta name="author" content="Forever"><meta name="copyright" content="Forever"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="编译文档22373321-张瀚文 编译实验终于告一段落，下面对实验的各部分写一些自己的心得体会，希望能给在看的各位带来些许启发。 [TOC] 参考编译器介绍参考编译器为hyggge学长的编译器。  总体结构 采用Java语言编写的MIPS编译器。该编译器分为前端，中端，后端三部分。前端进行词法分析、语法分析、语义分析，最终将源程序生成为LLVM IR；中端进行中间代码优化，包括mem2reg，GV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译设计文档">
+<meta property="og:url" content="http://example.com/2025/02/15/%E7%BC%96%E8%AF%91%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/index.html">
+<meta property="og:site_name" content="For_Better">
+<meta property="og:description" content="编译文档22373321-张瀚文 编译实验终于告一段落，下面对实验的各部分写一些自己的心得体会，希望能给在看的各位带来些许启发。 [TOC] 参考编译器介绍参考编译器为hyggge学长的编译器。  总体结构 采用Java语言编写的MIPS编译器。该编译器分为前端，中端，后端三部分。前端进行词法分析、语法分析、语义分析，最终将源程序生成为LLVM IR；中端进行中间代码优化，包括mem2reg，GV">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2025-02-15T08:54:34.000Z">
+<meta property="article:modified_time" content="2025-02-15T08:56:00.668Z">
+<meta property="article:author" content="Forever">
+<meta property="article:tag" content="编译技术">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/02/15/%E7%BC%96%E8%AF%91%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '编译设计文档',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-02-15 16:56:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="For_Better"><span class="site-name">For_Better</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">编译设计文档</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-15T08:54:34.000Z" title="Created 2025-02-15 16:54:34">2025-02-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T08:56:00.668Z" title="Updated 2025-02-15 16:56:00">2025-02-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">7.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>25min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="编译设计文档"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="编译文档"><a href="#编译文档" class="headerlink" title="编译文档"></a>编译文档</h1><p>22373321-张瀚文</p>
+<p>编译实验终于告一段落，下面对实验的各部分写一些自己的心得体会，希望能给在看的各位带来些许启发。</p>
+<p>[TOC]</p>
+<h2 id="参考编译器介绍"><a href="#参考编译器介绍" class="headerlink" title="参考编译器介绍"></a>参考编译器介绍</h2><p>参考编译器为hyggge学长的编译器。</p>
+<ul>
+<li><p>总体结构</p>
+<p>采用Java语言编写的MIPS编译器。该编译器分为前端，中端，后端三部分。前端进行词法分析、语法分析、语义分析，最终将源程序生成为LLVM IR；中端进行中间代码优化，包括mem2reg，GVN，图着色寄存器分配，死代码删除，常量计算等；后端进行目标代码生成，即将LLVM IR进一步翻译成MIPS代码</p>
+</li>
+<li><p>接口设计</p>
+<ul>
+<li>Lexer类通过封装的token流向Parse类传递信息</li>
+<li>Parse类获取Lexer类解析出来的token流构建抽象语法树</li>
+<li>AST根节点开始调用每个节点的checkError方法，进行错误检查</li>
+<li>仍然从根节点开始生成中间代码，并将所有信息封装在Module中返回</li>
+<li>将module传入Optimizer类启动run方法，对module进行优化</li>
+<li>从module开始调用每个节点的toAssemply的方法，进行目标代码生成。</li>
+</ul>
+</li>
+<li><p>文件组织</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">├─src</span><br><span class="line">│  ├─back_end       	# 后端    </span><br><span class="line">│  │  └─mips  </span><br><span class="line">│  │      └─assembly</span><br><span class="line">│  ├─exception</span><br><span class="line">│  ├─front_end          # 前端</span><br><span class="line">│  │  ├─AST</span><br><span class="line">│  │  │  ├─Exp   </span><br><span class="line">│  │  │  ├─Func</span><br><span class="line">│  │  │  ├─Stmt</span><br><span class="line">│  │  │  └─Var</span><br><span class="line">│  │  ├─lexer</span><br><span class="line">│  │  ├─parser</span><br><span class="line">│  │  └─symbol			</span><br><span class="line">│  ├─llvm_ir			# LLVM IR定义</span><br><span class="line">│  │  ├─initial</span><br><span class="line">│  │  ├─instr</span><br><span class="line">│  │  └─type</span><br><span class="line">│  ├─mid_end            # 中端</span><br><span class="line">│  ├─utils              # 工具类</span><br><span class="line">│  └─Compliler.java     # 入口程序</span><br><span class="line">└─test                  # 测试文件夹</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="编译器总体介绍"><a href="#编译器总体介绍" class="headerlink" title="编译器总体介绍"></a>编译器总体介绍</h2><h3 id="总体结构"><a href="#总体结构" class="headerlink" title="总体结构"></a>总体结构</h3><p>使用Java作为编译器语言，LLVM_IR作为中间代码形式，目标语言为mips。整体分为前-中-后三端——</p>
+<ul>
+<li>前端：负责与源程序有关的部分，包括词法分析、语法分析和语义分析。并最终进行中间代码的生成。</li>
+<li>中端：负责与机器无关的中间代码优化部分，包括CFG流图构建，活跃变量分析和寄存器分配</li>
+<li>后端：负责目标代码生成</li>
+</ul>
+<p>其中前端和后端都采用了大量的自顶向下的思想和方法。整个编译器的最终输出是能够被正常执行的mips代码序列。</p>
+<h3 id="接口设计"><a href="#接口设计" class="headerlink" title="接口设计"></a>接口设计</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">TokenLexer</span> <span class="variable">lexer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TokenLexer</span>();</span><br><span class="line">lexer.paresToken(); <span class="comment">//此时将文件内容解析为Token</span></span><br><span class="line"><span class="comment">//语法分析</span></span><br><span class="line"><span class="type">Parser</span> <span class="variable">parser</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Parser</span>(lexer.getTokenList());</span><br><span class="line"><span class="type">CompUnit</span> <span class="variable">compUnit</span> <span class="operator">=</span> (CompUnit) parser.parseCompUnit(); <span class="comment">//此时将Token解析为AST</span></span><br><span class="line"><span class="comment">//进行所有错误类型的检查,包含符号表的构建</span></span><br><span class="line">compUnit.checkError();</span><br><span class="line"><span class="comment">//打印错误信息</span></span><br><span class="line">Printer.printError();</span><br><span class="line"><span class="comment">//如果没有错误,则进行后续的编译过程</span></span><br><span class="line"><span class="keyword">if</span> (Printer.noError()) &#123;</span><br><span class="line">    <span class="comment">//生成中间代码LLVM IR</span></span><br><span class="line">    LLVMManager.mode = LLVMManager.DEFAULT_MODE;</span><br><span class="line">    compUnit.genIR();</span><br><span class="line">    <span class="type">Module</span> <span class="variable">module</span> <span class="operator">=</span> LLVMManager.getInstance().getModule();</span><br><span class="line">    Printer.printOriginLLVM(<span class="keyword">module</span>); <span class="comment">//未优化的中间代码</span></span><br><span class="line">    <span class="comment">//优化部分</span></span><br><span class="line">    <span class="type">OptimizeManager</span> <span class="variable">optimizer</span> <span class="operator">=</span> OptimizeManager.getInstance();</span><br><span class="line">    optimizer.optimize(<span class="keyword">module</span>);</span><br><span class="line">    <span class="comment">//生成目标代码mips</span></span><br><span class="line">    <span class="keyword">module</span>.toMips();</span><br><span class="line">    <span class="type">AssemblyTable</span> <span class="variable">assemblyTable</span> <span class="operator">=</span> MipsManager.getInstance().getAssemblyTable();</span><br><span class="line">    Printer.printMips(assemblyTable);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据<code>Compiler.java</code>中的内容可以看到——</p>
+<ul>
+<li>词法分析器Lexer将输入的源程序分析为单词序列，通过<code>getTokenList()</code>返回给语法分析器<code>Parser</code>一个单词序列</li>
+<li>语法分析器<code>Parser</code>通过自顶向下的递归下降子程序法识别语法成分，构建抽象语法树，并返回了一个<code>compUnit</code>的根节点</li>
+<li>语义分析在语法分析的基础上从<code>compUnit</code>根节点开始自顶向下调用<code>checkError</code>方法，同步进行符号表的填充等。</li>
+<li>经过语法分析和语义分析检查无错误后，自顶向下依次调用<code>genIR</code>方法生成中间代码<code>LLVM_IR</code>，并返回顶层根节点<code>module</code></li>
+<li>module根节点送入优化部分进行寄存器分配的优化</li>
+<li>优化后的<code>module</code>根节点自顶向下调用<code>toMips</code>方法生成目标代码</li>
+</ul>
+<h3 id="文件组织"><a href="#文件组织" class="headerlink" title="文件组织"></a>文件组织</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">├─.idea</span><br><span class="line">├─frontend</span><br><span class="line">│  ├─AST</span><br><span class="line">│  │  ├─Exp</span><br><span class="line">│  │  ├─Func</span><br><span class="line">│  │  ├─Stmt</span><br><span class="line">│  │  └─Var</span><br><span class="line">│  ├─lexer</span><br><span class="line">│  ├─parser</span><br><span class="line">│  └─symbol</span><br><span class="line">├─llvm_ir</span><br><span class="line">│  ├─initial</span><br><span class="line">│  ├─instr</span><br><span class="line">│  └─type</span><br><span class="line">├─mips</span><br><span class="line">│  └─assembly</span><br><span class="line">├─optimize</span><br><span class="line">└─utils</span><br></pre></td></tr></table></figure>
+
+<h2 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>词法分析的目的是将输出的程序解析成一个个有意义的单词便于后续分析使用。要被解析的token主要有以下几类：</p>
+<ul>
+<li>字符串</li>
+<li>关键字</li>
+<li>变量名</li>
+<li>数字，单个字符</li>
+<li>各种符号</li>
+</ul>
+<p>使用Token类储存每个单词的信息，包括其所属的种类，使用字符串记录的value和行号。</p>
+<p>在文件每一行的读入中，要首先处理注释，然后根据每一类token的状态机对字符进行解析，并新建token储存识别到的单词，再将token存入tokenList。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (curPos &lt; nowLine.length()) &#123;</span><br><span class="line">    curStr = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">while</span> (isSpace()) &#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125; <span class="comment">//跳过空白字符</span></span><br><span class="line">    <span class="keyword">if</span> (isLetter() || curChar == <span class="string">&#x27;_&#x27;</span>) &#123;</span><br><span class="line">       <span class="comment">//...</span></span><br><span class="line">    &#125;<span class="comment">//解析标识符和保留字</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (isDigit()) &#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;<span class="comment">//是数字</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (curChar == <span class="string">&#x27;\&#x27;&#x27;</span>) &#123;</span><br><span class="line">        <span class="comment">//..</span></span><br><span class="line">    &#125; <span class="comment">//是字符常量</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (curChar == <span class="string">&#x27;\&quot;&#x27;</span>) &#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125; <span class="comment">//是字符串常量</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;<span class="comment">//解析符号</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="bug记录"><a href="#bug记录" class="headerlink" title="bug记录"></a>bug记录</h3><p>这部分的难度不大，但是有很多容易出错的地方，此处是bug记录：</p>
+<ul>
+<li>curPos越界导致的死循环</li>
+<li>误以为字符常量里面都只有一个字符，忽略了转义字符</li>
+<li>注释中&#x2F;**&#x2F;的多种位置没有考虑全面</li>
+<li>不要对文件进行预处理先去掉注释再去解析，会导致行号错误</li>
+<li>处理注释符号的时候注意注释符号是否位于字符串中</li>
+</ul>
+<h2 id="语法分析"><a href="#语法分析" class="headerlink" title="语法分析"></a>语法分析</h2><h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>语法分析的目的是根据语法规则进行分析并识别出各种语法成分，同时进行语法级别的错误检查，最终构建出语法树。</p>
+<p>但是在开始构建之前，由于使用的是递归下降的方法，所以要消除文法中的左递归。采用扩展的BNF范式对文法中的左递归进行改写，包括AddExp， MultExp， EqExp， LAndExp， LOrExp等。</p>
+<p>然后正式开始构建。首先创建一个基本类<code>Node</code>表示语法树中的节点，存储基本信息，接着为每一个语法成分都创建一个对应的语法树节点并继承于Node.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> ArrayList&lt;Node&gt; children;</span><br><span class="line">    <span class="keyword">protected</span> SyntaxType type;</span><br><span class="line">    <span class="keyword">protected</span> Token token;</span><br></pre></td></tr></table></figure>
+
+<p>其中children记录其子节点，token为tokenNode准备（即文法中的终结符），type记录其语法成分的种类。</p>
+<p>准备工作完成，重点在于递归下降分析，根据其原理，我们只需要为每一个语法成分都根据其语法规则建立一个parse函数即可。同时注意每个语法成分分析时，要求进入该parse函数时即为该语法成分的第一个token，而离开时为该语法成分的下一个token。</p>
+<p>在判断到底要进入哪个语法成分进行分析的时候，采用FIRST集的方法，即向前看一个符号属于哪个语法成分的FISRST集，如果仍有重叠，则采用回溯的方法，先按照其中一个语法成分进行分析，若不成功则返回分析另外的语法成分。</p>
+<p>比如文法中的Lval和Exp两个语法成分，FIRST集有重叠，可以先记录下当前的指针位置，按照LVal进行解析，如果解析后token为&#x3D;，则说明是Lval，否则说明是Exp。</p>
+<p>其基本结构如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> Node <span class="title function_">parseCompUnit</span><span class="params">()</span> &#123;</span><br><span class="line">    ArrayList&lt;Node&gt; children = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="type">Node</span> <span class="variable">node</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (curToken == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/* root node*/</span></span><br><span class="line">        <span class="keyword">if</span> (tokens.preRead(<span class="number">1</span>).getType() == TokenType.MAINTK) &#123;</span><br><span class="line">            node = parseMainFunDef();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tokens.preRead(<span class="number">2</span>).getType() == TokenType.LPARENT) &#123;</span><br><span class="line">            node = parseFuncDef();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (curToken.getType() == TokenType.CONSTTK) &#123;</span><br><span class="line">            node = parseConstDecl();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (curToken.getType() == TokenType.INTTK || curToken.getType() == TokenType.CHARTK) &#123;</span><br><span class="line">            node = parseVarDecl();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        children.add(node);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> NodeCreate.createNode(children, SyntaxType.CompUnit);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">parseMainFunDef</span><span class="params">()</span>;<span class="comment">//</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">parseFuncDef</span><span class="params">()</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">parseConstDecl</span><span class="params">()</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">parseVarDecl</span><span class="params">()</span>;</span><br><span class="line">....<span class="comment">//后续省略</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="bug记录-1"><a href="#bug记录-1" class="headerlink" title="bug记录"></a>bug记录</h3><ol>
+<li>词法分析中的a类错误没有设置成token（会死循环）</li>
+<li>RelExp-&gt;AddExp | RelExp … AddExp这种，在写的时候忽略了单个的AddExp也需要被归为RelExp（所有诸如此类的文法都是这个错误</li>
+<li>parseStmt分类的时候在block的地方返回的是block node 而不是stmt node</li>
+<li>报错行号注意：curPos减2</li>
+</ol>
+<h2 id="语义分析"><a href="#语义分析" class="headerlink" title="语义分析"></a>语义分析</h2><p>语义分析过程中主要进行的是错误处理和符号表管理。</p>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>错误分为两类：语法错误和语义错误。</p>
+<ul>
+<li><p>语法错误主要是括号不匹配和分号缺少的问题，在语法分析的时候就可以直接进行处理</p>
+</li>
+<li><p>而对于语义错误，考虑到语法分析的时候我们已经构造出了抽象语法树，每个节点表示一个语法成分，因此可以直接在Node节点里增加<code>chekckError</code>方法，然后令每一个节点根据自己可能会出现的语义错误重写这个方法。而每个父节点又调用子节点的checkError方法，由此自顶向下，层层递进进行语义错误分析。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">checkError</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (children == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (Node child : children) &#123;</span><br><span class="line">            child.checkError();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="符号表管理"><a href="#符号表管理" class="headerlink" title="符号表管理"></a>符号表管理</h3><p>符号表的填写和错误处理息息相关。本编译器采用的是栈式符号表设计。</p>
+<ul>
+<li><p>首先创建Symbol类作为符号的基类，储存符号的基本信息。据此可以派生出VarSymbol，ConstVarSymbol，FunctionSymbol等</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public Symbol(String name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而VarSymbol还会储存是否是数组，变量类型等数据，FunctionSymbol中会储存该函数的返回类型，形参类型，个数等等特性信息。</p>
+</li>
+<li><p>其次建立SymbolTable，作为符号表的实现，每个symboltable填写的都是当前作用域所识别到的所有符号。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SymbolTable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> HashSet&lt;Symbol&gt; symbolTable;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> id;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后，考虑到符号表的操作会被多次使用，且操作复杂，建立一个专门进行各种符号表操作的单例模式类SymbolStack，后续中间代码生成，目标代码生成也均采用这一模式。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SymbolStack</span> &#123; <span class="comment">//单例模式</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">SymbolStack</span> <span class="variable">symbolStack</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SymbolStack</span>();</span><br><span class="line">    <span class="keyword">private</span> Stack&lt;SymbolTable&gt; stack;</span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;String, Stack&lt;SymbolTable&gt;&gt; symbolNameMap;</span><br><span class="line">    <span class="keyword">private</span> FuncSymbol lastFunc;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> loopCnt;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> scopeCnt;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> curScope;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> isInFunc;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> isGloabl;</span><br></pre></td></tr></table></figure>
+
+<p>其中较为特点的是SymbolNameMap，该HashMap记录了所有定义过key变量的符号表，因此，在查询符号表时，当前栈顶的符号表就是当前索要查询的符号表，而如果栈为空，则说明未定义。</p>
+</li>
+</ul>
+<p>此外，关于Exp valueType的判断</p>
+<ul>
+<li>因为Exp牵扯到很多计算，所以，仅仅Exp的Addexp的children的size为1的时候，Exp的value才有可能是char &#x2F; int array &#x2F;char array</li>
+<li>剩下的所有都可以归到int里面</li>
+</ul>
+<h3 id="bug记录-2"><a href="#bug记录-2" class="headerlink" title="bug记录"></a>bug记录</h3><ul>
+<li><p>判断是哪一个候选式的时候不能仅凭size判断</p>
+</li>
+<li><p>注意抽象语法树的结构！！比如Block里面是BlockItem然后才是stmt，在判断return的时候容易出错，checkerror的时候注意</p>
+</li>
+<li><p>对于调用函数实参的类型判断，不能放在最开始新建node的地方，因为那个时候符号表还没建立好！！</p>
+</li>
+<li><p>语法错误要不要补齐？?暂时感觉不用补齐，错误代码无需生成中间代码</p>
+</li>
+<li><p>注意void函数只写一个return也是可以的，而单独的return语句也算是returnStmt，所以得根据他的children的情况在判断</p>
+</li>
+<li><p>f类错误的判断不要放在具体的函数里面，要放在return语句中，在符号表里记录最近一个所在的函数，判断该函数的返回类型即可</p>
+</li>
+<li><p>在unaryExp的地方少了super.checkerror</p>
+</li>
+</ul>
+<h2 id="中间代码生成"><a href="#中间代码生成" class="headerlink" title="中间代码生成"></a>中间代码生成</h2><h3 id="LLVM-IR的一些基本知识"><a href="#LLVM-IR的一些基本知识" class="headerlink" title="LLVM_IR的一些基本知识"></a>LLVM_IR的一些基本知识</h3><p>标识符分为两种类型：全局和局部</p>
+<ul>
+<li><p>全局：包含函数名和全局变量，加<code>@</code>作为前缀</p>
+</li>
+<li><p>局部：加<code>%</code>作为前缀</p>
+</li>
+<li><p>一个函数内的所有数字命名的虚拟寄存器必须严格从0开始递增或者使用非数字的字符串命名，但是不能混用</p>
+</li>
+<li><p><img src="C:\Users\28952\AppData\Roaming\Typora\typora-user-images\image-20241120204051300.png" alt="image-20241120204051300"></p>
+</li>
+<li><p>当声明一个局部变量时：</p>
+<ul>
+<li>申请空间：alloca</li>
+<li>存入数字：store</li>
+</ul>
+<p>当使用变量时：</p>
+<ul>
+<li>申请空间：alloca</li>
+<li>存入该数字：store</li>
+<li>拿到数字：load</li>
+<li>此为未优化版本，即无论是否load过都会重新load一遍</li>
+</ul>
+<p>当声明全局变量时，直接使用：<code>@a = dso_local global i32 1</code>，全局变量实际上对应的是一个地址，所以需要alloca和load操作才能在声明后使用</p>
+<p>如果没有变量而直接是常数，可以直接使用数字而不用再alloca load等操作</p>
+</li>
+<li><p>关于GEP的用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;result&gt; = getelementptr (&lt;ty&gt;, &lt;ty&gt;* &lt;ptrval&gt;&#123;, [inrange] &lt;ty&gt; &lt;idx&gt;&#125;*)</span><br></pre></td></tr></table></figure>
+
+<p><code>ptrval</code>指的是指针基地址</p>
+<p><code>&lt;ty&gt;&lt;index&gt;</code>表示一组索引的类型和值</p>
+<p>index索引的类型为i32</p>
+<p>对于数组<code>a[5]</code>，取<code>a[3]</code>的地址：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">%1 = getelementptr [5 x i32], [5 x i32]* @a, i32 0, i32 3</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>全局数组定义：所有量计算到特定的值，</p>
+<p>全局变量，全局数组，计算到特定的值</p>
+<p>全局变量中的常量表达式，在生成的LLVM-IR中需要算出具体的值</p>
+</li>
+</ul>
+<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><ul>
+<li><p>根据参考的编译器，构建LLVM相关的类：</p>
+<p>其中较为关键的类有：</p>
+<ul>
+<li><p>Value，LLVM_IR的基类，其中useList是为了后续优化使用</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">Value</span><span class="params">(LLVMType type, String name)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.type = type;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.useList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Module，模块，是整个LLVM_IR的最顶层，记录声明列表，字符串，全局变量，和函数.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Module</span> <span class="keyword">extends</span> <span class="title class_">Value</span> &#123;</span><br><span class="line">    <span class="comment">//一些基本的属性</span></span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;String&gt; declarations;</span><br><span class="line">    <span class="keyword">private</span> LinkedList&lt;StringLiteral&gt; stringLiterals;</span><br><span class="line">    <span class="keyword">private</span> LinkedList&lt;GlobalVar&gt; globalVariables;</span><br><span class="line">    <span class="keyword">private</span> LinkedList&lt;Function&gt; functions;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Function,函数，记录函数信息</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Function</span> <span class="keyword">extends</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="comment">//存储函数基本信息：</span></span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Param&gt; params; <span class="comment">//函数参数列表</span></span><br><span class="line">    <span class="keyword">private</span> LLVMType returnType; <span class="comment">//函数返回类型</span></span><br><span class="line">    <span class="keyword">private</span> LinkedList&lt;BasicBlock&gt; blocks; <span class="comment">// 包含的基本块</span></span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;Value, Register&gt; valueMap;</span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;BasicBlock, ArrayList&lt;BasicBlock&gt;&gt; foreMap;</span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;BasicBlock, ArrayList&lt;BasicBlock&gt;&gt; subMap;</span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;BasicBlock, BasicBlock&gt; domiParent;</span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;BasicBlock, ArrayList&lt;BasicBlock&gt;&gt; domiChildren;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>BasicBlock，基本块，记录指令列表，所属函数等信息</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BasicBlock</span> <span class="keyword">extends</span> <span class="title class_">Value</span> &#123;</span><br><span class="line">    <span class="comment">//基本属性</span></span><br><span class="line">    <span class="keyword">private</span> LinkedList&lt;Instr&gt; instrList;</span><br><span class="line">    <span class="keyword">private</span> Function parentFunction; <span class="comment">//所属函数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> removed; <span class="comment">//是否已被删除</span></span><br><span class="line">    <span class="keyword">private</span> HashSet&lt;Value&gt; use;</span><br><span class="line">    <span class="keyword">private</span> HashSet&lt;Value&gt; def;</span><br><span class="line">    <span class="keyword">private</span> HashSet&lt;Value&gt; in;</span><br><span class="line">    <span class="keyword">private</span> HashSet&lt;Value&gt; out;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;BasicBlock&gt; foreBlocks;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;BasicBlock&gt; subBlocks;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;BasicBlock&gt; domBlocks;</span><br><span class="line">    <span class="keyword">private</span> BasicBlock parentBlock;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;BasicBlock&gt; childBlocks;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;BasicBlock&gt; DFBlocks;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Instr，指令，是各种LLVM指令的基类。而又为每个指令建立了一个类，可见InstrType</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">Instr</span><span class="params">(LLVMType type, String name, InstrType instrType)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(type, name);</span><br><span class="line">    <span class="built_in">this</span>.instrType = instrType;</span><br><span class="line">    <span class="built_in">this</span>.parent = <span class="literal">null</span>;</span><br><span class="line">    LLVMManager.getInstance().addInstr(<span class="built_in">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">InstrType</span> &#123;</span><br><span class="line">    CALC,</span><br><span class="line">    ALLOCA,</span><br><span class="line">    BRANCH,</span><br><span class="line">    CALL,</span><br><span class="line">    JUMP,</span><br><span class="line">    GEP,</span><br><span class="line">    LOAD,</span><br><span class="line">    STORE,</span><br><span class="line">    RETURN,</span><br><span class="line">    IO,</span><br><span class="line">    MOVE,</span><br><span class="line">    ICMP,</span><br><span class="line">    ZEXT,</span><br><span class="line">    TRUNC,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>仿照符号表管理中的做法，设置单例模式类用于LLVM_IR生成时的相关操作。具体含义见注释。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LLVMManager</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">LLVMManager</span> <span class="variable">irBuilder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">LLVMManager</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//变量命名部分</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">LOCAL_VAR_PREFIX</span> <span class="operator">=</span> <span class="string">&quot;%local_var_&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">GLOBAL_VAR_PREFIX</span> <span class="operator">=</span> <span class="string">&quot;@global_var_&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">BLOCK_NAME_PREFIX</span> <span class="operator">=</span> <span class="string">&quot;block_&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">STRING_LITERAL_PREFIX</span> <span class="operator">=</span> <span class="string">&quot;@str_&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">FUNCTION_NAME_PREFIX</span> <span class="operator">=</span> <span class="string">&quot;@func_&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">PARAM_NAME_PREFIX</span> <span class="operator">=</span> <span class="string">&quot;%param_&quot;</span>;</span><br><span class="line">    <span class="comment">//计数全局变量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> globalVarIndex;</span><br><span class="line">    <span class="comment">//计数基本块</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> blockIndex;</span><br><span class="line">    <span class="comment">//计数字符串常量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> stringIndex;</span><br><span class="line">    <span class="comment">//计数param</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> paramIndex;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//存储每个函数由多少个局部变量</span></span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;Function, Integer&gt; indexMap;</span><br><span class="line">    <span class="comment">//存储循环部分，break和continue需要用到</span></span><br><span class="line">    <span class="keyword">private</span> Stack&lt;Loop&gt; loopStack;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//存储当前识别到哪个函数</span></span><br><span class="line">    <span class="keyword">private</span> Function curFunc;</span><br><span class="line">    <span class="keyword">private</span> Module curModule;</span><br><span class="line">    <span class="keyword">private</span> BasicBlock curBasicBlock;</span><br></pre></td></tr></table></figure>
+
+<p>其中变量的命名来源于LLVM_IR对命名的要求。在LLVM_IR中，每一格value都有名字，且要求函数名不重复、同一函数中的基本块名不重复、同一基本块中的指令名不重复。</p>
+<p>因此采用固定的前缀区分变量类别，如%local_var_是本地局部变量，@global_var_是全局变量，block_是基本块等，在加上计数变量来保证名字不重复，如当前出现的第二个变量可以命名为%local_var_1</p>
+<p>每当需要声明一个value的时候，就调用该类对应的方法生成名字。</p>
+</li>
+<li><p>对于中间代码生成，采用类似错误处理的方式，在Node类新增<code>genIR</code>方法，每个语法节点覆写这个方法，自顶向下递归调用，最终生成LLVM_IR中间代码。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> Value <span class="title function_">genIR</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(children == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>; <span class="comment">//TokenNode</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span>(Node child : children)&#123;</span><br><span class="line">            child.genIR();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="如何生成中间代码"><a href="#如何生成中间代码" class="headerlink" title="如何生成中间代码"></a>如何生成中间代码</h3><p>对于每种语法成分到底如何生成中间代码，实验教程中有比较详细的教学。对于我本人来说，我认为最重要的是理解原来的语法成分到底要做什么，要实现这个目的需要使用LLVM_IR得什么指令</p>
+<p>如for循环生成llvm_ir代码:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> Value <span class="title function_">genIR</span><span class="params">()</span> &#123;</span><br><span class="line">    SymbolStack.getInstance().enterLoop();</span><br><span class="line">    <span class="type">BasicBlock</span> <span class="variable">cond</span> <span class="operator">=</span> <span class="literal">null</span>, body = <span class="literal">null</span>, following = <span class="literal">null</span>, for2 = <span class="literal">null</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">hasCond</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">hasFor1</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">hasFor2</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> children.size();</span><br><span class="line">    <span class="comment">//body</span></span><br><span class="line">    body = <span class="keyword">new</span> <span class="title class_">BasicBlock</span>(LLVMManager.getInstance().genBlockName());</span><br><span class="line">    <span class="comment">//following</span></span><br><span class="line">    following = <span class="keyword">new</span> <span class="title class_">BasicBlock</span>(LLVMManager.getInstance().genBlockName());</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">2</span>; i &lt; size - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (children.get(i) <span class="keyword">instanceof</span> ForStmt) &#123;</span><br><span class="line">            <span class="type">TokenNode</span> <span class="variable">token</span> <span class="operator">=</span> (TokenNode) children.get(i + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> (token.getToken().getValue().equals(<span class="string">&quot;;&quot;</span>)) &#123;</span><br><span class="line">                hasFor1 = i;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                hasFor2 = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (children.get(i) <span class="keyword">instanceof</span> Cond) &#123;</span><br><span class="line">            hasCond = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (hasFor1 != -<span class="number">1</span>) &#123;</span><br><span class="line">        children.get(hasFor1).genIR();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (hasCond != -<span class="number">1</span>) &#123;</span><br><span class="line">        cond = <span class="keyword">new</span> <span class="title class_">BasicBlock</span>(LLVMManager.getInstance().genBlockName());</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">BrJumpInstr</span>(<span class="string">&quot;&quot;</span>, cond);</span><br><span class="line">        LLVMManager.getInstance().setCurBlock(cond);</span><br><span class="line">        ((Cond) children.get(hasCond)).genIRForCond(body, following);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">BrJumpInstr</span>(<span class="string">&quot;&quot;</span>, body);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (hasFor2 != -<span class="number">1</span>) &#123;</span><br><span class="line">        for2 = <span class="keyword">new</span> <span class="title class_">BasicBlock</span>(LLVMManager.getInstance().genBlockName());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//Loop进栈</span></span><br><span class="line">    <span class="keyword">if</span> (hasFor2 != -<span class="number">1</span>) &#123;</span><br><span class="line">        LLVMManager.getInstance().pushLoop(<span class="keyword">new</span> <span class="title class_">Loop</span>(for2, following, body));</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (hasCond != -<span class="number">1</span>) &#123;</span><br><span class="line">        LLVMManager.getInstance().pushLoop(<span class="keyword">new</span> <span class="title class_">Loop</span>(cond, following, body));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        LLVMManager.getInstance().pushLoop(<span class="keyword">new</span> <span class="title class_">Loop</span>(body, following, body));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//解析body</span></span><br><span class="line">    LLVMManager.getInstance().setCurBlock(body);</span><br><span class="line">    children.get(children.size() - <span class="number">1</span>).genIR();</span><br><span class="line">    <span class="keyword">if</span> (hasFor2 != -<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">BrJumpInstr</span>(<span class="string">&quot;&quot;</span>, for2);</span><br><span class="line">        LLVMManager.getInstance().setCurBlock(for2);</span><br><span class="line">        children.get(hasFor2).genIR();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (hasCond != -<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">BrJumpInstr</span>(<span class="string">&quot;&quot;</span>, cond);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">BrJumpInstr</span>(<span class="string">&quot;&quot;</span>, body);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//loop出栈</span></span><br><span class="line">    LLVMManager.getInstance().popLoop();</span><br><span class="line">    LLVMManager.getInstance().setCurBlock(following);</span><br><span class="line">    SymbolStack.getInstance().exitLoop();</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>表面看起来很繁杂，但实际上理解了下一部分for循环的流程图，整个过程就会变得很顺理成章。</p>
+<h3 id="bug记录-3"><a href="#bug记录-3" class="headerlink" title="bug记录"></a>bug记录</h3><ul>
+<li><p><strong>注意getchar的返回类型是i32，putch的函数参数类型也是i32</strong></p>
+</li>
+<li><p>LOR,LAND,EQ,REL的位数都是1位，注意类型的转换</p>
+</li>
+<li><p>短路求值：当 <strong>LOrExp 值为 1</strong> 或者 <strong>LAndExp 值为 0</strong>的时候就已经不需要再计算下一个条件了</p>
+</li>
+<li><p>具体来说，计算的时候把条件分成几块，使用br语句跳转</p>
+</li>
+<li><p>for循环部分：捋明白那个状态转换图，分好块，写好br语句</p>
+</li>
+</ul>
+<img src="C:\Users\28952\AppData\Roaming\Typora\typora-user-images\image-20241121000718479.png" alt="image-20241121000718479" style="zoom: 30%;" />
+
+<ul>
+<li><p>分清每个值到底是pointer还是正常的值</p>
+</li>
+<li><p>注意检查ret指令，bb的最后一句一定是ret或者br语句</p>
+</li>
+<li><p>初始值的存储！！！vardef里面</p>
+</li>
+</ul>
+<h2 id="中端优化"><a href="#中端优化" class="headerlink" title="中端优化"></a>中端优化</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>寄存器分配属于中端优化。在获得中间代码后，根据中间代码分析计算变量之间的冲突关系，线性地进行寄存器分配。计算寄存器和值的对应关系信息传给后端，进而后端生成代码时就会用到所分配的寄存器。我没有使用最正规的图着色法分析，一来时间紧张只能选择trade-off，二来正如理论课中所说，一些基本的优化就能带来非常明显的效果，越往后不仅代价越大，且效果较为细微。</p>
+<p>个人认为优化的一个核心就是：如何根据自己的代码架构，将理论的算法转化为代码，且达到预期效果。因为理论的算法理解起来是不困难的，难的是使用。下面的记录也会包含这一点。</p>
+<h4 id="CFG"><a href="#CFG" class="headerlink" title="CFG"></a>CFG</h4><p>CFG也就是理论中所学的流图。在CFG阶段需要计算出所有基本块的前驱后继关系，便于第二阶段的活跃变量分析。除此之外还要计算出支配关系，便于寄存器分配决策时使用。</p>
+<ul>
+<li><p>前驱后继关系</p>
+<p>我使用的中间代码是LLVM_IR形式，在中间代码生成时已经显式地做好了基本块的划分。保证了每个基本块如果有后继关系，则基本块的最后一条有效指令必定是跳转指令。</p>
+<p>因此，需要做的工作就是遍历每一个函数中的每一个基本块，找到其产生跳转的指令，从指令中拿到前驱块和后继块的信息，储存起来，待扫描完毕后，将信息封装在基本块中，便于后续取用。</p>
+<p>具体框架如下图所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(Funciton f : functions)&#123;</span><br><span class="line">	<span class="keyword">for</span>(Basic block : f.getBlocks())&#123;</span><br><span class="line">		<span class="comment">//...找到前驱后继关系</span></span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">for</span>(Basic block : f.getBlocks())&#123;</span><br><span class="line">        block.set...<span class="comment">//存储前驱后继关系</span></span><br><span class="line">    &#125;</span><br><span class="line">    f.set..<span class="comment">//函数存储所有基本块的前驱后继关系</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>支配关系</p>
+<p>根据优化教程，这里使用迭代计算，根据某基本块的dom是某基本块所有前驱的dom的交集加上自己本身的策略进行更新，直到基本块的dom集合不再发生变化。</p>
+<p>注意最后要把计算出的支配关系封存在基本块中，包括支配和被支配关系。</p>
+</li>
+</ul>
+<h4 id="活跃变量分析"><a href="#活跃变量分析" class="headerlink" title="活跃变量分析"></a>活跃变量分析</h4><p>根据理论部分知识，我们知道：</p>
+<p><img src="C:\Users\28952\AppData\Roaming\Typora\typora-user-images\image-20241219195924233.png" alt="image-20241219195924233"></p>
+<p>因此，首先计算出每个基本块的def&#x2F;use集合，再倒序计算in和out集合，直到每个基本块的in和out集合不产生变化。</p>
+<ul>
+<li><p>计算def&#x2F;use</p>
+<p>如何计算def&#x2F;use？手动计算是很容易的，使用点在定义点之前就是use，反之就是def。在转化为代码的过程中也可以借鉴这个思路。</p>
+<p>首先建立一个空的def集合和use集合，接着扫描基本块中的每条指令，首先遍历这个指令的operand，形象的说，对应这个instr使用的变量。若此时def集合中没有这个operand，则说明是先使用，加在use集合里。这样扫描一遍一个指令后，如果instr本身没有在use里，且是有左值的instr，即instr是一个可以定义变量的instr，则将其加入def集中。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">def = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">use = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (Instr instr : instrList) &#123;</span><br><span class="line">    <span class="comment">//先使用后定义</span></span><br><span class="line">    <span class="keyword">for</span> (Value value : instr.operands) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="comment">/**/)) &#123;</span></span><br><span class="line"><span class="comment">          use.add(value);</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    //先定义后使用</span></span><br><span class="line"><span class="comment">    if (/**/</span>) &#123;</span><br><span class="line">        def.add(instr);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>计算in&#x2F;out</p>
+<p>获得def&#x2F;use后就可以计算in&#x2F;out集合。此时我们可以直接使用上述ppt里的公式。注意倒叙计算以及判断in&#x2F;out是否变化即可。java类的hashset有类似的集合运算，选取数据结构的时候可以考虑。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (!notChange) &#123; </span><br><span class="line">    notChange = <span class="literal">true</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> blocks.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> size - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="type">BasicBlock</span> <span class="variable">b</span> <span class="operator">=</span> blocks.get(i);</span><br><span class="line">        HashSet&lt;Value&gt; outOfb = <span class="comment">//...;</span></span><br><span class="line">        blockOutMap.put(b, outOfb);</span><br><span class="line">        HashSet&lt;Value&gt; defOfb = b.getDef();</span><br><span class="line">        HashSet&lt;Value&gt; useOfb = b.getUse();</span><br><span class="line">        HashSet&lt;Value&gt; newIn = <span class="comment">//...</span></span><br><span class="line">        HashSet&lt;Value&gt; prevIn = blockInMap.get(b);</span><br><span class="line">        <span class="keyword">if</span> (!prevIn.equals(newIn)) &#123;</span><br><span class="line">            blockInMap.put(b, newIn);</span><br><span class="line">            notChange = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="分配"><a href="#分配" class="headerlink" title="分配"></a>分配</h4><p>以基本块为单位进行寄存器分配。选取<code>$t0-$t9</code>寄存器作为寄存器池。</p>
+<p>首先遍历所有指令，计算基本块中的变量在块中的最后一次出现的位置。</p>
+<p>其次再次遍历，当一个指令的operand在基本块最后一次使用，且基本块的out集不包含这个operand的时候，暂时释放这个变量的寄存器。否则，如果这个指令属于有左值的，也就是能定义变量的instr，则为其分配寄存器。分配时检查$t0-t9有无空闲寄存器，若有则直接分配，否则默认分配<code>$t0</code>寄存器。</p>
+<p>此轮遍历结束后，遍历其直接支配的基本块。为了最大程度使用寄存器，可以先记录寄存器和值的映射关系，然后将其释放，以免影响后续基本块中寄存器的分配。</p>
+<p>最后，我们将后继不再使用，且不在当前基本块定义的变量的映射关系恢复。</p>
+<p>这样，我们就得到了一个基本块的寄存器和值的映射关系，当一个函数所有基本块都分配完后，封存该信息，用于后端代码生成。</p>
+<h3 id="bug记录-4"><a href="#bug记录-4" class="headerlink" title="bug记录"></a>bug记录</h3><ul>
+<li><p>CFG部分</p>
+<p>很隐蔽的一个bug。</p>
+<p>该bug的外在表现是：代码中一个不应该释放的寄存器在没到最后使用的时候被释放掉了。进而导致后续取这个寄存器里面的值的时候取出的不是原来的地址。因此总是出现address out of range的bug。</p>
+<p>初始时认为是寄存器分配的问题，但实际上经过最后助教的帮助和自己的调试，发现问题出在<strong>流图</strong>上。</p>
+<p>流图是优化必不可少的一步，其中很基本的一个是计算基本块的前驱后继关系，以备后续使用。</p>
+<p>根据教程，这一步其实是很好计算的，只需要找到每个基本块的跳转指令，根据跳转指令的目标块记录关系就行——问题就出在这里。</p>
+<p>我的代码是没做死代码删除的，所以在一些情况下，我的llvm里面会出现这样的情况：</p>
+<figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">block_<span class="number">0</span>:</span><br><span class="line"><span class="keyword">br</span> label <span class="variable">%block_1</span></span><br><span class="line"><span class="keyword">br</span> label <span class="variable">%block_0</span></span><br></pre></td></tr></table></figure>
+
+<p>而在计算流图的时候，我找的是每个基本块的最后一条指令是不是跳转指令。</p>
+<p>因此，当出现如上情况的时候，我记录的<code>block_0</code>的后继块是<code>block_0</code>，而不是正确的<code>block_1</code>。</p>
+<p>这个问题是非常致命的，因为前驱后继关系是活跃变量分析的基础，而分配寄存器又是依据活跃变量及其之间的关系决定如何分配的。</p>
+<p>于是在基本块<code>BasicBlock</code>中添加一个找到第一个跳转指令的函数。问题顺利解决。</p>
+<p>后续我还分析了一下为什么我的代码中会出现两条br直接跳转的指令相邻的情况，原来是因为此时for循环中判断条件和循环量变化两部分都是空导致的。</p>
+<p>下面附上这个对应的样例(简化版，防止de两千多行的bug)</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> d = <span class="number">4</span>, c= <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    c = a + d;</span><br><span class="line">    i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; ;)&#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(d &gt;= a)&#123;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="目标代码生成"><a href="#目标代码生成" class="headerlink" title="目标代码生成"></a>目标代码生成</h2><h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><p>mips生成的时候如何管理变量参数等的存储——</p>
+<ul>
+<li>$sp寄存器为栈底指针，只在切换函数的时候移动，而每个变量的offset+$sp的值即为其存在栈上的地址</li>
+<li>当调用函数时，首先保存当前已经分配的寄存器，然后保存$sp和$ra寄存器，最后改变$sp作为栈底。</li>
+<li>局部变量放在形参之上的位置，根据类型改变偏移量，如为char类型则偏移量减一，int则减4，数组类型还要考虑数组元素个数。</li>
+<li>每次存储变量都记录好映射关系，进而在用到变量的时候可以获得其地址。</li>
+</ul>
+<p>这里很关键的一点是如何做好字节对齐，首先已知$sp初始是4字节对齐的，因此，只要offset是四字节对齐就能满足int类型的对齐要求（char为一字节对齐，无需考虑），进而，在storeValue时，根据value的类型调节curOffset：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">storeValue</span><span class="params">(Value value, <span class="type">int</span> offset)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (offset == <span class="number">4</span> || value.getType().isPointer()) &#123;</span><br><span class="line">        <span class="keyword">if</span> ((-curOffset) % <span class="number">4</span> != <span class="number">0</span>) &#123;</span><br><span class="line">            offset += <span class="number">4</span> - (-curOffset) % <span class="number">4</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    subOffset(offset);</span><br><span class="line">    giveStack2Value(value, curOffset);</span><br><span class="line">    <span class="keyword">return</span> curOffset;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h3 id="目标代码如何生成"><a href="#目标代码如何生成" class="headerlink" title="目标代码如何生成"></a>目标代码如何生成</h3><p>仍然使用自顶向下的思路，在LLVM_IR顶层的Value类中设置toMips方法，每个子类复写该方法。</p>
+<p>设置一个MipsManger用于进行有关目标代码生成的管理。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MipsManager</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">MipsManager</span> <span class="variable">mipsBuilder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MipsManager</span>();</span><br><span class="line">    <span class="keyword">private</span> AssemblyTable assemblyTable;</span><br><span class="line">    <span class="keyword">private</span> Function curFunction;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> curOffset; <span class="comment">//当前偏移</span></span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;Value, Integer&gt; offsetMap; <span class="comment">//偏移量映射</span></span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;Value, Register&gt; registerMap; <span class="comment">//寄存器映射</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到特意标注的三个属性：</p>
+<ul>
+<li>curOffset表示当前位置和栈底指针的偏移量</li>
+<li>offsetMap表示value和curOffset的映射，也就是在栈上的位置</li>
+<li>registerMap表示经过寄存器分配后value和register的映射，每进入一个函数更新一次。</li>
+</ul>
+<p>每个指令在生成的时候，无外乎取得operand，并生成对应的指令来进行操作两个步骤。因此，大部分llvm成分生成目标代码的步骤其实很固定：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//用以下函数取得operand对应的Reg</span></span><br><span class="line"><span class="keyword">public</span> Register <span class="title function_">getReg</span><span class="params">(Value operand, Register opReg)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (operand <span class="keyword">instanceof</span> Constant) &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">LiAsmb</span>(opReg, ((Constant) operand).getValue());</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (operand <span class="keyword">instanceof</span> Undefined) &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">LiAsmb</span>(opReg, <span class="number">0</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (MipsManager.getInstance().findReg(operand) != <span class="literal">null</span>) &#123;</span><br><span class="line">        opReg = MipsManager.getInstance().findReg(operand);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="type">Integer</span> <span class="variable">offset</span> <span class="operator">=</span> MipsManager.getInstance().loadValue(operand);</span><br><span class="line">        <span class="comment">//注意这里要分情况，LWorLB</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">MemoryAsmb</span>(MemoryAsmb.MemoryOp.LW, Register.SP, offset, opReg);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> opReg;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再选取合适的指令，如Store对应SW&#x2F;SB，Load对应Load……</p>
+<h3 id="bug记录-5"><a href="#bug记录-5" class="headerlink" title="bug记录"></a>bug记录</h3><ul>
+<li>storeValue方法只是将偏移量和value做了映射，只有使用mem类的指令才能真正把数字存入栈</li>
+<li>由于文法中的类型既有int类型又有char类型，在计算地址的时候注意字节对齐！</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">Forever</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/02/15/%E7%BC%96%E8%AF%91%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">http://example.com/2025/02/15/%E7%BC%96%E8%AF%91%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BC%96%E8%AF%91%E6%8A%80%E6%9C%AF/">编译技术</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/02/15/BUAA-OO-2024-Unit4-Summary/" title="BUAA_OO_2024_Unit4_Summary"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">BUAA_OO_2024_Unit4_Summary</div></div></a></div><div class="next-post pull-right"><a href="/2025/02/15/%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96%E6%96%87%E6%A1%A3/" title="编译优化文档"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">编译优化文档</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2025/02/15/%E7%BC%96%E8%AF%91%E6%9C%9F%E6%9C%AB%E4%B8%8A%E6%9C%BA%E6%8C%87%E5%8C%97/" title="编译期末上机指北"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-15</div><div class="title">编译期末上机指北</div></div></a></div><div><a href="/2025/02/15/%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96%E6%96%87%E6%A1%A3/" title="编译优化文档"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-15</div><div class="title">编译优化文档</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Forever</div><div class="author-info__description">Blogs</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/AiDahanwen.github.io" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:zhanghanwen@buaa.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">It's a new soundtrack I can dance to this beat~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">编译文档</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E7%BC%96%E8%AF%91%E5%99%A8%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.</span> <span class="toc-text">参考编译器介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8%E6%80%BB%E4%BD%93%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.</span> <span class="toc-text">编译器总体介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.1.</span> <span class="toc-text">总体结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.2.2.</span> <span class="toc-text">接口设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%BB%84%E7%BB%87"><span class="toc-number">1.2.3.</span> <span class="toc-text">文件组织</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">词法分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">1.3.1.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bug%E8%AE%B0%E5%BD%95"><span class="toc-number">1.3.2.</span> <span class="toc-text">bug记录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">1.4.</span> <span class="toc-text">语法分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90-1"><span class="toc-number">1.4.1.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bug%E8%AE%B0%E5%BD%95-1"><span class="toc-number">1.4.2.</span> <span class="toc-text">bug记录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90"><span class="toc-number">1.5.</span> <span class="toc-text">语义分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-number">1.5.1.</span> <span class="toc-text">错误处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E8%A1%A8%E7%AE%A1%E7%90%86"><span class="toc-number">1.5.2.</span> <span class="toc-text">符号表管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bug%E8%AE%B0%E5%BD%95-2"><span class="toc-number">1.5.3.</span> <span class="toc-text">bug记录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E9%97%B4%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90"><span class="toc-number">1.6.</span> <span class="toc-text">中间代码生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LLVM-IR%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86"><span class="toc-number">1.6.1.</span> <span class="toc-text">LLVM_IR的一些基本知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90-2"><span class="toc-number">1.6.2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90%E4%B8%AD%E9%97%B4%E4%BB%A3%E7%A0%81"><span class="toc-number">1.6.3.</span> <span class="toc-text">如何生成中间代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bug%E8%AE%B0%E5%BD%95-3"><span class="toc-number">1.6.4.</span> <span class="toc-text">bug记录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E7%AB%AF%E4%BC%98%E5%8C%96"><span class="toc-number">1.7.</span> <span class="toc-text">中端优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.7.1.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CFG"><span class="toc-number">1.7.1.1.</span> <span class="toc-text">CFG</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B4%BB%E8%B7%83%E5%8F%98%E9%87%8F%E5%88%86%E6%9E%90"><span class="toc-number">1.7.1.2.</span> <span class="toc-text">活跃变量分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E9%85%8D"><span class="toc-number">1.7.1.3.</span> <span class="toc-text">分配</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bug%E8%AE%B0%E5%BD%95-4"><span class="toc-number">1.7.2.</span> <span class="toc-text">bug记录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90"><span class="toc-number">1.8.</span> <span class="toc-text">目标代码生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-number">1.8.1.</span> <span class="toc-text">内存管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E4%BB%A3%E7%A0%81%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90"><span class="toc-number">1.8.2.</span> <span class="toc-text">目标代码如何生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bug%E8%AE%B0%E5%BD%95-5"><span class="toc-number">1.8.3.</span> <span class="toc-text">bug记录</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/%E7%BC%96%E8%AF%91%E6%9C%9F%E6%9C%AB%E4%B8%8A%E6%9C%BA%E6%8C%87%E5%8C%97/" title="编译期末上机指北">编译期末上机指北</a><time datetime="2025-02-15T08:57:14.000Z" title="Created 2025-02-15 16:57:14">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96%E6%96%87%E6%A1%A3/" title="编译优化文档">编译优化文档</a><time datetime="2025-02-15T08:56:16.000Z" title="Created 2025-02-15 16:56:16">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/%E7%BC%96%E8%AF%91%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/" title="编译设计文档">编译设计文档</a><time datetime="2025-02-15T08:54:34.000Z" title="Created 2025-02-15 16:54:34">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/BUAA-OO-2024-Unit4-Summary/" title="BUAA_OO_2024_Unit4_Summary">BUAA_OO_2024_Unit4_Summary</a><time datetime="2025-02-15T08:34:56.000Z" title="Created 2025-02-15 16:34:56">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/04/BUAA-OO-2024-Unit3-Summary/" title="BUAA_OO_2024_Unit3_Summary">BUAA_OO_2024_Unit3_Summary</a><time datetime="2024-07-04T09:29:30.000Z" title="Created 2024-07-04 17:29:30">2024-07-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2025 By Forever</div><div class="footer_custom_text">Wish you a happy day~</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
