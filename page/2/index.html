@@ -1,169 +1,106 @@
-<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>BETTER - hanwen</title><meta name="author" content="LLUckkk"><meta name="copyright" content="LLUckkk"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Blogs">
-<meta property="og:type" content="website">
-<meta property="og:title" content="BETTER">
-<meta property="og:url" content="https://lluckkk.github.io/page/2/index.html">
-<meta property="og:site_name" content="BETTER">
-<meta property="og:description" content="Blogs">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
-<meta property="article:author" content="LLUckkk">
-<meta property="article:tag" content="BUAA">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lluckkk.github.io/page/2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
-  copy: {
-    success: 'Copy successfully',
-    error: 'Copy error',
-    noSupport: 'The browser does not support'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  dateSuffix: {
-    just: 'Just',
-    min: 'minutes ago',
-    hour: 'hours ago',
-    day: 'days ago',
-    month: 'months ago'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  },
-  autoDarkmode: true
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'BETTER',
-  isPost: false,
-  isHome: true,
-  isHighlightShrink: false,
-  isToc: false,
-  postUpdate: '2025-02-15 18:08:32'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
-
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>BETTER - hanwen</title><meta name="author" content="LLUckkk"><meta name="copyright" content="LLUckkk"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Blogs"><link rel="shortcut icon" href="/img/tx.jpg"><link rel="canonical" href="https://lluckkk.github.io/page/2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
         }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
 
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
 
-        if (!itemStr) {
-          return undefined
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
         }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
-
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
       }
-    }
-  
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
+    
+      const activateDarkMode = () => {
         document.documentElement.setAttribute('data-theme', 'dark')
         if (document.querySelector('meta[name="theme-color"]') !== null) {
           document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
         }
       }
-      win.activateLightMode = function () {
+      const activateLightMode = () => {
         document.documentElement.setAttribute('data-theme', 'light')
         if (document.querySelector('meta[name="theme-color"]') !== null) {
           document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
         }
       }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
       const t = saveToLocal.get('theme')
     
-          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
-          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
-          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
-          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
-
-          if (t === undefined) {
-            if (isLightMode) activateLightMode()
-            else if (isDarkMode) activateDarkMode()
-            else if (isNotSpecified || hasNoSupport) {
-              const now = new Date()
-              const hour = now.getHours()
-              const isNight = hour <= 6 || hour >= 18
-              isNight ? activateDarkMode() : activateLightMode()
-            }
-            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
-              if (saveToLocal.get('theme') === undefined) {
-                e.matches ? activateDarkMode() : activateLightMode()
-              }
-            })
-          } else if (t === 'light') activateLightMode()
-          else activateDarkMode()
-        
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
       const asideStatus = saveToLocal.get('aside-status')
       if (asideStatus !== undefined) {
         if (asideStatus === 'hide') {
@@ -173,13 +110,59 @@
         }
       }
     
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
       }
-    }
-    detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'BETTER',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: true,
+  isToc: false,
+  postUpdate: '2025-02-15 18:18:47'
+}</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
   const $loadingBox = document.getElementById('loading-box')
   const $body = document.body
   const preloader = {
@@ -197,16 +180,16 @@
   window.addEventListener('load',() => { preloader.endLoading() })
 
   if (false) {
-    document.addEventListener('pjax:send', () => { preloader.initLoading() })
-    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+    btf.addGlobalFn('pjaxSend', () => { preloader.initLoading() }, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', () => { preloader.endLoading() }, 'preloader_end')
   }
-})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="BETTER"><span class="site-name">BETTER</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">BETTER</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/AiDahanwen.github.io" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:zhanghanwen@buaa.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/BUAA-OO-2024-Unit4-Summary/" title="BUAA_OO_2024_Unit4_Summary">BUAA_OO_2024_Unit4_Summary</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-15T08:34:56.000Z" title="Created 2025-02-15 16:34:56">2025-02-15</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T08:45:49.462Z" title="Updated 2025-02-15 16:45:49">2025-02-15</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%84%E9%80%A0/">面向对象设计与构造</a></span></div><div class="content">BUAA_OO_2024_Unit4_Summary“等了好久终于等到今天，梦了好久终于把梦实现~”
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="BETTER"><span class="site-name">BETTER</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">BETTER</h1><div id="site-subtitle"><span id="subtitle"></span></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/BUAA-OO-2024-Unit4-Summary/" title="BUAA_OO_2024_Unit4_Summary">BUAA_OO_2024_Unit4_Summary</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-15T08:34:56.000Z" title="Created 2025-02-15 16:34:56">2025-02-15</time></span></div><div class="content">BUAA_OO_2024_Unit4_Summary“等了好久终于等到今天，梦了好久终于把梦实现~”
 正向建模与开发第四单元强调正向建模与开发，也即按照“设计程序架构-&gt;绘制UML图-&gt;编程实现”的顺序完成代码。
 因此，在本单元第一次作业中，我首先通读指导书，在把握了任务需求后开始在草稿纸上着手进行程序架构。然后绘制了一个简易的UML类图，在类图中我只体现了初步计划要写的类和一些基础属性，对于具体的方法则没有过多涉及。
 因为我始终认为，架构设计固然重要，但妄图通过一次思考就把程序规划的面面俱到显然不太可能。在有了初步架构设计后，下一步应该是着手编写代码，而不是在一些细节上死磕。毕竟，如果不去做的话，究竟哪里有问题，是很难通过空想思考出来的。
 于是我便按照绘制的简易UML类图完成代码，并在实现的过程中发现了在设计上的一些不足，返回修改架构设计。也就是说，架构设计和代码实现是相辅相成，相互补充的
 随后第二三次作业，我也按照第一次作业的思路完成：首先梳理任务需求，随后在已经有的UML类图上进行扩展，接着按照设计编写代码实现，最后根据在编写代码中遇到的问题反过来修改UML图。
-架构 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/04/BUAA-OO-2024-Unit3-Summary/" title="BUAA_OO_2024_Unit3_Summary">BUAA_OO_2024_Unit3_Summary</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-07-04T09:29:30.000Z" title="Created 2024-07-04 17:29:30">2024-07-04</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-07-04T09:36:08.623Z" title="Updated 2024-07-04 17:36:08">2024-07-04</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%84%E9%80%A0/">面向对象设计与构造</a></span></div><div class="content">BUAA_OO_2024_Unit3_Summary[TOC]
+架构 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/07/04/BUAA-OO-2024-Unit3-Summary/" title="BUAA_OO_2024_Unit3_Summary">BUAA_OO_2024_Unit3_Summary</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-07-04T09:29:30.000Z" title="Created 2024-07-04 17:29:30">2024-07-04</time></span></div><div class="content">BUAA_OO_2024_Unit3_Summary[TOC]
 第三单元主要学习JML——对Java程序进程规格化设计的表示语言。其作用是为Java代码提供精确的规格描述。
 通过三次作业的迭代开发，我们实现了一个简易的社交网络，并提供增加关系，发送信息的等功能以及各类查询服务。
 如果读者需要在代码思路上获得提示，请仔细阅读第二部分；如果读者苦于不通过的junit测试点，请关注第三部分；此外，第四部分记录了作者在代码实现过程中出现的bug，读者可按需查看。
@@ -218,7 +201,7 @@
 
 
 根据以上描述我们可以发现，黑箱测试由于不考虑程序内部的细节，在构造测试样例时不可能检测到所有的代码，因此覆盖率较低。
-而白箱测试虽然能大大提高测试的覆盖率，但测试基于代码，只能检测代码的编写是否正确， ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/13/BUAA_OO_2024_Unit2_Summary/" title="BUAA_OO_2024_Unit2_Summary">BUAA_OO_2024_Unit2_Summary</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-05-13T12:01:01.000Z" title="Created 2024-05-13 20:01:01">2024-05-13</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-05-13T12:01:13.376Z" title="Updated 2024-05-13 20:01:13">2024-05-13</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%84%E9%80%A0/">面向对象设计与构造</a></span></div><div class="content">[TOC]
+而白箱测试虽然能大大提高测试的覆盖率，但测试基于代码，只能检测代码的编写是否正确， ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/13/BUAA_OO_2024_Unit2_Summary/" title="BUAA_OO_2024_Unit2_Summary">BUAA_OO_2024_Unit2_Summary</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-05-13T12:01:01.000Z" title="Created 2024-05-13 20:01:01">2024-05-13</time></span></div><div class="content">[TOC]
 BUAA_OO_2024_Unit2_Summary无论如何，第二单元的电梯就这样结束了。不管结果是好是坏，都应总结经验并希望给予后人启发。
 如果你希望我的博客对你的代码思路有所帮助，请关注前两部分，他们分别介绍了我代码中对锁的设置，以及调度器的实现。如果你正在debug，请关注第四部分，其中介绍了我作业过程中遇到的各种bug。
 〇、三次作业背景鉴于以下几部分会按照作业顺序来讲，因此首先明确三次作业的作业背景及其要求会对后文的理解很有帮助。
@@ -236,14 +219,14 @@ A电梯只能运行在换乘层及以下楼层，B电梯只能运行在换乘层
 AB电梯不可同时位于换乘层。
 
 
-乘客依然自由分配。 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/13/BUAA_OO_2024_Unit1_summary/" title="BUAA_OO_2024_Unit1_Summary">BUAA_OO_2024_Unit1_Summary</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-05-13T11:59:01.000Z" title="Created 2024-05-13 19:59:01">2024-05-13</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-05-13T12:00:15.348Z" title="Updated 2024-05-13 20:00:15">2024-05-13</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%84%E9%80%A0/">面向对象设计与构造</a></span></div><div class="content">BUAA_OO_2024_Unit1_summary22373321 张瀚文
+乘客依然自由分配。 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/05/13/BUAA_OO_2024_Unit1_summary/" title="BUAA_OO_2024_Unit1_Summary">BUAA_OO_2024_Unit1_Summary</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-05-13T11:59:01.000Z" title="Created 2024-05-13 19:59:01">2024-05-13</time></span></div><div class="content">BUAA_OO_2024_Unit1_summary22373321 张瀚文
 第一单元的核心：递归下降法处理复杂表达式。在这篇文章中，我会从不同方面对自己第一单元的代码做出分析，并总结自己的收获。
 如果你需要我在代码思路上有所帮助，请仔细阅读文章的第一部分。
 一、架构设计、remake与程序bughw1—stack第一次作业的要求：单变量多项式的括号展开，表达式包括加、减、乘方以及括号。
 第一次作业中，我的思路来源主要是课前给出的training练习。在training的代码中，输入的表达式通过递归下降法被构造成语法树的结构，又通过接口在每个因子中实现了toString()方法，最终将语法树以后缀表达式的形式输出。
 同时，由于第一次作业的要求较为简单，只牵扯到了x的乘方。我非常自然地沿用了training中的代码，甚至认为后缀表达式是解决hw1的极佳策略。
 （事实的确如此，即使后来remake了所有代码，我仍然认为hw1的结构十分优美。）基于training的代码，我新建了Equation类，并在其中设置ArrayList以存放表达式项的信息（此处有bug，后面会讲）。
-具体来说，对于 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/11/02/P4-review/" title="P4设计文档">P4设计文档</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-11-02T08:07:50.000Z" title="Created 2023-11-02 16:07:50">2023-11-02</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T09:02:25.905Z" title="Updated 2025-02-15 17:02:25">2025-02-15</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a></span></div><div class="content">22373321 张瀚文
+具体来说，对于 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/11/02/P4-review/" title="P4设计文档">P4设计文档</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-11-02T08:07:50.000Z" title="Created 2023-11-02 16:07:50">2023-11-02</time></span></div><div class="content">22373321 张瀚文
 豆瓣小组是什么好东西555
 “你现在的处境是过去的自己站在十字路口选择走到这里来的。”
 共勉共勉！！
@@ -255,7 +238,7 @@ AB电梯不可同时位于换乘层。
 相比较P3的更新优化考虑到添加新指令后PC的计算更加复杂，新增一个NPC模块用于计算PC的更新值。
 数据通路的设计本次需要实现的指令：{add,sub,ori,lw,sw,beq,lui,j,jal,jr}
 IM在ISE中生成匹配需求数量的32位寄存器阵列,注意IM和DM中要从小到大编号使用$readmemh将十六进制码导入至IM中。
-宏文件在P3的logisim中，我对指令的判断与匹配主要是通过compartor进行的。在P4的Verilog中 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/10/19/P2-review/" title="P2_review">P2_review</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-10-19T09:29:59.000Z" title="Created 2023-10-19 17:29:59">2023-10-19</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T09:02:04.552Z" title="Updated 2025-02-15 17:02:04">2025-02-15</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a></span></div><div class="content">摘要通过阅读本文，您可能获得以下信息：
+宏文件在P3的logisim中，我对指令的判断与匹配主要是通过compartor进行的。在P4的Verilog中 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/10/19/P2-review/" title="P2_review">P2_review</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-10-19T09:29:59.000Z" title="Created 2023-10-19 17:29:59">2023-10-19</time></span></div><div class="content">摘要通过阅读本文，您可能获得以下信息：
 
 笔者在做P0课下以及往年题的一点心得
 对P2上机测试考试的总结和反思
@@ -266,7 +249,7 @@ for(l = 0; l &lt; hang1; l++)&#123;    for(j = 0; j &lt; lie2; j++)&#123;       
 三重循环过后，ans数组即为矩阵相乘后的结果。
 Q2 回文串的判断照例先写出判断的C语言代码，从中间划开循环判断即可。
 Q3 卷积计算
-首先需要理解题目中给出的卷积计算公式，实际上就是一个大矩阵和一个小矩阵，以小矩阵的大小为标准在大矩阵中找到子矩阵（注意找的时候需要从第一行开始， ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/10/13/P1-review/" title="P1_review">P1_review</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-10-13T08:00:32.000Z" title="Created 2023-10-13 16:00:32">2023-10-13</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T09:01:57.211Z" title="Updated 2025-02-15 17:01:57">2025-02-15</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a></span></div><div class="content">通过阅读本文，您可能获取到一下信息：
+首先需要理解题目中给出的卷积计算公式，实际上就是一个大矩阵和一个小矩阵，以小矩阵的大小为标准在大矩阵中找到子矩阵（注意找的时候需要从第一行开始， ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/10/13/P1-review/" title="P1_review">P1_review</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-10-13T08:00:32.000Z" title="Created 2023-10-13 16:00:32">2023-10-13</time></span></div><div class="content">通过阅读本文，您可能获取到一下信息：
 
 笔者对P1教程部分的总结记录
 准备P1上机的一点心得和碎碎念
@@ -279,7 +262,7 @@ P1教程部分状态机编码风格状态机的编码风格：一段式（高速
 维护代码和调试比较困难：这里解释一下
 
 两段式状态机
-使用两个always模块，第一个always模块采用同步时序逻辑描述状态转移；；第二个always模块使用组合逻辑判断状态转移的条件，描述状态转移的规律。   reg[2:0] state = 0;reg[2:0] next_state;always @(posedge clk) begin    state &lt;= next_state;endalways @(state,in) begin    case(state)        0: begin            next_state = in == 1 ? 1 : 0;            out = 0;        end        //以此 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/10/07/P0-review/" title="计算机组成原理-P0-review">计算机组成原理-P0-review</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-10-07T07:58:32.000Z" title="Created 2023-10-07 15:58:32">2023-10-07</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T09:01:49.918Z" title="Updated 2025-02-15 17:01:49">2025-02-15</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a></span></div><div class="content">通过阅读本文，您可能获取作者在P0上机前对logisim的一点复习心得（以及碎碎念），希望能对您有所帮助。  
+使用两个always模块，第一个always模块采用同步时序逻辑描述状态转移；；第二个always模块使用组合逻辑判断状态转移的条件，描述状态转移的规律。   reg[2:0] state = 0;reg[2:0] next_state;always @(posedge clk) begin    state &lt;= next_state;endalways @(state,in) begin    case(state)        0: begin            next_state = in == 1 ? 1 : 0;            out = 0;        end        //以此 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/10/07/P0-review/" title="计算机组成原理-P0-review">计算机组成原理-P0-review</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-10-07T07:58:32.000Z" title="Created 2023-10-07 15:58:32">2023-10-07</time></span></div><div class="content">通过阅读本文，您可能获取作者在P0上机前对logisim的一点复习心得（以及碎碎念），希望能对您有所帮助。  
 2021年P0真题讨论2021年T1 投票问题本题最大的收获就是不要盲目打表，四个人每个人两位数字打表的table着实写不完。当然如果没有思路考场上还是打表比较好。除此之外，本题目中对Bit Adder的使用对笔者也有很大的启发。下面分条说一下笔者的思路。  
 
 组长的一票否决权可以放在最后单独处理，使用MUX多路选择器＋Comparator比较即可；   
@@ -288,7 +271,7 @@ P1教程部分状态机编码风格状态机的编码风格：一段式（高速
 使用comparator进行比较，再结合第一条的mux整理获得res。   
 这个做法完全无需考虑弃权，因为弃权根本没有在任何一个的考虑范围内，它不会影响支持或者反对的总人数。
 
-2021年T2 Mealy型 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/09/10/hello-world/" title="Hello World">Hello World</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-09-10T12:56:54.221Z" title="Created 2023-09-10 20:56:54">2023-09-10</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-09-10T12:54:48.366Z" title="Updated 2023-09-10 20:54:48">2023-09-10</time></span></div><div class="content">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+2021年T2 Mealy型 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/09/10/hello-world/" title="Hello World">Hello World</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-09-10T12:56:54.221Z" title="Created 2023-09-10 20:56:54">2023-09-10</time></span></div><div class="content">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
 Quick StartCreate a new post$ hexo new &quot;My New Post&quot;
 
 More info: Writing
@@ -301,7 +284,7 @@ More info: Generating
 Deploy to remote sites$ hexo deploy
 
 More info: Deployment
-</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LLUckkk</div><div class="author-info__description">Blogs</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/AiDahanwen.github.io" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:zhanghanwen@buaa.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">It's a new soundtrack I can dance to this beat~</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/OS-lab5/" title="OS_lab5">OS_lab5</a><time datetime="2025-02-15T09:16:58.000Z" title="Created 2025-02-15 17:16:58">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/OS-lab4/" title="OS_lab4">OS_lab4</a><time datetime="2025-02-15T09:16:49.000Z" title="Created 2025-02-15 17:16:49">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/OS-lab3/" title="OS_lab3">OS_lab3</a><time datetime="2025-02-15T09:16:39.000Z" title="Created 2025-02-15 17:16:39">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/P5-2/" title="P5_2">P5_2</a><time datetime="2025-02-15T09:07:44.000Z" title="Created 2025-02-15 17:07:44">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/P7-review/" title="P7_review">P7_review</a><time datetime="2025-02-15T09:03:14.000Z" title="Created 2025-02-15 17:03:14">2025-02-15</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%84%E9%80%A0/" style="font-size: 1.3em; color: #99a1ac">面向对象设计与构造</a> <a href="/tags/%E7%BC%96%E8%AF%91%E6%8A%80%E6%9C%AF/" style="font-size: 1.1em; color: #999">编译技术</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 1.1em; color: #999">操作系统</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" style="font-size: 1.5em; color: #99a9bf">计算机组成原理</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>Archives</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">February 2025</span><span class="card-archive-list-count">11</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/07/"><span class="card-archive-list-date">July 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/05/"><span class="card-archive-list-date">May 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/11/"><span class="card-archive-list-date">November 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/10/"><span class="card-archive-list-date">October 2023</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/09/"><span class="card-archive-list-date">September 2023</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article :</div><div class="item-count">19</div></div><div class="webinfo-item"><div class="item-name">Total Count :</div><div class="item-count">71.5k</div></div><div class="webinfo-item"><div class="item-name">UV :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">PV :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Push :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-02-15T10:08:32.412Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2025 By LLUckkk</div><div class="footer_custom_text">Wish you a happy day~</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LLUckkk</div><div class="author-info__description">Blogs</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/LLUckkk"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">It's a newsound track I can dance to this beat~</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/OS-lab5/" title="OS_lab5">OS_lab5</a><time datetime="2025-02-15T09:16:58.000Z" title="Created 2025-02-15 17:16:58">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/OS-lab4/" title="OS_lab4">OS_lab4</a><time datetime="2025-02-15T09:16:49.000Z" title="Created 2025-02-15 17:16:49">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/OS-lab3/" title="OS_lab3">OS_lab3</a><time datetime="2025-02-15T09:16:39.000Z" title="Created 2025-02-15 17:16:39">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/P5-2/" title="P5_2">P5_2</a><time datetime="2025-02-15T09:07:44.000Z" title="Created 2025-02-15 17:07:44">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/P7-review/" title="P7_review">P7_review</a><time datetime="2025-02-15T09:03:14.000Z" title="Created 2025-02-15 17:03:14">2025-02-15</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%84%E9%80%A0/" style="font-size: 1.3em; color: rgb(141, 20, 88)">面向对象设计与构造</a><a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 1.15em; color: rgb(82, 74, 171)">操作系统</a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" style="font-size: 1.45em; color: rgb(131, 54, 184)">计算机组成原理</a><a href="/tags/%E7%BC%96%E8%AF%91%E6%8A%80%E6%9C%AF/" style="font-size: 1.15em; color: rgb(18, 197, 166)">编译技术</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>Archives</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">February 2025</span><span class="card-archive-list-count">11</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/07/"><span class="card-archive-list-date">July 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/05/"><span class="card-archive-list-date">May 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/11/"><span class="card-archive-list-date">November 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/10/"><span class="card-archive-list-date">October 2023</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/09/"><span class="card-archive-list-date">September 2023</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article :</div><div class="item-count">19</div></div><div class="webinfo-item"><div class="item-name">Runtime :</div><div class="item-count" id="runtimeshow" data-publishDate="2023-09-09T16:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">UV :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">PV :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-02-15T10:18:47.051Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By LLUckkk</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">怠惰必将导致惨剧。</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="Toggle Between Traditional Chinese And Simplified Chinese">繁</button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="/js/tw_cn.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
   init: (str) => {
     window.typed = new Typed('#subtitle', Object.assign({
       strings: str,
@@ -316,22 +299,74 @@ More info: Deployment
       if (typeof Typed === 'function') {
         subtitleType()
       } else {
-        getScript('https://cdn.jsdelivr.net/npm/typed.js/dist/typed.umd.min.js').then(subtitleType)
+        btf.getScript('https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.min.js').then(subtitleType)
       }
     } else {
       subtitleType()
     }
   }
 }
+btf.addGlobalFn('pjaxSend', () => { typed.destroy() }, 'typedDestroy')
 </script><script>function subtitleType () {
   if (true) {
-    typedJSFn.init(["寻梦？撑一支长篙，向青草更青处漫溯。","满载一船星辉，在星辉斑斓里放歌。"])
+    typedJSFn.init("寻梦？撑一支长篙，向青草更青处漫溯。满载一船星辉，在星辉斑斓里放歌。")
   } else {
-    document.getElementById("subtitle").textContent = "寻梦？撑一支长篙，向青草更青处漫溯。"
+    document.getElementById("subtitle").textContent = "寻"
   }
 }
-typedJSFn.run(subtitleType)</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+typedJSFn.run(subtitleType)</script><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
 POWERMODE.shake = true;
-POWERMODE.mobile = false;
+POWERMODE.mobile = true;
 document.body.addEventListener('input', POWERMODE);
-</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="true" data-text="梧桐,wutong,hanwen" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

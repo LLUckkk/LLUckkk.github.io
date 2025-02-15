@@ -1,169 +1,106 @@
-<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>BETTER - hanwen</title><meta name="author" content="LLUckkk"><meta name="copyright" content="LLUckkk"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Blogs">
-<meta property="og:type" content="website">
-<meta property="og:title" content="BETTER">
-<meta property="og:url" content="https://lluckkk.github.io/index.html">
-<meta property="og:site_name" content="BETTER">
-<meta property="og:description" content="Blogs">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
-<meta property="article:author" content="LLUckkk">
-<meta property="article:tag" content="BUAA">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lluckkk.github.io/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
-  copy: {
-    success: 'Copy successfully',
-    error: 'Copy error',
-    noSupport: 'The browser does not support'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  dateSuffix: {
-    just: 'Just',
-    min: 'minutes ago',
-    hour: 'hours ago',
-    day: 'days ago',
-    month: 'months ago'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  },
-  autoDarkmode: true
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'BETTER',
-  isPost: false,
-  isHome: true,
-  isHighlightShrink: false,
-  isToc: false,
-  postUpdate: '2025-02-15 18:08:32'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
-
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>BETTER - hanwen</title><meta name="author" content="LLUckkk"><meta name="copyright" content="LLUckkk"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Blogs"><link rel="shortcut icon" href="/img/tx.jpg"><link rel="canonical" href="https://lluckkk.github.io/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
         }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
 
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
 
-        if (!itemStr) {
-          return undefined
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
         }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
-
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
       }
-    }
-  
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
+    
+      const activateDarkMode = () => {
         document.documentElement.setAttribute('data-theme', 'dark')
         if (document.querySelector('meta[name="theme-color"]') !== null) {
           document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
         }
       }
-      win.activateLightMode = function () {
+      const activateLightMode = () => {
         document.documentElement.setAttribute('data-theme', 'light')
         if (document.querySelector('meta[name="theme-color"]') !== null) {
           document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
         }
       }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
       const t = saveToLocal.get('theme')
     
-          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
-          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
-          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
-          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
-
-          if (t === undefined) {
-            if (isLightMode) activateLightMode()
-            else if (isDarkMode) activateDarkMode()
-            else if (isNotSpecified || hasNoSupport) {
-              const now = new Date()
-              const hour = now.getHours()
-              const isNight = hour <= 6 || hour >= 18
-              isNight ? activateDarkMode() : activateLightMode()
-            }
-            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
-              if (saveToLocal.get('theme') === undefined) {
-                e.matches ? activateDarkMode() : activateLightMode()
-              }
-            })
-          } else if (t === 'light') activateLightMode()
-          else activateDarkMode()
-        
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
       const asideStatus = saveToLocal.get('aside-status')
       if (asideStatus !== undefined) {
         if (asideStatus === 'hide') {
@@ -173,13 +110,59 @@
         }
       }
     
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
       }
-    }
-    detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"You have switched to Traditional Chinese","cht_to_chs":"You have switched to Simplified Chinese","day_to_night":"You have switched to Dark Mode","night_to_day":"You have switched to Light Mode","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'BETTER',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: true,
+  isToc: false,
+  postUpdate: '2025-02-15 18:18:47'
+}</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><script>(()=>{
   const $loadingBox = document.getElementById('loading-box')
   const $body = document.body
   const preloader = {
@@ -197,10 +180,10 @@
   window.addEventListener('load',() => { preloader.endLoading() })
 
   if (false) {
-    document.addEventListener('pjax:send', () => { preloader.initLoading() })
-    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+    btf.addGlobalFn('pjaxSend', () => { preloader.initLoading() }, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', () => { preloader.endLoading() }, 'preloader_end')
   }
-})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="BETTER"><span class="site-name">BETTER</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">BETTER</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/AiDahanwen.github.io" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:zhanghanwen@buaa.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/OS-lab5/" title="OS_lab5">OS_lab5</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-15T09:16:58.000Z" title="Created 2025-02-15 17:16:58">2025-02-15</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T09:31:20.148Z" title="Updated 2025-02-15 17:31:20">2025-02-15</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span></div><div class="content">Lab5 上机前复习最后一次os上机，善始善终！
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="BETTER"><span class="site-name">BETTER</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">BETTER</h1><div id="site-subtitle"><span id="subtitle"></span></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/OS-lab5/" title="OS_lab5">OS_lab5</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-15T09:16:58.000Z" title="Created 2025-02-15 17:16:58">2025-02-15</time></span></div><div class="content">Lab5 上机前复习最后一次os上机，善始善终！
 一些注意事项
 msyscall括号里注意把参数写完整，不要只写一个系统调用号
 
@@ -224,7 +207,7 @@ file_get_block(struct File *file, u_int blockno, void ** blk)指的是获得file
 
 循环内部首先使用try(file_get_block(dir, i, &amp;blk));找到dir中第i个磁盘块，并使blk指向这个磁盘块；
 
-又因为这个磁盘块里面存储的都是文件控制块，所以将其强转为文件控制块指针 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/OS-lab4/" title="OS_lab4">OS_lab4</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-15T09:16:49.000Z" title="Created 2025-02-15 17:16:49">2025-02-15</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T09:18:30.194Z" title="Updated 2025-02-15 17:18:30">2025-02-15</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span></div><div class="content">Lab4 上机前复习Good luck to you~
+又因为这个磁盘块里面存储的都是文件控制块，所以将其强转为文件控制块指针 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/OS-lab4/" title="OS_lab4">OS_lab4</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-15T09:16:49.000Z" title="Created 2025-02-15 17:16:49">2025-02-15</time></span></div><div class="content">Lab4 上机前复习Good luck to you~
 太久不上机，之前的技巧不要忘了：
 
 grep -r 实现查找
@@ -235,7 +218,7 @@ envid2env(u_int envid, struct Env **penv, int checkperm)获得进程控制块，
 可以使用vpt[VPN(va)]获得页表项，vpd[va &gt;&gt; 22]获得指向页表项的页目录项
 在使用的时候：vpt[页号]就是该页对应的页表项的内容，不再是指针，而页号可以通过addr &gt;&gt; PGSHIFT获得，同样，addr可以通过页号&lt;&lt; PGSHIFT获得，页号还可以通过VPN(va)获得
 二级页表的物理地址：vpd[va &gt;&gt; 22] &amp; (~0xfff)
-页表项指向的物理页面的地址：vpt[va &gt;&g ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/OS-lab3/" title="OS_lab3">OS_lab3</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-15T09:16:39.000Z" title="Created 2025-02-15 17:16:39">2025-02-15</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T09:18:05.655Z" title="Updated 2025-02-15 17:18:05">2025-02-15</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span></div><div class="content">Lab3 上机前复习先说几个技巧：
+页表项指向的物理页面的地址：vpt[va &gt;&g ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/OS-lab3/" title="OS_lab3">OS_lab3</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-15T09:16:39.000Z" title="Created 2025-02-15 17:16:39">2025-02-15</time></span></div><div class="content">Lab3 上机前复习先说几个技巧：
 
 grep -r查找
 
@@ -254,7 +237,7 @@ Env结构体struct Env&#123;	struct Trapframe env_tf;	LIST_ENTRY(Env) env_link; 
 
 所有函数以及其调用关系的梳理创建进程env_create(const void *binary, size_t size, int priority)
 
-env_alloc(struct Env **new, u_int parent_id)，为创建的进程申请一个 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/P5-2/" title="P5_2">P5_2</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-15T09:07:44.000Z" title="Created 2025-02-15 17:07:44">2025-02-15</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T09:08:06.894Z" title="Updated 2025-02-15 17:08:06">2025-02-15</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a></span></div><div class="content">P5 continue怠惰必将导致惨剧没事，慢慢来
+env_alloc(struct Env **new, u_int parent_id)，为创建的进程申请一个 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/P5-2/" title="P5_2">P5_2</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-15T09:07:44.000Z" title="Created 2025-02-15 17:07:44">2025-02-15</time></span></div><div class="content">P5 continue怠惰必将导致惨剧没事，慢慢来
 中测目前也过了，所以感觉可能还是实现的方式有漏洞
 需要去做的有以下几点(PS：改之前先备份）
 
@@ -271,7 +254,7 @@ P5第三题：lwrev取读到DM数据的后四位0扩展得到目标寄存器，�
 我的做法仅仅只是在controller中添加了信号并且在最后把目标寄存器和写入寄存器的数据修改了。仿佛一个傻子，根本不知道流水线在干什么
 添加条件访存指令究竟需要注意什么总共三种类型，条件均为从DM中取值进行判断：
 条件成立 ：将DM&#x2F;其他值写入A号寄存器；条件不成立：将某个值写入B号寄存器
-宏文件中添加对应的op码识别信号，因为是load型指令，所以也要在load后面添加，如果是半字或字节的话在 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/P7-review/" title="P7_review">P7_review</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-15T09:03:14.000Z" title="Created 2025-02-15 17:03:14">2025-02-15</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T09:07:04.174Z" title="Updated 2025-02-15 17:07:04">2025-02-15</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a></span></div><div class="content">P7设计文档22373321 张瀚文
+宏文件中添加对应的op码识别信号，因为是load型指令，所以也要在load后面添加，如果是半字或字节的话在 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/P7-review/" title="P7_review">P7_review</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-15T09:03:14.000Z" title="Created 2025-02-15 17:03:14">2025-02-15</time></span></div><div class="content">P7设计文档22373321 张瀚文
 内部异常的判断根据指导书中对异常的分类，对于流水线的FDEM级，每一级都有对应的异常可能会产生，据此进行处理
 
 
@@ -301,7 +284,7 @@ CP0模块CP0模块是P7的新模块，关键在于如何判断是否响应异常
 
 系统桥模块系统桥主要是进行外设与CPU的交互，注意写地址等的处理即可
 
-添加指令之后一定要在unreserved里面添加上新添的信号，否则会误判！Controller里面的信号还是一样需要捋一遍！新指令注意Tnew等等的信号！RW不要忘记！tltiu这个，Tuse和useA需要改，不要归类否则容易错新的exccode先在macro里面定义思考题1.请查阅相关资料，说明鼠标和键盘的输入信号是如何被 CPU  ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/P6-review/" title="P6_review">P6_review</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-15T09:03:00.000Z" title="Created 2025-02-15 17:03:00">2025-02-15</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T09:06:35.380Z" title="Updated 2025-02-15 17:06:35">2025-02-15</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a></span></div><div class="content">P6设计文档22373321 张瀚文
+添加指令之后一定要在unreserved里面添加上新添的信号，否则会误判！Controller里面的信号还是一样需要捋一遍！新指令注意Tnew等等的信号！RW不要忘记！tltiu这个，Tuse和useA需要改，不要归类否则容易错新的exccode先在macro里面定义思考题1.请查阅相关资料，说明鼠标和键盘的输入信号是如何被 CPU  ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/P6-review/" title="P6_review">P6_review</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-15T09:03:00.000Z" title="Created 2025-02-15 17:03:00">2025-02-15</time></span></div><div class="content">P6设计文档22373321 张瀚文
 
 2023.11.27
 
@@ -325,7 +308,7 @@ MultDivP6最大的特点是新增了乘除模块。具体实现如下：
 start信号，在D级controller生成，通过寄存器流水到E级以启动乘除模块。
 
 busy信号，在乘除模块内部生成，通过设置计数变量count来记录延迟，busy信号的确定方法为：
-assign ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/P5-review/" title="P5_review">P5_review</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-15T09:02:49.000Z" title="Created 2025-02-15 17:02:49">2025-02-15</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T09:04:30.256Z" title="Updated 2025-02-15 17:04:30">2025-02-15</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a></span></div><div class="content">P5 设计文档22373321 张瀚文
+assign ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/P5-review/" title="P5_review">P5_review</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-15T09:02:49.000Z" title="Created 2025-02-15 17:02:49">2025-02-15</time></span></div><div class="content">P5 设计文档22373321 张瀚文
 怠惰必将导致惨剧。
 相较于P4代码的优化
 使用注释作为代码段落的分隔符，更为清晰
@@ -346,7 +329,7 @@ assign ...</div></div></div><div class="recent-post-item"><div class="recent-pos
 
 需要流水的数据只有一个衡量标准：就是在其后的流水阶段中需不需要这个数据，每个流水线寄存器都保存着一条指令完成后续操作所需要的全部信息。注意流水数据在CPU中可能存在多个值，且这些值并不相同，在编程的时候需要使用流水阶段名前缀将其区分开。
 
-对Tnew的处理：每个contr ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/%E7%BC%96%E8%AF%91%E6%9C%9F%E6%9C%AB%E4%B8%8A%E6%9C%BA%E6%8C%87%E5%8C%97/" title="编译期末上机指北">编译期末上机指北</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-15T08:57:14.000Z" title="Created 2025-02-15 16:57:14">2025-02-15</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T08:57:47.574Z" title="Updated 2025-02-15 16:57:47">2025-02-15</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%BC%96%E8%AF%91%E6%8A%80%E6%9C%AF/">编译技术</a></span></div><div class="content">期末考试的思考其实仔细想想，mips和llvm_ir指令都不会有大的改动
+对Tnew的处理：每个contr ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/%E7%BC%96%E8%AF%91%E6%9C%9F%E6%9C%AB%E4%B8%8A%E6%9C%BA%E6%8C%87%E5%8C%97/" title="编译期末上机指北">编译期末上机指北</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-15T08:57:14.000Z" title="Created 2025-02-15 16:57:14">2025-02-15</time></span></div><div class="content">期末考试的思考其实仔细想想，mips和llvm_ir指令都不会有大的改动
 所以新加文法主要做处理的还是lexer-parser-符号表和错误处理-如何生成llvm-ir
 往年题给的经验是：注意审题，比如一个文法中的一个字母到底表示的是变量还是会给出的一个常数
 下面做做往年题感受一下
@@ -359,14 +342,14 @@ parser修改forStmt的方法，注意此时还没有什么node之类的（不能
 然后就是进入forStmt节点修改checkError和genIR方法
 对于btype varDef，没有本层特别需要处理的错误，所以直接super.checkError()就行了
 注意在写genIR的时候脑子里时刻想着，这一层次关于genIR的任务是什么。
-比如这里，填符号表，alloca啥的，都是在varDef层里做的，所以在这一层主要起作用的就是那个btype ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96%E6%96%87%E6%A1%A3/" title="编译优化文档">编译优化文档</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-15T08:56:16.000Z" title="Created 2025-02-15 16:56:16">2025-02-15</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T08:56:46.262Z" title="Updated 2025-02-15 16:56:46">2025-02-15</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%BC%96%E8%AF%91%E6%8A%80%E6%9C%AF/">编译技术</a></span></div><div class="content">优化文档22373321-张瀚文
+比如这里，填符号表，alloca啥的，都是在varDef层里做的，所以在这一层主要起作用的就是那个btype ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96%E6%96%87%E6%A1%A3/" title="编译优化文档">编译优化文档</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-15T08:56:16.000Z" title="Created 2025-02-15 16:56:16">2025-02-15</time></span></div><div class="content">优化文档22373321-张瀚文
 受限于数据库大作业和期末理论考试，我的优化只写了一个寄存器分配。因此我将对这部分的原理等进行详细展开，并同时记录困扰我的bug，希望能给在看的各位带来一点启发。
 原理寄存器分配属于中端优化。在获得中间代码后，根据中间代码分析计算变量之间的冲突关系，线性地进行寄存器分配。计算寄存器和值的对应关系信息传给后端，进而后端生成代码时就会用到所分配的寄存器。我没有使用最正规的图着色法分析，一来时间紧张只能选择trade-off，二来正如理论课中所说，一些基本的优化就能带来非常明显的效果，越往后不仅代价越大，且效果较为细微。
 个人认为优化的一个核心就是：如何根据自己的代码架构，将理论的算法转化为代码，且达到预期效果。因为理论的算法理解起来是不困难的，难的是使用。下面的记录也会包含这一点。
 CFGCFG也就是理论中所学的流图。在CFG阶段需要计算出所有基本块的前驱后继关系，便于第二阶段的活跃变量分析。除此之外还要计算出支配关系，便于寄存器分配决策时使用。
 
 前驱后继关系
-我使用的中间代码是LLVM_IR形式，在中间代码生成时已经显式地做好了基本块的划分。保证了每个基 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/%E7%BC%96%E8%AF%91%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/" title="编译设计文档">编译设计文档</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-15T08:54:34.000Z" title="Created 2025-02-15 16:54:34">2025-02-15</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-15T08:56:00.668Z" title="Updated 2025-02-15 16:56:00">2025-02-15</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%BC%96%E8%AF%91%E6%8A%80%E6%9C%AF/">编译技术</a></span></div><div class="content">编译文档22373321-张瀚文
+我使用的中间代码是LLVM_IR形式，在中间代码生成时已经显式地做好了基本块的划分。保证了每个基 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/15/%E7%BC%96%E8%AF%91%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/" title="编译设计文档">编译设计文档</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-15T08:54:34.000Z" title="Created 2025-02-15 16:54:34">2025-02-15</time></span></div><div class="content">编译文档22373321-张瀚文
 编译实验终于告一段落，下面对实验的各部分写一些自己的心得体会，希望能给在看的各位带来些许启发。
 [TOC]
 参考编译器介绍参考编译器为hyggge学长的编译器。
@@ -385,7 +368,7 @@ AST根节点开始调用每个节点的checkError方法，进行错误检查
 
 
 文件组织
-├─src│  ├─back_end   ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LLUckkk</div><div class="author-info__description">Blogs</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/AiDahanwen.github.io" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:zhanghanwen@buaa.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">It's a new soundtrack I can dance to this beat~</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/OS-lab5/" title="OS_lab5">OS_lab5</a><time datetime="2025-02-15T09:16:58.000Z" title="Created 2025-02-15 17:16:58">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/OS-lab4/" title="OS_lab4">OS_lab4</a><time datetime="2025-02-15T09:16:49.000Z" title="Created 2025-02-15 17:16:49">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/OS-lab3/" title="OS_lab3">OS_lab3</a><time datetime="2025-02-15T09:16:39.000Z" title="Created 2025-02-15 17:16:39">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/P5-2/" title="P5_2">P5_2</a><time datetime="2025-02-15T09:07:44.000Z" title="Created 2025-02-15 17:07:44">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/P7-review/" title="P7_review">P7_review</a><time datetime="2025-02-15T09:03:14.000Z" title="Created 2025-02-15 17:03:14">2025-02-15</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%84%E9%80%A0/" style="font-size: 1.3em; color: #99a1ac">面向对象设计与构造</a> <a href="/tags/%E7%BC%96%E8%AF%91%E6%8A%80%E6%9C%AF/" style="font-size: 1.1em; color: #999">编译技术</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 1.1em; color: #999">操作系统</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" style="font-size: 1.5em; color: #99a9bf">计算机组成原理</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>Archives</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">February 2025</span><span class="card-archive-list-count">11</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/07/"><span class="card-archive-list-date">July 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/05/"><span class="card-archive-list-date">May 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/11/"><span class="card-archive-list-date">November 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/10/"><span class="card-archive-list-date">October 2023</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/09/"><span class="card-archive-list-date">September 2023</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article :</div><div class="item-count">19</div></div><div class="webinfo-item"><div class="item-name">Total Count :</div><div class="item-count">71.5k</div></div><div class="webinfo-item"><div class="item-name">UV :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">PV :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Push :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-02-15T10:08:32.412Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2025 By LLUckkk</div><div class="footer_custom_text">Wish you a happy day~</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+├─src│  ├─back_end   ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LLUckkk</div><div class="author-info__description">Blogs</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/LLUckkk"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">It's a newsound track I can dance to this beat~</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/OS-lab5/" title="OS_lab5">OS_lab5</a><time datetime="2025-02-15T09:16:58.000Z" title="Created 2025-02-15 17:16:58">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/OS-lab4/" title="OS_lab4">OS_lab4</a><time datetime="2025-02-15T09:16:49.000Z" title="Created 2025-02-15 17:16:49">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/OS-lab3/" title="OS_lab3">OS_lab3</a><time datetime="2025-02-15T09:16:39.000Z" title="Created 2025-02-15 17:16:39">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/P5-2/" title="P5_2">P5_2</a><time datetime="2025-02-15T09:07:44.000Z" title="Created 2025-02-15 17:07:44">2025-02-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/15/P7-review/" title="P7_review">P7_review</a><time datetime="2025-02-15T09:03:14.000Z" title="Created 2025-02-15 17:03:14">2025-02-15</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%9E%84%E9%80%A0/" style="font-size: 1.3em; color: rgb(141, 20, 88)">面向对象设计与构造</a><a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 1.15em; color: rgb(82, 74, 171)">操作系统</a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" style="font-size: 1.45em; color: rgb(131, 54, 184)">计算机组成原理</a><a href="/tags/%E7%BC%96%E8%AF%91%E6%8A%80%E6%9C%AF/" style="font-size: 1.15em; color: rgb(18, 197, 166)">编译技术</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>Archives</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">February 2025</span><span class="card-archive-list-count">11</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/07/"><span class="card-archive-list-date">July 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/05/"><span class="card-archive-list-date">May 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/11/"><span class="card-archive-list-date">November 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/10/"><span class="card-archive-list-date">October 2023</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/09/"><span class="card-archive-list-date">September 2023</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article :</div><div class="item-count">19</div></div><div class="webinfo-item"><div class="item-name">Runtime :</div><div class="item-count" id="runtimeshow" data-publishDate="2023-09-09T16:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">UV :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">PV :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-02-15T10:18:47.051Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By LLUckkk</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">怠惰必将导致惨剧。</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="Toggle Between Traditional Chinese And Simplified Chinese">繁</button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="/js/tw_cn.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
   init: (str) => {
     window.typed = new Typed('#subtitle', Object.assign({
       strings: str,
@@ -400,22 +383,74 @@ AST根节点开始调用每个节点的checkError方法，进行错误检查
       if (typeof Typed === 'function') {
         subtitleType()
       } else {
-        getScript('https://cdn.jsdelivr.net/npm/typed.js/dist/typed.umd.min.js').then(subtitleType)
+        btf.getScript('https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.min.js').then(subtitleType)
       }
     } else {
       subtitleType()
     }
   }
 }
+btf.addGlobalFn('pjaxSend', () => { typed.destroy() }, 'typedDestroy')
 </script><script>function subtitleType () {
   if (true) {
-    typedJSFn.init(["寻梦？撑一支长篙，向青草更青处漫溯。","满载一船星辉，在星辉斑斓里放歌。"])
+    typedJSFn.init("寻梦？撑一支长篙，向青草更青处漫溯。满载一船星辉，在星辉斑斓里放歌。")
   } else {
-    document.getElementById("subtitle").textContent = "寻梦？撑一支长篙，向青草更青处漫溯。"
+    document.getElementById("subtitle").textContent = "寻"
   }
 }
-typedJSFn.run(subtitleType)</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+typedJSFn.run(subtitleType)</script><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
 POWERMODE.shake = true;
-POWERMODE.mobile = false;
+POWERMODE.mobile = true;
 document.body.addEventListener('input', POWERMODE);
-</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-show-text.min.js" data-mobile="true" data-text="梧桐,wutong,hanwen" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
